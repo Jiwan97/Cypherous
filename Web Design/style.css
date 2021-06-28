@@ -161,9 +161,7 @@ blockquote {
 }
 
 
-/*------------------------------------------------------------------
-    WP CORE
--------------------------------------------------------------------*/
+
 
 .first {
     clear: both
@@ -251,7 +249,7 @@ a img.aligncenter {
 }
 
 
-/* Text meant only for screen readers. */
+
 
 .screen-reader-text {
     clip: rect(1px, 1px, 1px, 1px);
@@ -282,9 +280,6 @@ a img.aligncenter {
     /* Above WP toolbar. */
 }
 
-/*------------------------------------------------------------------
-    LOADER
--------------------------------------------------------------------*/
 
 .loader-container {
   position: absolute;
@@ -451,16 +446,25 @@ a img.aligncenter {
 	box-shadow: none !important;
 }
 
-/*------------------------------------------------------------------
-    HEADER
--------------------------------------------------------------------*/
+
 .top-navbar .bg-light{
 	background: #ffffff !important;
-    animation-duration: 2s;
-    animation-name: slideInDown;
+
 
 }
 
+
+.top-navbar .navbar-fixed{
+	background: #ffffff !important;
+	position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    animation-duration: 1s;
+    animation-name: slideInDown;
+
+}
 .top-navbar .navbar-light .navbar-nav .nav-link{
 	color: #011223;
 
