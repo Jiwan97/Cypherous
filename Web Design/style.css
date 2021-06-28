@@ -456,6 +456,9 @@ a img.aligncenter {
 -------------------------------------------------------------------*/
 .top-navbar .bg-light{
 	background: #ffffff !important;
+    animation-duration: 2s;
+    animation-name: slideInDown;
+
 }
 
 .top-navbar .navbar-light .navbar-nav .nav-link{
@@ -2556,7 +2559,7 @@ select.mobile-device {
 }
 
 .dmtop {
-    background-color: #3C3D41;
+    background-color: #f33066;
     z-index: 100;
     width: 40px;
     height: 40px;
