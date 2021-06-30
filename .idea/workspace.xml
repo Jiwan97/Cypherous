@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="47142b73-b9e2-4189-a553-153f87a3f845" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/LearnToEarn/Learn/LearnToEarn/auth.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LearnToEarn/Learn/LearnToEarn/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Real World Project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Real World Project.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web Design/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/Web Design/about.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web Design/contact.html" beforeDir="false" afterPath="$PROJECT_DIR$/Web Design/contact.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web Design/course.html" beforeDir="false" afterPath="$PROJECT_DIR$/Web Design/course.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web Design/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/Web Design/home.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,5 +54,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
