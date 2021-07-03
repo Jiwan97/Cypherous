@@ -1,0 +1,42 @@
+{% load static %}
+<header class="top-navbar">
+	<nav class="navbar navbar-fixed navbar-expand-lg navbar-light bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="Home.html">
+				<div class="logo-image">
+					 <img src="{% static 'images/logo3.png'%}" class="img-fluid">
+				 </div>
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-host" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+				 <span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbars-host">
+				{% if user.is_authenticated %}
+				<ul class="navbar-nav ">
+					<li class="nav-item active"><a class="nav-link" href="/home">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="/courses">Courses</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Online Test</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">News Portal</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Student Forum</a></li>
+					<li class="nav-item"><a class="nav-link" href="/about">About US</a></li>
+					<li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right ml-auto">
+					<li><a class="hover-btn-new log orange" href="/logout"><span>Logout</span></a></li>
+				</ul>
+				 {% else %}
+				<ul class="navbar-nav ">
+					<li class="nav-item active"><a class="nav-link" href="/home">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">News Portal</a></li>
+					<li class="nav-item"><a class="nav-link" href="/about">About US</a></li>
+					<li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right ml-auto">
+					<li><a class="hover-btn-new log orange" href="/login"><span>Register / login</span></a></li>
+				</ul>
+				{% endif %}
+
+			</div>
+		</div>
+	</nav>
+</header>

@@ -7,7 +7,7 @@ def unauthenticated_user(view_function):
         if request.user.is_authenticated and request.user.is_staff:
             return redirect('/admin-dashboard')
         elif request.user.is_authenticated:
-            return redirect('/index')
+            return redirect('/home')
         else:
             return view_function(request, *args, **kwargs)
 

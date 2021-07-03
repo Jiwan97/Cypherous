@@ -377,6 +377,32 @@
     <script src="js/all.js"></script>
     <script src="js/custom.js"></script>
 	<script src="js/timeline.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			var previousScroll = 0;
+			$(window).scroll(function () {
+				var currentScroll = $(this).scrollTop();
+				if (currentScroll < 100) {
+					showTopNav();
+				} else if (currentScroll > 0 && currentScroll < $(document).height() - $(window).height()) {
+				if (currentScroll > previousScroll) {
+					hideNav();
+				} else {
+					showNav();
+				}
+				previousScroll = currentScroll;
+			}
+		});
 
+		function hideNav() {
+			$(".top-navbar").removeClass("is-shownUp");
+		}
+
+		function showNav() {
+
+			$(".top-navbar").addClass("is-shownUp");
+		}
+		});
+	</script>
 </body>
 </html>
