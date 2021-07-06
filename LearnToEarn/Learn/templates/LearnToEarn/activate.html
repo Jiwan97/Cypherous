@@ -1,0 +1,13 @@
+{% autoescape off %}
+
+
+Hi {{user.username}},
+
+You have now been registered to Learn To Earn Platform. We take user Security very Seriously. Hence you need to verify in order to Login
+For Verfication, Click the link below;-
+
+
+http://{{domain}}{% url 'activate' uidb64=uid token=token %}
+
+Ignore this message if it wasn't meant by you.
+{% endautoescape %}

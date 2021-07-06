@@ -7,8 +7,10 @@
 {% block content %}
 
   <div id="login-page" class="row">
-    <div class="col s12 z-depth-6 card-panel">
-
+    <div class="col s12 z-depth-6 card-panel" style="border-radius: 2rem;">
+      {% for message in messages %}
+            <h6 class="success_message py-3 px-1 my-2 " style="font-weight:bold%; text-align: center; color:red;">{{message}}</h6>
+      {% endfor %}
       <form method="POST" action="" class="login-form">
           {% csrf_token %}
         <div class="row">
@@ -21,25 +23,25 @@
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-social-person-outline prefix"></i>
-            {{form.username}}
+           <input type="text" name="username" value="{{data.username}}"  placeholder="Username" />
           </div>
         </div>
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-communication-email prefix"></i>
-            {{form.email}}
+            <input type="text" name="email" value="{{data.email}}" placeholder="E-mail address" />
           </div>
         </div>
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-action-lock-outline prefix"></i>
-            {{form.password1}}
+            <input type="password" name="password" placeholder="Password" />
           </div>
         </div>
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-action-lock-outline prefix"></i>
-            {{form.password2}}
+            <input type="password" name="password2" placeholder="Repeat Password" />
           </div>
         </div>
 
@@ -52,24 +54,9 @@
           </div>
         </div>
       </form>
-      {% for message in messages %}
-        <h6 class="success_message py-3 px-1 my-2 " style="font-weight:bold%; text-align: center; color:red;">{{message}}</h6>
-      {% endfor %}
     </div>
   </div>
 
-<script>
-  var form_fields = document.getElementsByTagName('input')
-  form_fields[1].placeholder='Username';
-  form_fields[2].placeholder='Email';
-  form_fields[3].placeholder='Enter password';
-  form_fields[4].placeholder='Re-enter Password';
-
-
-  for (var field in form_fields){
-      form_fields[field].className += ' form-control'
-  }
-</script>
 {% endblock %}
 
 

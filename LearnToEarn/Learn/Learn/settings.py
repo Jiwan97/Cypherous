@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import os
 from pathlib import Path
-
+import sys
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,7 +26,8 @@ SECRET_KEY = 'c9y!s0yus#_achu(49*k41hf#-7)s!h^nb^5@3i!gjld@fiaj3'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+AUTH_USER_MODEL = "LearnToEarn.User"
+TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
 
 # Application definition
 
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrapform',
     'django_filters',
+    'LearnToEarn',
 
 ]
 
@@ -126,6 +128,14 @@ USE_L10N = True
 
 USE_TZ = True
 
+# EMAIL CONFIG
+
+EMAIL_FROM_USER = 'Jiwan16thapa@gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'Jiwan16thapa@gmail.com'
+EMAIL_HOST_PASSWORD = 'djangop123@'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
