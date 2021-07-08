@@ -675,7 +675,7 @@ a img.aligncenter {
 
 .navbar-right li a.hover-btn-new::before,
 .navbar-right li a.hover-btn-new::after {
-  background: #eea412;
+  background: #ff1a6b;
   content: '';
   position: absolute;
   z-index: 1;
@@ -691,7 +691,7 @@ a img.aligncenter {
   width: 100%;
 }
 .navbar-right li a.hover-btn-new::after {
-  background: #ffffff !important;
+  background: #fcc319 !important;
   height: 100%;
   left: 0;
   top: 0;
@@ -700,7 +700,7 @@ a img.aligncenter {
 .navbar-right li a.hover-btn-new span{
 	position: relative;
 	z-index: 2;
-	color: #333333;
+	color: #fff;
 }
 .navbar-right li a.hover-btn-new:hover:after {
   height: 0;

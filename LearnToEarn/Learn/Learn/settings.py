@@ -32,17 +32,24 @@ TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
 # Application definition
 
 INSTALLED_APPS = [
+    # 'django.contrib.sites',
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'allauth.socialaccount.providers.google',
     'bootstrapform',
     'django_filters',
     'LearnToEarn',
 
 ]
+
+# SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -72,6 +79,16 @@ TEMPLATES = [
         },
     },
 ]
+
+# AUTHENTICATION_BACKENDS = [
+#
+#     # Needed to login by username in Django admin, regardless of `allauth`
+#     'django.contrib.auth.backends.ModelBackend',
+#
+#     # `allauth` specific authentication methods, such as login by e-mail
+#     'allauth.account.auth_backends.AuthenticationBackend',
+#
+# ]
 
 WSGI_APPLICATION = 'Learn.wsgi.application'
 
