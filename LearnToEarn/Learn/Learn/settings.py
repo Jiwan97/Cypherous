@@ -45,9 +45,12 @@ INSTALLED_APPS = [
     # 'allauth.socialaccount.providers.google',
     'bootstrapform',
     'django_filters',
+    'crispy_forms',
     'LearnToEarn',
 
 ]
+
+CRISPY_TEMPLATE_PACK = 'uni_form'
 
 # SITE_ID = 1
 
