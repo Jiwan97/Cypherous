@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="47142b73-b9e2-4189-a553-153f87a3f845" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web Design/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/Web Design/about.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web Design/contact.html" beforeDir="false" afterPath="$PROJECT_DIR$/Web Design/contact.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web Design/course.html" beforeDir="false" afterPath="$PROJECT_DIR$/Web Design/course.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web Design/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/Web Design/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web Design/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/Web Design/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LearnToEarn/Learn/static/images/online3.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +28,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../jobF" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunManager">
