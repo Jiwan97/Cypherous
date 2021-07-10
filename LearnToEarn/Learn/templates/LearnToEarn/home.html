@@ -5,8 +5,11 @@
 {% endblock%}
 
 {% block content %}
-	<div id="carouselExampleControls" class="carousel slide bs-slider box-slider" data-ride="carousel" data-pause="hover" data-interval="false" >
 
+	<div id="carouselExampleControls" class="carousel slide bs-slider box-slider" data-ride="carousel" data-pause="hover" data-interval="false" >
+        {% for message in messages %}
+            <h6 style="display:none;">{{message}}</h6>
+        {% endfor %}
 		<ol class="carousel-indicators">
 			<li data-target="#carouselExampleControls" data-slide-to="0" class="active"></li>
 			<li data-target="#carouselExampleControls" data-slide-to="1"></li>
@@ -84,7 +87,7 @@
 		</div>
 	</div>
 	
-    <div id="overviews" class="section wb">
+    <div id="overviews" style="position:relative; top:40px;">
         <div class="container">
             <div class="section-title row text-center">
                 <div class="col-md-8 offset-md-2">
@@ -92,7 +95,6 @@
                     <p class="lead">Lorem Ipsum dolroin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem!</p>
                 </div>
             </div>
-        
             <div class="row align-items-center">
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                     <div class="message-box">

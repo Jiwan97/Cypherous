@@ -9,7 +9,7 @@ def index(request):
 
 
 urlpatterns = [
-
+    path('test', index),
     path('home', views.home, ),
     path('about', views.about, ),
     path('contact', views.contact),

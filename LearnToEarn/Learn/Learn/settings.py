@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
     'bootstrapform',
     'django_filters',
     'crispy_forms',
@@ -53,7 +54,7 @@ INSTALLED_APPS = [
 
 CRISPY_TEMPLATE_PACK = 'uni_form'
 
-SITE_ID = 6
+SITE_ID = 7
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -162,7 +163,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
-LOGIN_REDIRECT_URL = '/'
+
+LOGIN_REDIRECT_URL = '/home'
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
@@ -173,5 +175,10 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS': {
             'access_type': 'online',
         }
-    }
+    },
+    'facebook':
+        {'METHOD': 'oauth2',
+         'SCOPE': ['email', 'public_profile', ],
+         'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+         }
 }
