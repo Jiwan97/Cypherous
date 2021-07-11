@@ -27,7 +27,9 @@ SECRET_KEY = 'c9y!s0yus#_achu(49*k41hf#-7)s!h^nb^5@3i!gjld@fiaj3'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-AUTH_USER_MODEL = "LearnToEarn.User"
+
+AUTH_USER_MODEL = "accounts.User"
+
 TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
 
 # Application definition
@@ -49,6 +51,7 @@ INSTALLED_APPS = [
     'django_filters',
     'crispy_forms',
     'LearnToEarn',
+    'accounts',
 
 ]
 
