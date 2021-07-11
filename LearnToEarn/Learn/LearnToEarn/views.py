@@ -18,7 +18,7 @@ import threading
 def home(request):
     context = {
         'activate_h': 'active'}
-    return render(request, 'LearnToEarn/home.html',context)
+    return render(request, 'LearnToEarn/home.html', context)
 
 
 def about(request):
@@ -31,13 +31,13 @@ def about(request):
 def courses(request):
     context = {
         'activate_cou': 'active'}
-    return render(request, 'LearnToEarn/courses.html')
+    return render(request, 'LearnToEarn/courses.html',context)
 
 
 def contact(request):
     context = {
         'activate_c': 'active'}
-    return render(request, 'LearnToEarn/contact.html',context)
+    return render(request, 'LearnToEarn/contact.html', context)
 
 
 class EmailThread(threading.Thread):
@@ -73,6 +73,19 @@ def send_activation_email(user, request):
         EmailThread(email).start()
 
 
+def send_notification_email(user, request):
+    email_subject = 'Secure Your Account'
+    email_body = render_to_string('LearnToEarn/notify.html', {'user': user, })
+
+    email = EmailMultiAlternatives(subject=email_subject, body=email_body,
+                                   from_email=settings.EMAIL_FROM_USER,
+                                   to=[user.email])
+    email.attach_alternative(email_body, "text/html")
+
+    if not settings.TESTING:
+        EmailThread(email).start()
+
+
 def send_reset_email(user, request):
     current_site = get_current_site(request)
     email_subject = 'Reset your account'
@@ -83,10 +96,6 @@ def send_reset_email(user, request):
         'token': default_token_generator.make_token(user)
     })
 
-    # email = EmailMessage(subject=email_subject, body=email_body,
-    #                      from_email=settings.EMAIL_FROM_USER,
-    #                      to=[user.email]
-    #                      )
     email = EmailMultiAlternatives(subject=email_subject, body=email_body,
                                    from_email=settings.EMAIL_FROM_USER,
                                    to=[user.email])
@@ -172,7 +181,8 @@ def login_user(request):
             messages.add_message(request, messages.ERROR,
                                  'Invalid Username or Password')
             return render(request, 'LearnToEarn/login.html', context, status=401)
-
+        if user.is_active:
+            send_notification_email(user, request)
         login(request, user)
 
         return redirect('/home')
@@ -215,6 +225,7 @@ def forget(request):
         email = request.POST.get('email')
         try:
             user = User.objects.get(email=email)
+            print(user.pk)
         except Exception:
             user = None
 
