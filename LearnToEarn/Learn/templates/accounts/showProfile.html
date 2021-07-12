@@ -151,15 +151,14 @@ body .fc-widget-header a {
 .profile-header-img {
     float: left;
     width: 7.5rem;
-    height: 7.5rem;
+    height: 7rem;
     overflow: hidden;
     z-index: 10;
     margin: 0 1.25rem -1.25rem 0;
-    padding: 0.1875rem;
     -webkit-border-radius: 0.25rem;
     -moz-border-radius: 0.25rem;
     border-radius: 0.25rem;
-    background: #fff;
+
 }
 .profile-header-info h4 {
     font-weight: 500;
@@ -328,8 +327,8 @@ body .fc-widget-header a {
 
         <div class="profile-header-content">
 
-             <div class="profile-header-img d-flex justify-content-center align-items-center rounded" style="background-color: rgb(233, 236, 239);">
-                      <img class="rounded-circle img-fluid" width="150px" src="/{{request.user.profile.profile_pic}}">
+             <div class="profile-header-img d-flex justify-content-center align-items-center rounded" >
+                      <img height="130px"  width="260px" src="/{{request.user.profile.profile_pic}}">
 
             </div>
 
@@ -433,7 +432,7 @@ body .fc-widget-header a {
                                 <tr>
                                     <td class="field">Gender</td>
                                     <td class="value">
-                                        Male
+                                        {{request.user.profile.gender}}
                                     </td>
                                 </tr>
                                 <tr>

@@ -218,6 +218,7 @@ def forget(request):
 
 def edit_profile(request):
     profile = request.user.profile
+    print(profile)
     form = ProfileForm(instance=profile)
     form1 = ProfileForm2(instance=profile)
     if request.method == "POST":
@@ -238,4 +239,12 @@ def edit_profile(request):
 
 
 def show_profile(request):
-    return render(request, 'accounts/showProfile.html')
+    profile = request.user
+    if not profile.is_email_verified:
+        Profile.objects.create(user=profile, username=profile.username, email=profile.email)
+        profile.is_email_verified = True
+        profile.save()
+        return render(request, 'accounts/showProfile.html')
+    else:
+        print('hey')
+        return render(request, 'accounts/showProfile.html')

@@ -15,15 +15,16 @@ class Profile(models.Model):
     username = models.CharField(max_length=200, null=True)
     firstname = models.CharField("FirstName", default="Update Your Name", max_length=200, null=True,
                                  validators=[validators.MinLengthValidator(4)])
-    lastname = models.CharField("LastName", default="", max_length=200, null=True, validators=[validators.MinLengthValidator(4)])
-    birthdate = models.DateField("BirthDate(mm/dd/year)", blank=True, default=None)
+    lastname = models.CharField("LastName", default="", max_length=200, null=True,
+                                validators=[validators.MinLengthValidator(4)])
+    birthdate = models.DateField("BirthDate(mm/dd/year)", null=True, blank=True, default=None)
     country = models.CharField(max_length=200, null=True, validators=[validators.MinLengthValidator(4)])
     address = models.CharField(max_length=200, null=True, validators=[validators.MinLengthValidator(4)])
     phonenumber = models.CharField("PhoneNumber", max_length=200, null=True,
                                    validators=[validators.MaxLengthValidator(10)])
     facebooklink = models.CharField("FacebookLink", max_length=200, null=True,
                                     validators=[validators.MinLengthValidator(4)])
-    skills = models.CharField(max_length=200, null=True,
+    skills = models.CharField(max_length=200, null=True, default="Update Your Name",
                               validators=[validators.MinLengthValidator(4)])
     university = models.CharField(max_length=200, null=True,
                                   default="Not Updated", validators=[validators.MinLengthValidator(4)])
@@ -39,5 +40,3 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.username
-
-
