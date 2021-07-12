@@ -3742,7 +3742,9 @@ a.link-style3 {
      background-size: cover;
 }
 
-
+.has-error .help-block {
+  color: red;
+}
 
 
 

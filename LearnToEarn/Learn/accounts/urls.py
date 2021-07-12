@@ -3,10 +3,12 @@ from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
-    path('register', views.register, ),
-    path('login', views.login_user, ),
-    path('forgot-p', views.forget),
-    path('logout', views.logoutUser),
+    path('register/', views.register, ),
+    path('login/', views.login_user, ),
+    path('forgot-p/', views.forget),
+    path('logout/', views.logoutUser),
+    path('showprofile/', views.show_profile),
+    path('editprofile/', views.edit_profile),
     path('activate-user/<uidb64>/<token>',
          views.activate_user, name='activate'),
     path('reset/<uidb64>/<token>',

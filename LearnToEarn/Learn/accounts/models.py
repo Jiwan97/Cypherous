@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core import validators
 
 
 class User(AbstractUser):
@@ -7,3 +8,36 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    username = models.CharField(max_length=200, null=True)
+    firstname = models.CharField("FirstName", default="Update Your Name", max_length=200, null=True,
+                                 validators=[validators.MinLengthValidator(4)])
+    lastname = models.CharField("LastName", default="", max_length=200, null=True, validators=[validators.MinLengthValidator(4)])
+    birthdate = models.DateField("BirthDate(mm/dd/year)", blank=True, default=None)
+    country = models.CharField(max_length=200, null=True, validators=[validators.MinLengthValidator(4)])
+    address = models.CharField(max_length=200, null=True, validators=[validators.MinLengthValidator(4)])
+    phonenumber = models.CharField("PhoneNumber", max_length=200, null=True,
+                                   validators=[validators.MaxLengthValidator(10)])
+    facebooklink = models.CharField("FacebookLink", max_length=200, null=True,
+                                    validators=[validators.MinLengthValidator(4)])
+    skills = models.CharField(max_length=200, null=True,
+                              validators=[validators.MinLengthValidator(4)])
+    university = models.CharField(max_length=200, null=True,
+                                  default="Not Updated", validators=[validators.MinLengthValidator(4)])
+    highschool = models.CharField("High School", max_length=200, null=True,
+                                  default="Not Updated", validators=[validators.MinLengthValidator(4)])
+
+    gender = models.CharField(max_length=200, null=True, validators=[validators.MaxLengthValidator(6)])
+    email = models.EmailField(max_length=200, null=True, validators=[validators.validate_email])
+    occupation = models.CharField(max_length=200, null=True, validators=[validators.MaxLengthValidator(10)])
+    profile_pic = models.FileField("ProfilePic", max_length=500, upload_to='static/uploads',
+                                   default='static/images/8.png')
+    created_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.username
+
+

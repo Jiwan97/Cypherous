@@ -1,0 +1,209 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% load bootstrap %}
+{% block title %}
+    <title>Learn To Earn</title>
+{% endblock%}
+{% block content %}
+<style>
+.st {
+margin-top:80px;
+}
+.col-lg-2 {
+max-width:400% !important;
+}
+
+</style>
+<div class=" st container">
+<div class="row flex-lg-nowrap">
+  <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
+    <div class="card p-3">
+      <div class="e-navlist e-navlist--active-bg">
+        <ul class="nav">
+          <li class="nav-item"><a class="nav-link px-2 active" href="/showprofile"><i class="fa fa-fw fa-chevron-left mr-1"></i><span>Back</span></a></li>
+          <li class="nav-item"><a class="nav-link px-2" href="#" target="__blank"><i class="fa fa-fw fa-cog mr-1"></i><span>Settings</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="row">
+      <div class="col mb-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="e-profile">
+              <div class="row">
+                <div class="col-12 col-sm-auto mb-3">
+                  <div class="mx-auto" style="width: 140px;">
+                    <div class="d-flex justify-content-center align-items-center rounded" style="background-color: rgb(233, 236, 239);">
+                      <img class="rounded-circle img-fluid" width="150px" src="/{{request.user.profile.profile_pic}}">
+                    </div>
+                  </div>
+                </div>
+                <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
+                  <div class="text-center text-sm-left mb-2 mb-sm-0">
+                    <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{request.user.profile.firstname}} {{request.user.profile.lastname}}</h4>
+                    <p class="mb-0">@{{request.user.profile.username}}</p>
+                    <div class="text-muted"><small>Last login: {{request.user.last_login}}</small></div>
+<!--                    <div class="mt-2">-->
+<!--                      <button class="btn btn-primary" type="button">-->
+<!--                        <i class="fa fa-fw fa-camera"></i>-->
+<!--                        <span>Change Photo</span>-->
+<!--                      </button>-->
+<!--                    </div>-->
+                  </div>
+                  <div class="text-center text-sm-right">
+                    <span class="badge badge-secondary">User</span>
+                    <div class="text-muted"><small>Joined {{request.user.profile.created_date}}</small></div>
+                  </div>
+                </div>
+              </div>
+              <ul class="nav nav-tabs">
+                <li class="nav-item "><a data-toggle="tab" href="#Login" class="active nav-link">Edit Profile</a></li>
+				<li class="nav-item "><a data-toggle="tab" href="#Registration" class=" nav-link">Other Information</a></li>
+              </ul>
+              <div class="tab-content pt-3">
+                <div class="tab-pane active" id="Login">
+                  <form class="form" action="" method="POST" enctype="multipart/form-data" novalidate="">
+                    {% csrf_token %}
+                    <div class="row">
+                      <div class="col">
+                        <div class="row">
+                          <div class="col">
+                              {{form.firstname | bootstrap_horizontal}}
+
+                          </div>
+                          <div class="col">
+                              {{form.lastname | bootstrap_horizontal}}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                              {{form.birthdate | bootstrap_horizontal}}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col mb-3">
+                              {{form.phonenumber | bootstrap_horizontal}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                          <div class="col-md-5">
+                              {{form.country | bootstrap_horizontal}}
+                          </div>
+                          <div class="col">
+                              {{form.address | bootstrap_horizontal}}
+                          </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12 col-sm-6 mb-3">
+                        <div class="mb-2"><b>Other Information</b></div>
+                        <div class="row">
+                          <div class="col">
+                              {{form.occupation | bootstrap_horizontal}}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            {{form.gender | bootstrap_horizontal}}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-sm-5 offset-sm-1 mb-3">
+                        <div class="mb-2"><b>Keeping in Touch</b></div>
+                        <div class="row">
+                          <div class="col">
+                            <label>Email Notifications</label>
+                            <div class="custom-controls-stacked px-2">
+                              <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="notifications-offers" checked="">
+                                <label class="custom-control-label" for="notifications-offers">Security alerts</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                          <div class="col-md-12">
+                            {{form.facebooklink | bootstrap_horizontal}}
+                          </div>
+                        </div>
+                    <div class="row">
+                      <div class="col d-flex justify-content-end">
+                        <button class="btn btn-primary" type="submit">Save Changes</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+				<div class="tab-pane" id="Registration">
+                  <form class="form" action="" method="POST" enctype="multipart/form-data" novalidate="">
+                    {% csrf_token %}
+                    <div class="row">
+                      <div class="col">
+                        <div class="row">
+                          <div class="col mb-3">
+                              {{form1.profile_pic | bootstrap_horizontal}}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                              {{form1.highschool | bootstrap_horizontal}}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                              {{form1.university | bootstrap_horizontal}}
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                              {{form1.skills | bootstrap_horizontal}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col d-flex justify-content-end">
+                        <button class="btn btn-primary" type="submit">Save Changes</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-3 mb-3">
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="px-xl-3">
+              <button class="btn btn-block btn-secondary">
+                <i class="fa fa-sign-out"></i>
+                <a href="/logout"> <span>Logout</span></a>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h6 class="card-title font-weight-bold">Support</h6>
+            <p class="card-text">Get fast, free help from our friendly assistants.</p>
+            <a href="/contact"><button type="button" class="btn btn-primary">Contact Us</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+
+
+{% endblock %}

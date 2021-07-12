@@ -3,7 +3,8 @@ from .auth import unauthenticated_user
 from validate_email import validate_email  # pip install validate email
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from .models import User
+from .models import User, Profile
+from .forms import ProfileForm, ProfileForm2
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -130,6 +131,7 @@ def register(request):
         user = User.objects.create_user(username=username, email=email)
         user.set_password(password)
         user.save()
+        Profile.objects.create(user=user, username=user.username, email=user.email)
         if not context['has_error']:
             send_activation_email(user, request)
 
@@ -159,6 +161,7 @@ def login_user(request):
             return render(request, 'accounts/login.html', context, status=401)
         if user.is_active:
             send_notification_email(user, request)
+
         login(request, user)
 
         return redirect('/home')
@@ -211,3 +214,28 @@ def forget(request):
                                  'We sent you an email to reset your password')
             return redirect('/login')
     return render(request, 'accounts/forgot-password.html')
+
+
+def edit_profile(request):
+    profile = request.user.profile
+    form = ProfileForm(instance=profile)
+    form1 = ProfileForm2(instance=profile)
+    if request.method == "POST":
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        form1 = ProfileForm2(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('/showprofile')
+        elif form1.is_valid():
+            form1.save()
+            return redirect('/showprofile')
+        else:
+            print(form.errors)
+    context = {'form': form,
+               'form1': form1}
+
+    return render(request, 'accounts/editProfile.html', context)
+
+
+def show_profile(request):
+    return render(request, 'accounts/showProfile.html')
