@@ -140,6 +140,7 @@ def register(request):
 
     return render(request, 'accounts/register.html')
 
+
 @unauthenticated_user
 def login_user(request):
     if request.method == 'POST':
@@ -227,12 +228,17 @@ def show_profile(request):
 
 
 def view_profile(request, name):
+    print(name)
     if Profile.objects.filter(username=name).exists():
         profile = Profile.objects.get(username=name)
 
         return render(request, 'accounts/viewProfile.html', {'users': profile})
     else:
         return render(request, 'accounts/errorView.html')
+
+
+def error_profile(request):
+    return render(request, 'accounts/errorView.html')
 
 
 def edit_profile(request):
