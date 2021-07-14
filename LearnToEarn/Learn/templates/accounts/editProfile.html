@@ -113,16 +113,15 @@ max-width:400% !important;
                         </div>
                       </div>
                       <div class="col-12 col-sm-5 offset-sm-1 mb-3">
-                        <div class="mb-2"><b>Keeping in Touch</b></div>
+                        <div class="mb-2"><b>Notification Center</b></div>
                         <div class="row">
                           <div class="col">
                             <label>Email Notifications</label>
-                            <div class="custom-controls-stacked px-2">
-                              <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="notifications-offers" checked="">
-                                <label class="custom-control-label" for="notifications-offers">Security alerts</label>
+
+                              <div style="margin-left:-15px; margin-right:-50px;">
+                                {{form.sendNotification | bootstrap_horizontal}}
                               </div>
-                            </div>
+
                           </div>
                         </div>
                       </div>

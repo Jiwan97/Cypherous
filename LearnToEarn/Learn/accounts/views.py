@@ -131,7 +131,6 @@ def register(request):
         user = User.objects.create_user(username=username, email=email)
         user.set_password(password)
         user.save()
-        Profile.objects.create(user=user, username=user.username, email=user.email)
         if not context['has_error']:
             send_activation_email(user, request)
 
@@ -141,7 +140,7 @@ def register(request):
 
     return render(request, 'accounts/register.html')
 
-
+@unauthenticated_user
 def login_user(request):
     if request.method == 'POST':
         context = {'data': request.POST}
@@ -159,8 +158,9 @@ def login_user(request):
             messages.add_message(request, messages.ERROR,
                                  'Invalid Username or Password')
             return render(request, 'accounts/login.html', context, status=401)
-        if user.is_active:
-            send_notification_email(user, request)
+        if user.profile.sendNotification:
+            if user.is_active:
+                send_notification_email(user, request)
 
         login(request, user)
 
@@ -216,6 +216,25 @@ def forget(request):
     return render(request, 'accounts/forgot-password.html')
 
 
+def show_profile(request):
+    profile = request.user
+    if not profile.is_email_verified:
+        profile.is_email_verified = True
+        profile.save()
+        return render(request, 'accounts/showProfile.html')
+    else:
+        return render(request, 'accounts/showProfile.html')
+
+
+def view_profile(request, name):
+    if Profile.objects.filter(username=name).exists():
+        profile = Profile.objects.get(username=name)
+
+        return render(request, 'accounts/viewProfile.html', {'users': profile})
+    else:
+        return render(request, 'accounts/errorView.html')
+
+
 def edit_profile(request):
     profile = request.user.profile
     print(profile)
@@ -236,15 +255,3 @@ def edit_profile(request):
                'form1': form1}
 
     return render(request, 'accounts/editProfile.html', context)
-
-
-def show_profile(request):
-    profile = request.user
-    if not profile.is_email_verified:
-        Profile.objects.create(user=profile, username=profile.username, email=profile.email)
-        profile.is_email_verified = True
-        profile.save()
-        return render(request, 'accounts/showProfile.html')
-    else:
-        print('hey')
-        return render(request, 'accounts/showProfile.html')

@@ -84,7 +84,7 @@ body{
     overflow: hidden;
 }
 .profile-header .profile-header-cover {
-    background: url("/static/images/profile-banner.gif") center no-repeat;
+    background: url("{% static 'images/profile-banner.gif'%}") center no-repeat;
     background-size: 100% auto;
     position: absolute;
     left: 0;
@@ -150,14 +150,14 @@ body .fc-widget-header a {
 }
 .profile-header-img {
     float: left;
-    width: 7.5rem;
-    height: 7rem;
+    width: 9rem;
     overflow: hidden;
     z-index: 10;
     margin: 0 1.25rem -1.25rem 0;
     -webkit-border-radius: 0.25rem;
     -moz-border-radius: 0.25rem;
     border-radius: 0.25rem;
+    margin-top:-10px;
 
 }
 .profile-header-info h4 {

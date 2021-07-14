@@ -50,12 +50,12 @@ INSTALLED_APPS = [
     'bootstrapform',
     'django_filters',
     'crispy_forms',
-    'LearnToEarn',
-    'accounts',
+    'LearnToEarn.apps.LearntoearnConfig',
+    'accounts.apps.AccountsConfig',
 
 ]
 
-CRISPY_TEMPLATE_PACK = 'uni_form'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 SITE_ID = 7
 

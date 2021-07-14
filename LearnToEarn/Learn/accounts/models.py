@@ -24,7 +24,7 @@ class Profile(models.Model):
                                    validators=[validators.MaxLengthValidator(10)])
     facebooklink = models.CharField("FacebookLink", max_length=200, null=True,
                                     validators=[validators.MinLengthValidator(4)])
-    skills = models.CharField(max_length=200, null=True, default="Update Your Name",
+    skills = models.CharField(max_length=200, null=True, default="Not Updated",
                               validators=[validators.MinLengthValidator(4)])
     university = models.CharField(max_length=200, null=True,
                                   default="Not Updated", validators=[validators.MinLengthValidator(4)])
@@ -34,9 +34,10 @@ class Profile(models.Model):
     gender = models.CharField(max_length=200, null=True, validators=[validators.MaxLengthValidator(6)])
     email = models.EmailField(max_length=200, null=True, validators=[validators.validate_email])
     occupation = models.CharField(max_length=200, null=True, validators=[validators.MaxLengthValidator(10)])
-    profile_pic = models.FileField("ProfilePic", max_length=500, upload_to='static/uploads',
-                                   default='static/images/8.png')
+    profile_pic = models.ImageField("ProfilePic", max_length=500, upload_to='static/uploads',
+                                    default='static/images/8.png')
     created_date = models.DateTimeField(auto_now_add=True)
+    sendNotification = models.BooleanField("Send Login Notification" ,default=True)
 
     def __str__(self):
         return self.username

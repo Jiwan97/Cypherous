@@ -24,11 +24,13 @@
 
 				<ul class="nav navbar-nav navbar-right ml-auto">
 					<li class="nav-item dropdown">
-							<a class="dropdown-toggle" href="/showprofile" id="dropdown-a" data-toggle="dropdown"><img src="/{{request.user.profile.profile_pic}}" width="55" height="45" class="img-responsive rounded-circle ml-5 "></a>
+
+							<a class="dropdown-toggle" href="/showprofile" id="dropdown-a" data-toggle="dropdown"><img src="/{{request.user.profile.profile_pic}}" width="60" height="50" class="img-responsive rounded-circle ml-5 "></a>
+
 							<div class="dropdown-menu" aria-labelledby="dropdown-a">
-								<a class="dropdown-item" href="/showprofile">Settings</a>
-								<a class="dropdown-item" href="#">Change Password</a>
-								<a class="dropdown-item" href="/logout">Logout</a>
+								<a class="dropdown-item" href="/showprofile/">Settings</a>
+								<a class="dropdown-item" href="/password_change/">Change Password</a>
+								<a class="dropdown-item" href="/logout/">Logout</a>
 							</div>
 					</li>
 				</ul>

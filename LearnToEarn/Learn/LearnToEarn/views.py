@@ -1,10 +1,9 @@
 from django.shortcuts import render
-from accounts.models import Profile
 
 
 def home(request):
     context = {
-            'activate_h': 'active'}
+        'activate_h': 'active'}
     return render(request, 'LearnToEarn/home.html', context)
 
 
