@@ -149,23 +149,26 @@ def login_user(request):
         password = request.POST.get('password')
 
         user = authenticate(request, username=username, password=password)
-
-        if user and not user.is_email_verified:
-            messages.add_message(request, messages.ERROR,
-                                 'Email is not verified, please check your email inbox')
-            return render(request, 'accounts/login.html', context, status=401)
-
         if not user:
             messages.add_message(request, messages.ERROR,
                                  'Invalid Username or Password')
             return render(request, 'accounts/login.html', context, status=401)
-        if user.profile.sendNotification:
-            if user.is_active:
-                send_notification_email(user, request)
+        else:
+            if not user.is_staff:
+                if user and not user.is_email_verified:
+                    messages.add_message(request, messages.ERROR,
+                                         'Email is not verified, please check your email inbox')
+                    return render(request, 'accounts/login.html', context, status=401)
 
-        login(request, user)
+                if user.profile.sendNotification:
+                    if user.is_active:
+                        send_notification_email(user, request)
 
-        return redirect('/home')
+                login(request, user)
+                return redirect('/home')
+            elif user.is_staff:
+                login(request, user)
+                return redirect('/admin-dashboard')
 
     return render(request, 'accounts/login.html')
 
@@ -183,7 +186,8 @@ def activate_user(request, uidb64, token):
 
     except Exception:
         user = None
-
+    print(user)
+    print(generate_token.check_token(user, token))
     if user and generate_token.check_token(user, token):
         user.is_email_verified = True
         user.save()

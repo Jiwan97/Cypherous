@@ -1,0 +1,135 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+    <title>Learn To Earn</title>
+{% endblock%}
+
+{% block content %}
+<div id="overviews" style=" position: relative; top: 30px;" class="section wb">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 news-post-single">
+                    <div class="news-item">
+						<div class="image-news">
+							<img src=/{{news.news_pic}} alt="" class="img-fluid">
+						</div>
+						<div class="post-content">
+							<div class="post-date">
+								<span class="day">{{news.date_posted| date:"d"}}</span>
+									<span class="month">{{news.date_posted| date:"M"}}</span>
+							</div>
+							<div class="meta-info-news">
+								<span><i class="fa fa-calendar"></i> <a href="#">{{news.date_posted| date:"F d, Y"}}</a> </span>
+								<span><i class="fa fa-tag"></i>  <a href="#">News</a> </span>
+								<span><i class="fa fa-comments"></i> <a href="#">{{count}} Comments</a></span>
+							</div>
+							<div class="news-title">
+								<h2><a href="#" title="">{{news.heading}}</a></h2>
+							</div>
+							<div class="news-desc">
+								<p style="white-space: pre-line;">{{news.content}}</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="news-author">
+						<div class="author-bio">
+							<h3 class="author_name" style="color:#c11e5f;">{{news.user.profile.firstname}} {{news.user.profile.lastname}}</h3>
+							<h5>Admin at <a href="/home">Learn To Earn</a></h5>
+							<p class="author_det">
+								Lorem ipsum dolor sit amet, consectetur adip, sed do eiusmod tempor incididunt  ut aut reiciendise voluptat maiores alias consequaturs aut perferendis doloribus omnis saperet docendi nec, eos ea alii molestiae aliquand.
+							</p>
+						</div>
+						<div class="author-desc">
+							<img src=/{{news.user.profile.profile_pic}} alt="about author">
+							<ul class="author-social">
+								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="#"><i class="fa fa-skype"></i></a></li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="news-comments">
+						<h4>Comments ({{count}})</h4>
+						<div id="comment-news">
+							<ul class="comment-list">
+								{% for comment in comments %}
+								<li class="comment">
+									<div class="avatar"><img alt="" src=/{{comment.user.profile.profile_pic}} class="avatar"></div>
+									<div class="comment-container">
+										<h5 class="comment-author"><a href="/viewprofile/{{comment.user.profile.username}}">{{comment.user.profile.firstname}} {{comment.user.profile.lastname}}</a></h5>
+										<div class="comment-meta">
+											<a href="#" class="comment-date link-style1">{{comment.date_commented}}</a>
+										</div>
+										<div class="comment-body">
+											<p style="white-space: pre-line;">{{comment.comment}}</p>
+										</div>
+									</div>
+								</li>
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+					<div class="comments-form">
+						<h4>Leave a comment</h4>
+						<div class="comment-form-main">
+							{% if user.is_authenticated %}
+							<form method="POST" action="">
+								 {% csrf_token %}
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<textarea class="form-control" name="comment-message" placeholder="Message" id="commenter-message" cols="30" rows="2"></textarea>
+										</div>
+									</div>
+									<div class="col-md-12 post-btn">
+										<button class="hover-btn-new orange"><span>Post Comment</span></button>
+									</div>
+								</div>
+							</form>
+							{% else %}
+
+								<h6 class="font-weight-bold mt-3">You need to login in in order to comment</h6>
+								<hr>
+								<a href="/login" style="background-color:#120a02" class="btn btn-primary">Login</a>
+
+							{% endif %}
+						</div>
+					</div>
+
+                </div>
+				<div class="col-lg-3 col-12 right-single">
+					<div class="widget-categories">
+						<h3 class="widget-title">Categories</h3>
+						<ul>
+							<li><a href="#">Political Science</a></li>
+							<li><a href="#">Business Leaders Guide</a></li>
+							<li><a href="#">Become a Product Manage</a></li>
+							<li><a href="#">Language Education</a></li>
+							<li><a href="#">Micro Biology</a></li>
+							<li><a href="#">Social Media Management</a></li>
+						</ul>
+					</div>
+					<div class="widget-tags">
+						<h3 class="widget-title">Search Tags</h3>
+						<ul class="tags">
+							<li><a href="#"><b>news</b></a></li>
+							<li><a href="#"><b>sports</b></a></li>
+							<li><a href="#">drama</a></li>
+							<li><a href="#">youtube</a></li>
+							<li><a href="#">tiktok</a></li>
+							<li><a href="#"><b>routine</b></a></li>
+							<li><a href="#"><b>banda</b></a></li>
+							<li><a href="#"><b>stike</b></a></li>
+							<li><a href="#">goodnews</a></li>
+							<li><a href="#">bestofluck</a></li>
+						</ul>
+					</div>
+				</div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -37,7 +37,7 @@ class Profile(models.Model):
     profile_pic = models.ImageField("ProfilePic", max_length=500, upload_to='static/uploads',
                                     default='static/images/8.png')
     created_date = models.DateTimeField(auto_now_add=True)
-    sendNotification = models.BooleanField("Send Login Notification" ,default=True)
+    sendNotification = models.BooleanField("Send Login Notification", default=True)
 
     def __str__(self):
         return self.username

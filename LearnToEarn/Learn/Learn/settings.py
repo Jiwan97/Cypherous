@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'bootstrapform',
     'django_filters',
     'crispy_forms',
+    'django_cleanup',
     'LearnToEarn.apps.LearntoearnConfig',
     'accounts.apps.AccountsConfig',
 
@@ -142,7 +143,7 @@ LOGIN_URL = '/'
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kathmandu'
 
 USE_I18N = True
 
