@@ -1,0 +1,63 @@
+{% extends 'layout-admin.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load bootstrap %}
+{% block title %}
+    <title>Learn To Earn</title>
+{% endblock%}
+{% block content %}
+<div id="layoutSidenav">
+    {% include 'navbar-admin.html' %}
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">Dashboard</h1>
+                <div style="margin-top:3rem; margin-bottom:3rem">
+                  {% for message in messages %}
+                  {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                  <h6 class="alert alert-success py-3 px-1 my-2 text-center">{{message}}</h6>
+                  {% endif %}
+                  {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR%}
+                  <h6 class="alert alert-danger py-3 px-1 my-2 text-center">{{message}}</h6>
+                  {% endif %}
+                  {% endfor %}
+                  <a href="/admin-dashboard/addvacancy" class="btn btn-primary">Add vacancy</a>
+                     <div class="card mb-4" style="margin-top:3rem; margin-right:3rem;">
+                        <div class="card-header">
+                            <i class="fas fa-table me-1"></i>
+                            Total Users : {{news.count}}
+                        </div>
+                        <div class="card-body">
+                            <table id="datatablesSimple">
+                                <thead>
+                                    <tr>
+                                        <th>S.N</th>
+                                        <th>Heading</th>
+                                        <th>Date Published</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {% for i in news  %}
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td>{{i.heading}}</td>
+                                        <td>{{i.date_posted| date:"F d, Y"}}</td>
+                                        <td>
+                                          <a href="/admin-dashboard/editNewsPost/{{i.id}}" class="btn btn-outline-primary btn-sm">Edit</a>
+                                          <a href="/admin-dashboard/delNewsPost/{{i.id}}" class="btn btn-danger btn-sm" onclick="return confirm('Want to delete?')">Delete</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </main>
+        {% include 'footer-admin.html' %}
+    </div>
+</div>
+{%endblock%}

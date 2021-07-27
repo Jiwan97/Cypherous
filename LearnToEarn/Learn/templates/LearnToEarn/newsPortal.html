@@ -42,7 +42,7 @@
 							<h2><a href="#" title="">{{news.heading}}</a></h2>
 						</div>
 						<div class="news-desc">
-							<p style=" height:100px; white-space: pre-line;">{{news.content|truncatewords:"20"}}</p>
+							<p style="height:100px">{{news.content|truncatewords:"20"|striptags}}</p>
 						</div>
 						<div class="news-button">
 							<a class="hover-btn-new orange" href="/newsPortal/{{news.id}}"><span>Read More</span></a>

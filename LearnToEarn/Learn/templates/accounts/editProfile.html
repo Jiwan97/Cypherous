@@ -54,7 +54,11 @@ max-width:400% !important;
 <!--                    </div>-->
                   </div>
                   <div class="text-center text-sm-right">
+                    {% if user.is_staff %}
+                    <span class="badge badge-secondary">Admin</span>
+                    {% else %}
                     <span class="badge badge-secondary">User</span>
+                    {% endif %}
                     <div class="text-muted"><small>Joined {{request.user.profile.created_date}}</small></div>
                   </div>
                 </div>

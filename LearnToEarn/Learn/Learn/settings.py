@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'bootstrapform',
     'django_filters',
     'crispy_forms',
+    'ckeditor',
     'django_cleanup',
     'LearnToEarn.apps.LearntoearnConfig',
     'accounts.apps.AccountsConfig',

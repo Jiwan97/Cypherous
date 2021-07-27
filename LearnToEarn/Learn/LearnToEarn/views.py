@@ -45,10 +45,12 @@ def newsView(request, id):
         if cmt:
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     else:
+        Allnews = News.objects.all().order_by('-id')
         news = News.objects.get(id=id)
         comments = Comment.objects.filter(news_id=id)
         commentsC = Comment.objects.filter(news_id=id).count()
         context = {'news': news,
                    'comments': comments,
-                   'count': commentsC}
+                   'count': commentsC,
+                   'allnews': Allnews}
         return render(request, 'LearnToEarn/newsView.html', context)

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from .auth import unauthenticated_user
+from .auth import *
+from django.contrib.auth import update_session_auth_hash
 from validate_email import validate_email  # pip install validate email
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -246,8 +247,9 @@ def error_profile(request):
 
 
 def edit_profile(request):
+    print(request.user.password)
+    print(request.user.is_authenticated)
     profile = request.user.profile
-    print(profile)
     form = ProfileForm(instance=profile)
     form1 = ProfileForm2(instance=profile)
     if request.method == "POST":
@@ -265,3 +267,33 @@ def edit_profile(request):
                'form1': form1}
 
     return render(request, 'accounts/editProfile.html', context)
+
+@nopassyet
+def set_password(request):
+    if request.method == "POST":
+        context = {'has_error': False}
+        password = request.POST.get('password')
+        password2 = request.POST.get('password2')
+
+        if len(password) < 6:
+            messages.add_message(request, messages.ERROR,
+                                 'Password should be at least 6 characters')
+            context['has_error'] = True
+
+        elif password != password2:
+            messages.add_message(request, messages.ERROR,
+                                 'Password mismatch')
+            context['has_error'] = True
+
+        user1 = request.user
+        user1.set_password(password)
+        user1.save()
+        update_session_auth_hash(request, user1)
+        if not context['has_error']:
+            return redirect('/password_set_done')
+
+    return render(request, 'accounts/passwordSet.html')
+
+
+def set_password_done(request):
+    return render(request, 'accounts/passwordSetDone.html')

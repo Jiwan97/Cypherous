@@ -1,16 +1,16 @@
 from django.db import models
 from django.core import validators
 from accounts.models import User
-
+from ckeditor.fields import RichTextField
 
 class News(models.Model):
     user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
-    heading = models.CharField(max_length=200, null=True, default="Not Updated",
+    heading = models.CharField("Title", max_length=200, null=True, default="Not Updated",
                                validators=[validators.MinLengthValidator(4)])
-    content = models.TextField( null=True, default="Not Updated",
+    content = RichTextField("Put Your Content Here", null=True, default="Not Updated",
                                validators=[validators.MinLengthValidator(4)])
 
-    news_pic = models.ImageField("ProfilePic", max_length=500, upload_to='static/uploads',
+    news_pic = models.ImageField("News Pic", max_length=500, upload_to='static/uploads',
                                  default='static/images/8.png')
     date_posted = models.DateTimeField(auto_now_add=True)
 

@@ -32,3 +32,13 @@ def user_only(view_function):
             return view_function(request, *args, **kwargs)
 
     return wrapper_function
+
+
+def nopassyet(view_function):
+    def wrapper_function(request, *args, **kwargs):
+        if request.user.has_usable_password():
+            return redirect('/password_change')
+        else:
+            return view_function(request, *args, **kwargs)
+
+    return wrapper_function
