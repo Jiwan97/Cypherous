@@ -64,6 +64,17 @@ def send_notification_email(user, request):
         EmailThread(email).start()
 
 
+def send_response_email(resp, content, request):
+    email_subject = 'Response from Learn To Earn'
+    email = EmailMultiAlternatives(subject=email_subject,
+                                   from_email=settings.EMAIL_FROM_USER,
+                                   to=[resp.email])
+    email.attach_alternative(content, "text/html")
+
+    if not settings.TESTING:
+        EmailThread(email).start()
+
+
 def send_reset_email(user, request):
     current_site = get_current_site(request)
     email_subject = 'Reset your account'
@@ -169,7 +180,7 @@ def login_user(request):
                 return redirect('/home')
             elif user.is_staff:
                 login(request, user)
-                return redirect('/admin-dashboard')
+                return redirect('/admins-dashboard')
 
     return render(request, 'accounts/login.html')
 
@@ -267,6 +278,7 @@ def edit_profile(request):
                'form1': form1}
 
     return render(request, 'accounts/editProfile.html', context)
+
 
 @nopassyet
 def set_password(request):

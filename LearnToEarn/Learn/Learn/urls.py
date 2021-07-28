@@ -23,5 +23,5 @@ urlpatterns = [
     # path('admins-dashboard/', include('admins.urls')),
     # path('', include('accounts.urls')),
     path('accounts/', include('allauth.urls')),
-    path('admin-dashboard/', include('admins.urls')),
+    path('admins-dashboard/', include('admins.urls')),
 ]

@@ -1,0 +1,43 @@
+{% extends 'layout-admin.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load bootstrap %}
+{% block title %}
+    <title>Learn To Earn</title>
+{% endblock%}
+{% block content %}
+<div id="layoutSidenav">
+    {% include 'navbar-admin.html' %}
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">Dashboard</h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item active">Query details</li>
+                </ol>
+                <div class="container">
+                    <div class=" m-5 border border-4 col-lg-12">
+
+                        <p style="text-align:right; ">Date:&nbsp;<b style="color:#ff3498">{{form.date| date:"F d, Y"}}</b></p>
+                        <br>
+                        <p style="text-align:center; background-color:#f1fdff;">Subject:&nbsp;<b>{{form.subject}}</b></p>
+                        <br>
+                        <p style="margin-bottom:5px;">Hello, &nbsp;<b>{{request.user.username}}</b></p>
+                        <p style="text-indent:50px; color:#854e85; background-color:#fdfdfd"><b>{{form.query}}</b></p>
+
+                        <p>Sincerely,</p>
+                        <p style="text-indent:50px; text-transform: lowercase; text-transform: capitalize; margin-top:-15px;">{{form.firstname}}</p>
+                        <br>
+                        {% if form.responded %}
+                        <a  href="/admins-dashboard/response/{{form.id}}" style="margin-left:450px;" class="btn btn-info btn-sm disabled">Already Responded</a>
+                        {% else %}
+                        <a  href="/admins-dashboard/response/{{form.id}}" style="margin-left:450px;" class="btn btn-info btn-sm">Give Response</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </main>
+        {% include 'footer-admin.html' %}
+    </div>
+</div>
+{%endblock%}

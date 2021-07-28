@@ -28,6 +28,9 @@
 							<a class="dropdown-toggle" href="/showprofile" id="dropdown-a" data-toggle="dropdown"><img src="/{{request.user.profile.profile_pic}}" width="55" height="40" class="img-responsive rounded-circle ml-5 "></a>
 
 							<div class="dropdown-menu" aria-labelledby="dropdown-a">
+								{% if user.is_staff %}
+								<a class="dropdown-item" href="/admins-dashboard/">Admin Dashboard</a>
+								{% endif %}
 								<a class="dropdown-item" href="/showprofile/">Profile</a>
 								{% if user.has_usable_password %}
 								<a class="dropdown-item" href="/password_change/">Change Password</a>

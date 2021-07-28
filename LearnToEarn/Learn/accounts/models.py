@@ -37,7 +37,7 @@ class Profile(models.Model):
                               validators=[validators.MaxLengthValidator(6)])
     email = models.EmailField(max_length=200, default="Not Updated", null=True, validators=[validators.validate_email])
     occupation = models.CharField(max_length=200, default="Not Updated", null=True,
-                                  validators=[validators.MaxLengthValidator(10)])
+                                  validators=[validators.MinLengthValidator(3)])
     profile_pic = models.ImageField("ProfilePic", max_length=500, upload_to='static/uploads',
                                     default='static/images/8.png')
     created_date = models.DateTimeField(auto_now_add=True)

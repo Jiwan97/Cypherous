@@ -1,21 +1,11 @@
 {% if messages %}
-
-
-{% for message in messages %}
-
-
-<div class="ui {{message.tags}} message">
-
-    {{message}}
-
-
+<div class="messages">
+    {% for message in messages %}
+    {% if message.tags %}
+    <div class="alert alert-sm alert-{{ message.tags }} text-center">
+        {{ message }}
+        {% endif %}
+    </div>
+    {% endfor %}
 </div>
-
-
-
-{% endfor %}
-
-
-
-
 {% endif %}

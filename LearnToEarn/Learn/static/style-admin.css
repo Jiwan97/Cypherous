@@ -11263,3 +11263,28 @@ body {
   font-size: 0.75rem;
   border-radius: 0.25rem !important;
 }
+
+.has-error .help-block {
+  color: red;
+}
+
+.dmtop {
+    background-color: #f33066;
+    z-index: 100;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    position: fixed;
+    bottom: -100px;
+    border-radius: 3px;
+    right: 10px;
+    text-align: center;
+    font-size: 28px;
+    color: #ffffff !important;
+    cursor: pointer;
+    -webkit-transition: all .7s ease-in-out;
+    -moz-transition: all .7s ease-in-out;
+    -o-transition: all .7s ease-in-out;
+    -ms-transition: all .7s ease-in-out;
+    transition: all .7s ease-in-out;
+}
