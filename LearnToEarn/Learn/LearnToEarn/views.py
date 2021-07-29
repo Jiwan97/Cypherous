@@ -34,7 +34,7 @@ class newsPortal(ListView):
     template_name = 'LearnToEarn/newsPortal.html'
     context_object_name = 'news'
     ordering = ['-date_posted']
-    paginate_by = 4
+    paginate_by = 6
 
 
 def newsView(request, id):
