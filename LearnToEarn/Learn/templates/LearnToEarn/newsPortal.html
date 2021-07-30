@@ -32,7 +32,7 @@ height:200px;
               </div>
 			  <div class="meta-info-news">
 				<span><i class="fa fa-calendar"></i> <a href="#">{{news.date_posted| date:"F d, Y"}}</a> </span>
-				<span><i class="fa fa-tag"></i>  <a href="#">News</a> </span>
+				<span><i class="fa fa-tag"></i>  <a href="/newsPortal/category/{{news.Tags}}">{{news.Tags}}</a> </span>
 			  </div>
               <div class="card-body">
                 <h5  class="card-title" style=" height:30px; font-weight:bold;">{{news.heading|truncatewords:"15"}}</h5>

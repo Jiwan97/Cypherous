@@ -111,16 +111,9 @@
 					<div class="widget-tags">
 						<h3 class="widget-title">Search Tags</h3>
 						<ul class="tags">
-							<li><a href="#"><b>news</b></a></li>
-							<li><a href="#"><b>sports</b></a></li>
-							<li><a href="#">drama</a></li>
-							<li><a href="#">youtube</a></li>
-							<li><a href="#">tiktok</a></li>
-							<li><a href="#"><b>routine</b></a></li>
-							<li><a href="#"><b>banda</b></a></li>
-							<li><a href="#"><b>stike</b></a></li>
-							<li><a href="#">goodnews</a></li>
-							<li><a href="#">bestofluck</a></li>
+							{% for news in tags %}
+							<li><a href="/newsPortal/category/{{news}}"><b>{{news}}</b></a></li>
+							{% endfor %}
 						</ul>
 					</div>
 				</div>

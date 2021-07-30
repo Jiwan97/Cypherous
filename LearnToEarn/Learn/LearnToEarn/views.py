@@ -3,6 +3,8 @@ from django.views.generic import ListView, DetailView
 from .models import News, Comment, ContactMessage
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.core.paginator import Paginator
+
 
 def home(request):
     context = {
@@ -37,6 +39,18 @@ class newsPortal(ListView):
     paginate_by = 6
 
 
+def tagView(request, tags):
+    form = News.objects.filter(Tags=tags)
+    p = Paginator(form, 3)
+    page_no = request.GET.get('page', 1)
+    page = p.page(page_no)
+    context = {
+
+        'news': page
+    }
+    return render(request, 'LearnToEarn/tagNewsPortal.html', context)
+
+
 def newsView(request, id):
     if request.method == 'POST':
         comment = request.POST['comment-message']
@@ -46,13 +60,15 @@ def newsView(request, id):
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     else:
         Allnews = News.objects.all().order_by('-id')
+        tags = News.objects.values_list('Tags', flat=True).distinct()
         news = News.objects.get(id=id)
         comments = Comment.objects.filter(news_id=id)
         commentsC = Comment.objects.filter(news_id=id).count()
         context = {'news': news,
                    'comments': comments,
                    'count': commentsC,
-                   'allnews': Allnews}
+                   'allnews': Allnews,
+                   'tags': tags}
         return render(request, 'LearnToEarn/newsView.html', context)
 
 
@@ -90,6 +106,6 @@ def contactmessages(request):
             return redirect('/contact')
 
     context = {
-            'activate_c': 'active'
-        }
+        'activate_c': 'active'
+    }
     return render(request, 'LearnToEarn/contact.html', context)
