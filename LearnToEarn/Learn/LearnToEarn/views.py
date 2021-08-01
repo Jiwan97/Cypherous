@@ -4,6 +4,7 @@ from .models import News, Comment, ContactMessage
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.core.paginator import Paginator
+from admins.filters import VFilter
 
 
 def home(request):
@@ -30,44 +31,70 @@ def courses(request):
 #         'activate_c': 'active'}
 #     return render(request, 'LearnToEarn/contact.html', context)
 
+#
+# class newsPortal1(ListView):
+#     model = News
+#     template_name = 'LearnToEarn/newsPortal.html'
+#     context_object_name = 'news'
+#     ordering = ['-date_posted']
+#     paginate_by = 3
 
-class newsPortal(ListView):
-    model = News
-    template_name = 'LearnToEarn/newsPortal.html'
-    context_object_name = 'news'
-    ordering = ['-date_posted']
-    paginate_by = 6
 
-
-def tagView(request, tags):
-    form = News.objects.filter(Tags=tags)
+def newsPortal(request):
+    form = News.objects.all().order_by('-date_posted')
+    tags = News.objects.values_list('Tags', flat=True).distinct()
+    pics = News.objects.values_list('news_pic', flat=True).distinct()
+    V_filter = VFilter(request.GET, queryset=form)
+    V_final = V_filter.qs
     p = Paginator(form, 3)
     page_no = request.GET.get('page', 1)
     page = p.page(page_no)
     context = {
+        'form': V_final,
+        'news': page,
+        'tags': tags,
+        'pics': pics,
+    }
+    return render(request, 'LearnToEarn/NewsPortal.html', context)
 
-        'news': page
+
+def tagView(request, tags):
+    form = News.objects.filter(Tags=tags)
+    form1 = News.objects.all().order_by('-date_posted')
+    V_filter = VFilter(request.GET, queryset=form1)
+    V_final = V_filter.qs
+    tags = News.objects.values_list('Tags', flat=True).distinct()
+    pics = News.objects.values_list('news_pic', flat=True).distinct()
+    p = Paginator(form, 3)
+    page_no = request.GET.get('page', 1)
+    page = p.page(page_no)
+    context = {
+        'form': V_final,
+        'news': page,
+        'tags': tags,
+        'pics': pics,
     }
     return render(request, 'LearnToEarn/tagNewsPortal.html', context)
 
 
 def newsView(request, id):
     if request.method == 'POST':
-        comment = request.POST['comment-message']
-
+        comment = request.POST.get('comment-message')
         cmt = Comment.objects.create(comment=comment, user_id=request.user.id, news_id=id)
         if cmt:
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     else:
-        Allnews = News.objects.all().order_by('-id')
+        Allnews = News.objects.all().order_by('-date_posted')
+        V_filter = VFilter(request.GET, queryset=Allnews)
+        V_final = V_filter.qs
         tags = News.objects.values_list('Tags', flat=True).distinct()
         news = News.objects.get(id=id)
+        pics = News.objects.values_list('news_pic', flat=True).distinct()
         comments = Comment.objects.filter(news_id=id)
-        commentsC = Comment.objects.filter(news_id=id).count()
         context = {'news': news,
                    'comments': comments,
-                   'count': commentsC,
-                   'allnews': Allnews,
+                   'pics': pics,
+                   'form': V_final,
                    'tags': tags}
         return render(request, 'LearnToEarn/newsView.html', context)
 

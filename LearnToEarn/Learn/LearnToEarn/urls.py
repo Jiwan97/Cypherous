@@ -13,7 +13,7 @@ urlpatterns = [
     path('about/', views.about, ),
     path('contact/', views.contactmessages),
     path('courses/', views.courses),
-    path('newsPortal/', views.newsPortal.as_view(), name='news-portal'),
+    path('newsPortal/', views.newsPortal, name='news-portal'),
     path('newsPortal/category/<str:tags>', views.tagView),
     path('newsPortal/<int:id>/', views.newsView, name='news-view'),
 ]
