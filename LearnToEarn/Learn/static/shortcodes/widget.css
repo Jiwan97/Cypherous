@@ -485,18 +485,12 @@ cite{
 	font-weight: 700;
 	width:50px;
 }
-.news-box:before {
-	font-family: themify;
-	content: "\e75a";
-	font-size: 80px;
-	font-weight: 700;
-	opacity: 0.05;
-	position: absolute;
-	right: 20px;
-	top: -10px;
-	z-index: -1;
-	opacity: 0.05;
-}
+
+
 .news-box form{
 	position:relative;
+}
+
+.sticky-top{
+    top:40px;
 }

@@ -27,7 +27,7 @@
 							<ul class="media-post">
 								<li><a href="#"><i class="fa fa-calendar"></i>{{news.date_posted| date:"F d, Y"}}</a></li>
 								<li><a href="/newsPortal/category/{{news.Tags}}"><i class="fa fa-tag"></i>{{news.Tags}}</a></li>
-								<li><a href="#"><i class="fa fa-user"></i>by {{news.user.username}}</a></li>
+								<li> <i class="fa fa-user"></i> By <a href="/viewprofile/{{news.user.profile.username}}"> {{news.user.profile.firstname}} {{news.user.profile.lastname}}</a></li>
 							</ul>
 							<h5 class="post-title"><a href="blog-details.html">{{news.heading|truncatewords:"15"}}</a></h5>
 							<p>{{news.content|truncatechars_html:90|safe|striptags|cut:"&nbsp;"}}</p>
@@ -59,7 +59,7 @@
 					{% endif %}
 				</div>
 
-				<div class="col-md-5 col-lg-4 col-xl-4 sticky-top">
+				<div class="col-md-5 col-lg-4 col-xl-4">
 					<aside class="side-bar sticky-top">
 						<div class="widget">
 							<h6 class="widget-title">Search</h6>

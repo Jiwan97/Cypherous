@@ -74,7 +74,7 @@ def tagView(request, tags):
         'tags': tags,
         'pics': pics,
     }
-    return render(request, 'LearnToEarn/tagNewsPortal.html', context)
+    return render(request, 'LearnToEarn/NewsPortal.html', context)
 
 
 def newsView(request, id):
