@@ -14,6 +14,6 @@ urlpatterns = [
     path('contact/', views.contactmessages),
     path('courses/', views.courses),
     path('newsPortal/', views.newsPortal, name='news-portal'),
-    path('newsPortal/category/<str:tags>', views.tagView),
+    path('newsPortal/category/<slug:slug>', views.tagView),
     path('newsPortal/<int:id>/', views.newsView, name='news-view'),
 ]

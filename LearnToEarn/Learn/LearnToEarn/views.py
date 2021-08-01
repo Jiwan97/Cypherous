@@ -1,11 +1,11 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.views.generic import ListView, DetailView
 from .models import News, Comment, ContactMessage
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.core.paginator import Paginator
 from admins.filters import VFilter
-
+from taggit.models import Tag
 
 def home(request):
     context = {
@@ -42,7 +42,7 @@ def courses(request):
 
 def newsPortal(request):
     form = News.objects.all().order_by('-date_posted')
-    tags = News.objects.values_list('Tags', flat=True).distinct()
+    tags = News.Tags.all()[:13]
     pics = News.objects.values_list('news_pic', flat=True).distinct()
     V_filter = VFilter(request.GET, queryset=form)
     V_final = V_filter.qs
@@ -58,12 +58,13 @@ def newsPortal(request):
     return render(request, 'LearnToEarn/NewsPortal.html', context)
 
 
-def tagView(request, tags):
-    form = News.objects.filter(Tags=tags)
+def tagView(request, slug):
+    tag = get_object_or_404(Tag, slug=slug)
+    form = News.objects.filter(Tags=tag)
     form1 = News.objects.all().order_by('-date_posted')
     V_filter = VFilter(request.GET, queryset=form1)
     V_final = V_filter.qs
-    tags = News.objects.values_list('Tags', flat=True).distinct()
+    tags = News.Tags.all()[:13]
     pics = News.objects.values_list('news_pic', flat=True).distinct()
     p = Paginator(form, 3)
     page_no = request.GET.get('page', 1)
@@ -87,7 +88,7 @@ def newsView(request, id):
         Allnews = News.objects.all().order_by('-date_posted')
         V_filter = VFilter(request.GET, queryset=Allnews)
         V_final = V_filter.qs
-        tags = News.objects.values_list('Tags', flat=True).distinct()
+        tags = News.Tags.all()[:13]
         news = News.objects.get(id=id)
         pics = News.objects.values_list('news_pic', flat=True).distinct()
         comments = Comment.objects.filter(news_id=id)

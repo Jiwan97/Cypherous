@@ -42,6 +42,7 @@ def newsPost(request):
             instance = form.save(commit=False)
             instance.user = request.user
             instance.save()
+            form.save_m2m()
             messages.success(request, 'News added successfully.')
             return redirect('/admins-dashboard/allNews')
 

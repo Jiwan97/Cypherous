@@ -2,6 +2,7 @@ from django.db import models
 from django.core import validators
 from accounts.models import User
 from ckeditor.fields import RichTextField
+from taggit.managers import TaggableManager
 
 
 class News(models.Model):
@@ -15,13 +16,7 @@ class News(models.Model):
                                  default='static/images/newsDefault.jpg')
     date_posted = models.DateTimeField(auto_now_add=True)
 
-    Tags = models.CharField("Category", max_length=200, choices=(("Education", "Education"),
-                                                                 ("Sports", "Sports"),
-                                                                 ("Important", "Important"),
-                                                                 ("Dailynews", "Dailynews"),
-                                                                 ("Routine", "Routine"),
-                                                                 ), null=True, default="Not Updated",
-                            )
+    Tags = TaggableManager()
 
     def __str__(self):
         return self.heading

@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django_filters',
     'crispy_forms',
     'ckeditor',
+    'taggit',
     'multiselectfield',
     'django_cleanup',
     'LearnToEarn.apps.LearntoearnConfig',

@@ -33,7 +33,9 @@
 							<div class="widget_tag_cloud">
 								<h6>TAGS</h6>
 								<div class="tagcloud">
-										<a href="/newsPortal/category/{{news.Tags}}">{{news.Tags}}</a>
+									{% for tag in news.Tags.all %}
+										<a href="/newsPortal/category/{{tag.slug}}">{{tag}}</a>
+									{% endfor %}
 								</div>
 							</div>
 							<div class="ttr-divider bg-gray"><i class="icon-dot c-square"></i></div>
@@ -146,7 +148,7 @@
 							<h6 class="widget-title">Our News Gallery</h6>
 							<ul>
 								{% for pic in pics %}
-								<li><div><a href="#"><img width="200" height="143" src="/{{pic}}" alt=""></a></div></li>
+								<li><div><a href="#"><img src="/{{pic}}" alt=""></a></div></li>
 								{% endfor %}
 							</ul>
 						</div>

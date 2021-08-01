@@ -26,8 +26,13 @@
 						<div class="info-bx">
 							<ul class="media-post">
 								<li><a href="#"><i class="fa fa-calendar"></i>{{news.date_posted| date:"F d, Y"}}</a></li>
-								<li><a href="/newsPortal/category/{{news.Tags}}"><i class="fa fa-tag"></i>{{news.Tags}}</a></li>
 								<li> <i class="fa fa-user"></i> By <a href="/viewprofile/{{news.user.profile.username}}"> {{news.user.profile.firstname}} {{news.user.profile.lastname}}</a></li>
+
+								<li><i class="fa fa-tag"></i>
+									{% for tag in news.Tags.all|slice:4 %}
+										<a href="/newsPortal/category/{{tag.slug}}"> {{tag}},</a>
+									{% endfor %}
+								</li>
 							</ul>
 							<h5 class="post-title"><a href="blog-details.html">{{news.heading|truncatewords:"15"}}</a></h5>
 							<p>{{news.content|truncatechars_html:90|safe|striptags|cut:"&nbsp;"}}</p>
@@ -112,7 +117,7 @@
 							<h6 class="widget-title">Our News Gallery</h6>
 							<ul>
 								{% for pic in pics %}
-								<li><div><a href="#"><img width="200" height="143" src="/{{pic}}" alt=""></a></div></li>
+								<li><div><a href="#"><img src="/{{pic}}" alt=""></a></div></li>
 								{% endfor %}
 							</ul>
 						</div>

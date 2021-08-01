@@ -309,6 +309,7 @@
     margin: 0 0 5px;
     color: #000;
 	font-weight: 400;
+	text-transform:capitalize;
 }
 .widget_tag_cloud a:hover {
     background-color: #000;
@@ -422,7 +423,7 @@ cite{
 	display: table;
 }
 .widget_gallery.gallery-grid-4 li {
-	width:25%;
+    width:70px;
 }
 .gallery-grid-8 li {
 	width:12.5%;
@@ -444,7 +445,7 @@ cite{
 }
 .widget_gallery li img {
     display: inline-block;
-	width:100%;
+	width:70px;
 	height:40px;
 }
 .widget_gallery li:nth-child(3n-3) {
