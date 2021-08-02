@@ -333,8 +333,8 @@ body .fc-widget-header a {
             </div>
 
             <div class="profile-header-info">
-                <h4 class="m-t-sm">{{users.firstname}} {{users.lastname}}</h4>
-                <p class="m-b-sm">@{{users.username}}</p>
+                <h4 class="m-t-sm">{{users.firstname}} {{users.lastname}} {% if users.user.is_staff %}(Admin){% endif %}</h4>
+                <p class="m-b-sm">@{{users.username}}  </p>
                 <br>
                 <br>
             </div>
@@ -449,6 +449,12 @@ body .fc-widget-header a {
             <div class="col-md-4 hidden-xs hidden-sm">
                 <ul class="profile-info-list">
                     <li class="title">PERSONAL INFORMATION</li>
+                    {% if users.user.is_staff %}
+                    <li>
+                        <div class="field">Admin at:</div>
+                        <div class="value">Learn To Earn</div>
+                    </li>
+                    {% endif %}
                     <li>
                         <div class="field">Occupation:</div>
                         <div class="value">{{users.occupation}}</div>

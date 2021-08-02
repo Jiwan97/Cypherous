@@ -1,5 +1,4 @@
 
-
 @import url('https://fonts.googleapis.com/css?family=Rubik:300,300i,400,400i,500,500i,700,700i,900,900i');
 
 @import url(css/animate.css);
@@ -5777,6 +5776,851 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#391800', end
 }
 
 /*===================== 	Premery bg color =====================*/:root {	--primary: #4c1864;	--sc-primary: #4d0a91;}/* Hex */.bg-primary,.btn,.comments-area .comment-form p input[type="submit"],.pagination > .active > a,.pagination > .active > span,.pagination > .active > a:hover,.pagination > .active > span:hover,.pagination > .active > a:focus,.pagination > .active > span:focus,.feature-filters .active > [class*="btn"],.list-num-count > li:before,.pagination-bx.primary .pagination > li > a, .pagination-bx.primary .pagination > li > span,button.back-to-top,.rev-btn{    background-color: #4c1864;}/*Hex color :hover */.btn:active,.btn:hover,.btn:focus,.active > .btn,.bg-primary-dark,.pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus ,.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus,.sidenav .closebtn:hover,.sidenav .closebtn:focus,.owl-btn-1.primary .owl-prev:hover, .owl-btn-1.primary .owl-next:hover,.owl-btn-2.primary .owl-prev:hover, .owl-btn-2.primary .owl-next:hover,.pagination-bx.primary .pagination > li > a:hover, .pagination-bx.primary .pagination > li > span:hover,.pagination-bx.primary .pagination > li.active > span,.pagination-bx.primary .pagination > li.active > a{    background-color: #4d0a91;}/*===================== 	Premery text color =====================*/a,.text-primary,.primary li:before,.menu-links .nav > li.active > a,.menu-links .nav > li:hover > a,.menu-links .nav > li .mega-menu > li ul a:hover,.menu-links .nav > li .sub-menu li:hover > a,footer a:active,footer a:focus,footer a:hover,footer h1 a,footer h2 a,footer h3 a,footer h4 a,footer h5 a,footer h6 a,footer p a,.testimonial-1 .testimonial-position,.acod-head a:after,.acod-head a,.acod-head a:hover,.acod-head a.collapsed:hover,.ttr-tabs .nav-tabs > li > a i,h1 a:hover,h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover,h6 a:hover,.btn.outline,.btn-link:hover{    color: #4c1864;}/*===================== 	Secondery bg color =====================*/.bg-secondry {    background-color: #2d3239;}/*===================== 	Secondery text color =====================*/.text-secondry {    color: #2d3239;}.ovpr-light:after, .ovpr-middle:after, .ovpr-dark:after,.ovpr:after,.bg-primary{	background-color:#4c1864;}.footer-top,.footer-bottom {	background-color: #121921;}.ovbl-middle::after, .ovbl-light::after, .ovbl-dark::after{	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#100018+0,26006c+50,110038+100 */	background: #100018; /* Old browsers */	background: -moz-linear-gradient(45deg, #100018 0%, #26006c 50%, #110038 100%); /* FF3.6-15 */	background: -webkit-linear-gradient(45deg, #100018 0%,#26006c 50%,#110038 100%); /* Chrome10-25,Safari5.1-6 */	background: linear-gradient(45deg, #100018 0%,#26006c 50%,#110038 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#100018', endColorstr='#110038',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */}.ttr-notify-header::after,.widget-bg1,.ttr-search-bar,.ttr-header,.ovpr-dark:after, .pricingtable-main,.account-head:after{	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#4c1864+0,3f189a+100 */	background: #4c1864; /* Old browsers */	background: -moz-linear-gradient(45deg, #4c1864 0%, #3f189a 100%); /* FF3.6-15 */	background: -webkit-linear-gradient(45deg, #4c1864 0%,#3f189a 100%); /* Chrome10-25,Safari5.1-6 */	background: linear-gradient(45deg, #4c1864 0%,#3f189a 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c1864', endColorstr='#3f189a',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */}/* Secondry Color */.portfolio-bx .portfolio-info-bx,.btn.outline:hover,.course-info-list ul li a.active, .course-info-list ul li a:hover,.btn,.profile-tabnav .nav li a.active,button.back-to-top,.upcoming-event-carousel.owl-btn-1 .owl-prev, .upcoming-event-carousel.owl-btn-1 .owl-next,.courses-carousel .owl-nav .owl-next, .courses-carousel .owl-nav .owl-prev, .recent-news-carousel .owl-nav .owl-next, .recent-news-carousel .owl-nav .owl-prev, .testimonial-carousel .owl-nav .owl-next, .testimonial-carousel .owl-nav .owl-prev{	background-color:#f7b205;	color:#000;}.footer_widget ul li a:hover,[class*="ovbl-"] .counter-style-1 .counter-text,.header-transparent .secondary-menu .btn-link:hover,.header-transparent .menu-links .nav > li:hover > a,.header-transparent .menu-links .nav > li.active > a{	color:#f7b205;}.course-info-list ul li a.active:hover, .course-info-list ul li a:hover,.btn:hover,.profile-tabnav .nav li a.active:hover,button.back-to-top:hover,.upcoming-event-carousel.owl-btn-1 .owl-prev:hover, .upcoming-event-carousel.owl-btn-1 .owl-next:hover,.courses-carousel .owl-nav .owl-next:hover, .courses-carousel .owl-nav .owl-prev:hover, .recent-news-carousel .owl-nav .owl-next:hover, .recent-news-carousel .owl-nav .owl-prev:hover, .testimonial-carousel .owl-nav .owl-next:hover, .testimonial-carousel .owl-nav .owl-prev:hover{	background-color:#4c1864;	color:#fff;}.heading-bx.left .title-head{	border-color:#f7b205;	}
+
+
+
+/*=====================================================
+    7. COURSE css
+======================================================*/
+
+.singel-course{
+    background-color: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.singel-course > .thum{
+    position: relative;
+}
+.singel-course .thum .image{
+    overflow: hidden;
+}
+.singel-course .thum .image img{
+    width: 100%;
+    -webkit-transition: all 0.4s linear;
+    transition: all 0.4s linear;
+}
+.singel-course:hover .thum .image img{
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.singel-course .thum .price{
+    position: absolute;
+    right: 60px;
+    bottom: -24px;
+}
+.singel-course .thum .price span{
+    font-size: 14px;
+    color: #07294d;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    width: 55px;
+    height: 55px;
+    display:inline-block;
+    line-height: 55px;
+    border-radius: 50%;
+    background-color: #ffc600;
+    text-align: center;
+}
+.singel-course .cont{
+    padding-top: 28px;
+    padding-bottom: 34px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.singel-course .cont > ul{
+    display: inline-block;
+    margin-right: 10px;
+}
+.singel-course .cont ul li{
+    display: inline-block;
+    margin: 1px;
+}
+.singel-course .cont ul li > i{
+    font-size: 13px;
+    color: #ffc600;
+}
+
+.singel-course .cont span{
+    font-size: 13px;
+    color: #000;
+}
+.singel-course .cont h4{
+    font-weight: 600;
+    font-size: 24px;
+    color: #000;
+    padding-top: 15px;
+    padding-bottom: 40px;
+    -webkit-transition: all 0.4s linear;
+    transition: all 0.4s linear;
+}
+.singel-course .cont h4:hover{
+    color: #ffc600;
+}
+
+.singel-course .course-teacher{
+    border-top: 1px solid #e0e0e0;
+    padding-top: 20px;
+    overflow: hidden;
+}
+.singel-course .course-teacher > .thum{
+    display: inline-block;
+}
+.singel-course .course-teacher > .thum img{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+.singel-course .course-teacher .name {
+	display: inline-block;
+	margin-left: 10px;
+	position: relative;
+	bottom: 13px;
+}
+.singel-course .course-teacher .name a h6{
+    font-size: 15px;
+    color: #24486e;
+    -webkit-transition: all 0.4s linear;
+    transition: all 0.4s linear;
+}
+.singel-course .course-teacher .name a:hover h6{
+    color: #ffc600;
+}
+
+.singel-course .course-teacher .admin{
+    display: inline-block;
+    float: right;
+    overflow: hidden;
+}
+.singel-course .course-teacher .admin ul {
+	margin-top: 8px;
+}
+.singel-course .course-teacher .admin ul li{
+    margin-right: 20px;
+}
+.singel-course .course-teacher .admin ul li:last-child{
+    margin-right: 0;
+}
+.singel-course .course-teacher .admin ul li a{
+    font-size: 15px;
+    color: #8a8a8a;
+    -webkit-transition: all 0.4s linear;
+    transition: all 0.4s linear;
+}
+.singel-course .course-teacher .admin ul li a:hover{
+    color: #ffc600;
+}
+
+.singel-course .course-teacher .admin ul li a span{
+    color: #8a8a8a;
+    margin-left: 3px;
+}
+
+.course-slied{}
+.course-slied .slick-arrow {
+	position: absolute;
+	top: -125px;
+	right: 0;
+}
+.course-slied .prev.slick-arrow{
+    left: auto;
+    right: 50px;
+}
+.course-slied .slick-arrow i{
+    width: 40px;
+    height: 40px;
+    line-height: 36px;
+    border-radius: 5px;
+    color: #000;
+    border: 2px solid #aaaaaa;
+    font-size: 18px;
+    text-align: center;
+    cursor: pointer;
+    -webkit-transition: all 0.4s linear;
+    transition: all 0.4s linear;
+}
+
+.course-slied .slick-arrow:hover i{
+    border-color: #ffc600;
+    background-color: #ffc600;
+}
+
+
+/*=====================================================
+    15. COURSE 2 css
+======================================================*/
+
+.singel-course-2{}
+.singel-course-2 > .thum{
+    position: relative;
+}
+.singel-course-2 > .thum .image > img{
+    border-radius: 5px;
+    width: 100%;
+}
+.singel-course-2 > .thum .price{
+    position: absolute;
+    bottom: 40px;
+    right: 15px;
+    z-index: 5;
+}
+.singel-course-2 > .thum .price span {
+	font-size: 14px;
+	color: #07294d;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 700;
+	width: 55px;
+	height: 55px;
+	line-height: 55px;
+	border-radius: 50%;
+	background-color: #ffc600;
+	text-align: center;
+}
+
+.singel-course-2 > .thum .course-teacher{
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 15px 25px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.singel-course-2 > .thum .course-teacher > .thum{
+    display: inline-block;
+}
+.singel-course-2 > .thum .course-teacher > .thum img{
+    border-radius: 50%;
+}
+
+.singel-course-2 > .thum .course-teacher .name{
+    display: inline-block;
+    margin-left: 5px;
+    position: relative;
+    bottom: 13px;
+}
+.singel-course-2 > .thum .course-teacher .name h6{
+    color: #fff;
+    -webkit-transition: all 0.4s linear;
+    transition: all 0.4s linear;
+}
+.singel-course-2 > .thum .course-teacher .name h6:hover{
+    color: #ffc600;
+}
+
+.singel-course-2 > .thum .course-teacher .review{
+    display: inline-block;
+    margin-left: 15px;
+    position: relative;
+    bottom: 13px;
+}
+.singel-course-2 > .thum .course-teacher .review ul li{
+    display: inline-block;
+    font-size: 12px;
+    color: #ffc600;
+}
+.singel-course-2 > .thum .course-teacher .review ul li{}
+
+.singel-course-2 .cont{
+    padding-top: 25px;
+}
+.singel-course-2 .cont h4{
+    font-weight: 600;
+    font-weight: 24px;
+    color: #000;
+    -webkit-transition: all 0.4s linear;
+    transition: all 0.4s linear;
+}
+.singel-course-2 .cont h4:hover{
+    color: #ffc600;
+}
+
+
+/*=====================================================
+    22. COURSES PAGE css
+======================================================*/
+
+.tab-content{}
+.tab-content .singel-course .course-teacher .name {
+    bottom: 0;
+}
+
+.courses-top-search{
+    background-color: #fff;
+    padding: 15px 30px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.courses-top-search .nav{
+    margin-top: 5px;
+}
+.courses-top-search .nav .nav-item{
+    margin-right: 15px;
+    font-size: 15px;
+    color: #8a8a8a;
+}
+.courses-top-search .nav .nav-item a{
+    font-size: 16px;
+    color: #8a8a8a;
+}
+
+.courses-top-search .nav .nav-item a.active{
+    color: #ffc600;
+}
+
+.courses-search{
+    position: relative;
+}
+.courses-search input{
+    height: 30px;
+    width: 240px;
+    background-color: #f6f6f6;
+    border: 0;
+    color: #8a8a8a;
+    font-size: 14px;
+    border-radius: 5px;
+    padding: 0 20px;
+}
+.courses-search button{
+    position: absolute;
+    top: 0;
+    right: 15px;
+    padding: 0;
+    height: 30px;
+    font-size: 15px;
+    color: #8a8a8a;
+    border: 0;
+    background: none;
+    cursor: pointer;
+}
+
+#courses-list .singel-course .thum .price {
+	right: -25px;
+	bottom: auto;
+	top: 30px;
+}
+
+.courses-pagination{}
+.courses-pagination .pagination{}
+.courses-pagination .pagination .page-item{
+    margin: 0 5px;
+}
+.courses-pagination .pagination .page-item a{
+    font-size: 15px;
+    color: #07294d;
+    width: 40px;
+    height: 40px;
+    line-height: 36px;
+    border: 2px solid #aaa;
+    border-radius: 5px;
+    text-align: center;
+    -webkit-transition: all 0.4s linear;
+    transition: all 0.4s linear;
+}
+.courses-pagination .pagination .page-item a.active,
+.courses-pagination .pagination .page-item a:hover{
+    background-color: #ffc600;
+    border-color: #ffc600;
+}
+
+
+/*=====================================================
+    23. COURSE SINGEl PAGE css
+======================================================*/
+
+.corses-singel-left{
+    padding: 45px 50px;
+    background-color: #fff;
+}
+
+.corses-singel-left .title{}
+.corses-singel-left .title h3{
+    font-size: 30px;
+    color: #000;
+    font-weight: 600;
+    padding-bottom: 25px;
+}
+
+.corses-singel-left .course-terms{}
+.corses-singel-left .course-terms > ul > li{
+    display: inline-block;
+    margin-right: 60px;
+}
+.corses-singel-left .course-terms > ul li:last-child{
+    margin-right: 0;
+}
+
+.corses-singel-left .course-terms ul li .teacher-name{
+    position: relative;
+}
+.corses-singel-left .course-terms ul li .teacher-name .thum{
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    left: 0;
+}
+.corses-singel-left .course-terms ul li .teacher-name .thum img{
+    border-radius: 50%;
+}
+.corses-singel-left .course-terms ul li .teacher-name .name{
+    padding-left: 60px;
+}
+
+.corses-singel-left .course-terms ul li .review span,
+.corses-singel-left .course-terms ul li .teacher-name .name span,
+.corses-singel-left .course-terms ul li .course-category span{
+    color: #8a8a8a;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+.corses-singel-left .course-terms ul li .teacher-name .name h6,
+.corses-singel-left .course-terms ul li .course-category h6{
+    font-size: 16px;
+    color: #24486e;
+    font-weight: 700;
+}
+
+.corses-singel-left .course-terms ul li .review{}
+.corses-singel-left .course-terms ul li .review ul li {
+    display: inline-block;
+}
+.corses-singel-left .course-terms ul li .review ul li a {
+    font-size: 14px;
+    color: #ffc600;
+}
+.corses-singel-left .course-terms ul li .review ul li.rating{
+    font-size: 14px;
+    color: #000;
+    font-weight: 600;
+    margin-left: 13px;
+}
+
+.corses-singel-image{}
+.corses-singel-image img{
+    width: 100%;
+}
+
+.corses-tab{
+    border: 1px solid #edf0f2;
+    border-radius: 5px;
+}
+
+.corses-tab .nav{}
+.corses-tab .nav .nav-item{}
+.corses-tab .nav .nav-item a {
+	font-size: 16px;
+	color: #24486e;
+	font-weight: 600;
+	font-family: 'Montserrat', sans-serif;
+	padding: 20px 0;
+	display: block;
+    background-color: #edf0f2;
+}
+.corses-tab .nav .nav-item a.active {
+    background-color: #fff;
+}
+
+.overview-description{
+    padding: 0px 30px 25px;
+}
+.overview-description .singel-description{}
+.overview-description .singel-description h6{
+    font-size: 18px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #000;
+    padding-bottom: 10px;
+}
+
+
+.curriculam-cont{
+    padding: 25px 30px;
+}
+.curriculam-cont .title h6{
+    font-size: 18px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #000;
+    padding-bottom: 30px;
+}
+
+.curriculam-cont .accordion{
+    border: 0;
+}
+.curriculam-cont .accordion .card{
+    border: 0;
+    border-radius: 0;
+    border-bottom: 1px solid #cecece !important;
+}
+.curriculam-cont .accordion .card:last-child{
+    border-bottom: 0 !important;
+}
+
+.curriculam-cont .accordion .card .card-header {
+    padding: 0;
+    border-bottom: 0;
+}
+
+.curriculam-cont .accordion .card .card-header a {
+	overflow: hidden;
+	display: block;
+    padding: 15px 15px;
+    background-color: #edf0f2;
+}
+.curriculam-cont .accordion .card .card-header a.collapsed{
+    background-color: #fff;
+    border: none;
+}
+
+.curriculam-cont .accordion .card .card-header a::before,
+.curriculam-cont .accordion .card .card-header a.collapsed::before {
+	content: "\f107";
+	font-family: FontAwesome;
+	font-size: 18px;
+	color: #8a8a8a;
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	-webkit-transform: rotate(180deg);
+	transform: rotate(180deg);
+	-webkit-transition: all 0.2s linear;
+	transition: all 0.2s linear;
+}
+.curriculam-cont .accordion .card .card-header a.collapsed:before{
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+}
+.curriculam-cont .accordion .card .card-header a ul li{
+    display: inline-block;
+}
+.curriculam-cont .accordion .card .card-header a ul li:last-child{
+    float: right;
+}
+
+.curriculam-cont .accordion .card .card-header a ul li > i{
+    color: #ffc600;
+    font-size: 15px;
+    margin-right: 5px;
+}
+.curriculam-cont .accordion .card .card-header a ul li > .lecture{
+    font-size: 15px;
+    color: #8a8a8a;
+}
+.curriculam-cont .accordion .card .card-header a ul li > .head{
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    margin-left: 15px;
+    color: #000;
+}
+.curriculam-cont .accordion .card .card-header a ul li > .time {
+	font-size: 15px;
+	color: #8a8a8a;
+	text-align: right;
+	padding-right: 30px;
+}
+.curriculam-cont .accordion .card .card-header a ul li > .time i{
+    margin-right: 5px;
+}
+.curriculam-cont .accordion .card .card-header a ul li > .time span{}
+
+.curriculam-cont .accordion .card .card-body {
+	background-color: #edf0f2;
+	padding: 0 25px 20px;
+}
+
+
+.instructor-cont{
+    padding: 30px 30px 25px;
+}
+
+.instructor-cont .instructor-author{
+    overflow: hidden;
+}
+.instructor-cont .instructor-author .author-thum{
+    float: left;
+    margin-right: 30px;
+}
+.instructor-cont .instructor-author .author-name{
+    float: left;
+}
+.instructor-cont .instructor-author .author-name a{
+    display: block;
+}
+.instructor-cont .instructor-author .author-name a h5{
+    font-size: 18px;
+    color: 30px;
+    font-weight: 600;
+}
+.instructor-cont .instructor-author .author-name span{
+    font-size: 15px;
+    color: #8a8a8a;
+}
+.instructor-cont .instructor-author .author-name .social{
+    padding-top: 25px;
+}
+.instructor-cont .instructor-author .author-name .social li{
+    display: inline-block;
+    margin-right: 8px;
+}
+.instructor-cont .instructor-author .author-name .social li a{
+    font-size: 16px;
+    width: 35px;
+    height: 35px;
+    line-height: 33px;
+    border: 1px solid #24486e;
+    background-color: #24486e;
+    color: #fff;
+    text-align: center;
+    -webkit-transition: all 0.4s linear;
+    transition: all 0.4s linear;
+}
+.instructor-cont .instructor-author .author-name .social li a:hover{
+    background-color: #fff;
+    color: #24486e;
+}
+
+.reviews-cont{
+    padding: 25px 30px 30px;
+}
+.reviews-cont .title h6{
+    font-size: 18px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #000;
+}
+
+.reviews-cont ul li .singel-reviews {
+    padding-top: 30px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #d2d2d2;
+}
+.reviews-cont ul li:last-child .singel-reviews {
+    border-bottom: 0;
+}
+
+.reviews-cont ul li .singel-reviews .reviews-author{
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.reviews-cont ul li .singel-reviews .reviews-author .author-thum img{
+    border-radius: 5px;
+}
+.reviews-cont ul li .singel-reviews .reviews-author .author-name{
+    padding-left: 20px;
+}
+.reviews-cont ul li .singel-reviews .reviews-author .author-name h6{
+    font-size: 16px;
+    font-weight: 600;
+}
+.reviews-cont ul li .singel-reviews .reviews-author .author-name span{
+    font-size: 15px;
+    color: #8a8a8a;
+    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+}
+
+.reviews-cont ul li .singel-reviews .reviews-description{}
+.reviews-cont ul li .singel-reviews .reviews-description p{
+    padding-bottom: 17px;
+}
+.reviews-cont ul li .singel-reviews .reviews-description .rating{
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.reviews-cont ul li .singel-reviews .reviews-description .rating ul li{
+    display: inline-block;
+    font-size: 15px;
+    color: #ffc600;
+}
+.reviews-cont ul li .singel-reviews .reviews-description .rating span{
+    font-size: 15px;
+    color: #000;
+    margin-left: 10px;
+}
+
+
+.reviews-cont .reviews-form .form-singel {
+    padding-top: 25px;
+}
+
+.reviews-cont .reviews-form .form-singel input,
+.reviews-cont .reviews-form .form-singel textarea{
+    width: 100%;
+    height: 45px;
+    border: 1px solid #cecece;
+    border-radius: 5px;
+    padding: 0 20px;
+}
+.reviews-cont .reviews-form .form-singel textarea{
+    height: 160px;
+    padding-top: 20px;
+    resize: none;
+}
+
+.reviews-cont .reviews-form .form-singel .rate-wrapper{
+    overflow: hidden;
+}
+.reviews-cont .reviews-form .form-singel .rate-label {
+    float: left;
+    color: #000;
+    margin-right: 10px;
+    margin-left: 0;
+}
+.reviews-cont .reviews-form .form-singel .rate {
+    float: left;
+    color: #cecece;
+    cursor: pointer;
+}
+.reviews-cont .reviews-form .form-singel .rate-item {
+    float: left;
+    cursor: pointer;
+    margin: 0px 3px 0px 3px;
+}
+
+.reviews-cont .reviews-form .form-singel .rate:hover,
+.reviews-cont .reviews-form .form-singel .rate.selected {
+    color: #ffc600;
+}
+
+.reviews-cont .reviews-form .form-singel .rate .rate-item:hover ~ .rate-item,
+.reviews-cont .reviews-form .form-singel .rate .rate-item.active ~ .rate-item {
+  color: #cecece;
+}
+
+.releted-courses .title h3{
+    font-size: 30px;
+    color: #07294d;
+}
+
+.course-features{
+    background-color: #fff;
+    padding: 30px 35px;
+    border-radius: 5px;
+}
+.course-features h4,
+.You-makelike h4{
+    font-size: 24px;
+    color: #07294d;
+    padding-bottom: 15px;
+}
+.course-features ul{}
+.course-features ul li{
+    font-size: 15px;
+    color: #8a8a8a;
+    overflow: hidden;
+    line-height: 45px;
+    border-bottom: 1px solid #d2d2d2;
+}
+.course-features ul li:last-child{
+    border-bottom: 0;
+}
+
+.course-features ul li i{
+    color: #ffc600;
+    margin-right: 8px;
+}
+.course-features ul li span{
+    float: right;
+}
+
+.course-features .price-button{
+    overflow: hidden;
+}
+.course-features .price-button span{
+    font-size: 18px;
+    color: #24486e;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    margin-top: 12px;
+}
+.course-features .price-button span b{
+    color: #ffc600;
+}
+.course-features .price-button .main-btn{
+    float: right;
+}
+
+.You-makelike{
+    background-color: #fff;
+    padding: 25px 30px 30px;
+    border-radius: 5px;
+}
+.You-makelike .singel-makelike{
+    position: relative;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.You-makelike .singel-makelike .image{
+    position: relative;
+}
+.You-makelike .singel-makelike .image::before{
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgba(7, 41, 77, 0.8);
+}
+.You-makelike .singel-makelike .image img{
+    width: 100%;
+}
+
+.You-makelike .singel-makelike .cont{
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    padding: 0 30px;
+}
+.You-makelike .singel-makelike .cont h4{
+    font-size: 18px;
+    color: #fff;
+    font-weight: 600;
+    -webkit-transition: all 0.4s linear;
+    transition: all 0.4s linear;
+}
+.You-makelike .singel-makelike .cont h4:hover{
+    color: #ffc600;
+}
+
+.You-makelike .singel-makelike .cont ul li {
+    display: inline-block;
+    margin-right: 15px;
+    color: #ffc600;
+}
+.You-makelike .singel-makelike .cont ul li a{
+    font-size: 14px;
+    color: #fff;
+}
+.You-makelike .singel-makelike .cont ul li a i{
+    margin-right: 3px;
+}
+
+
+
+
+
+
+
 
 
 

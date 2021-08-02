@@ -64,11 +64,11 @@ max-width:400% !important;
                 </div>
               </div>
               <ul class="nav nav-tabs">
-                <li class="nav-item "><a data-toggle="tab" href="#Login" class="active nav-link">Edit Profile</a></li>
-				<li class="nav-item "><a data-toggle="tab" href="#Registration" class=" nav-link">Other Information</a></li>
+                <li class="nav-item "><a data-toggle="tab" href="#Profile" class="active nav-link">Edit Profile</a></li>
+				<li class="nav-item "><a data-toggle="tab" href="#Other" class=" nav-link">Other Information</a></li>
               </ul>
               <div class="tab-content pt-3">
-                <div class="tab-pane active" id="Login">
+                <div class="tab-pane active" id="Profile">
                   <form class="form" action="" method="POST" enctype="multipart/form-data" novalidate="">
                     {% csrf_token %}
                     <div class="row">
@@ -142,7 +142,7 @@ max-width:400% !important;
                     </div>
                   </form>
                 </div>
-				<div class="tab-pane" id="Registration">
+				<div class="tab-pane" id="Other">
                   <form class="form" action="" method="POST" enctype="multipart/form-data" novalidate="">
                     {% csrf_token %}
                     <div class="row">
