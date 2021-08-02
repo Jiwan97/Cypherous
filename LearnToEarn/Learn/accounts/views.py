@@ -198,8 +198,6 @@ def activate_user(request, uidb64, token):
 
     except Exception:
         user = None
-    print(user)
-    print(generate_token.check_token(user, token))
     if user and generate_token.check_token(user, token):
         user.is_email_verified = True
         user.save()
@@ -217,7 +215,6 @@ def forget(request):
         email = request.POST.get('email')
         try:
             user = User.objects.get(email=email)
-            print(user.pk)
         except Exception:
             user = None
 
@@ -244,7 +241,6 @@ def show_profile(request):
 
 
 def view_profile(request, name):
-    print(name)
     if Profile.objects.filter(username=name).exists():
         profile = Profile.objects.get(username=name)
 
@@ -258,8 +254,6 @@ def error_profile(request):
 
 
 def edit_profile(request):
-    print(request.user.password)
-    print(request.user.is_authenticated)
     profile = request.user.profile
     form = ProfileForm(instance=profile)
     form1 = ProfileForm2(instance=profile)
@@ -272,8 +266,7 @@ def edit_profile(request):
         elif form1.is_valid():
             form1.save()
             return redirect('/showprofile')
-        else:
-            print(form.errors)
+
     context = {'form': form,
                'form1': form1}
 

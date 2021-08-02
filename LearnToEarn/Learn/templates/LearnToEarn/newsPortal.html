@@ -28,9 +28,9 @@
 								<li><a href="#"><i class="fa fa-calendar"></i>{{news.date_posted| date:"F d, Y"}}</a></li>
 								<li> <i class="fa fa-user"></i> By <a href="/viewprofile/{{news.user.profile.username}}"> {{news.user.profile.firstname}} {{news.user.profile.lastname}}</a></li>
 
-								<li><i class="fa fa-tag"></i>
+								<li><i class="fa fa-tag"></i>Tags:
 									{% for tag in news.Tags.all|slice:4 %}
-										<a href="/newsPortal/category/{{tag.slug}}"> {{tag}},</a>
+									<b><a href="/newsPortal/category/{{tag.slug}}"> {{tag}}</a></b>
 									{% endfor %}
 								</li>
 							</ul>

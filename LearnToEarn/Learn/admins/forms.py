@@ -10,8 +10,8 @@ class NewsForm(ModelForm):
         fields = "__all__"
         exclude = ['user']
         widgets = {
-            'news_pic': forms.FileInput()
-
+            'news_pic': forms.FileInput(),
+            'Tags': forms.TextInput(attrs={'data-role': 'tagsinput', })
         }
 
 
@@ -19,4 +19,4 @@ class ResponseForm(ModelForm):
     class Meta:
         model = Response
         fields = "__all__"
-        exclude = ['user', 'contactMessage', 'responded']
+        exclude = ['user', 'contactMessage']
