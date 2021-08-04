@@ -12,7 +12,7 @@ from .filters import VFilter
 import os
 
 
-
+@login_required(login_url='/login')
 @admin_only
 def admin_dashboard(request):
     totalNews = News.objects.all().count()
@@ -24,7 +24,7 @@ def admin_dashboard(request):
     return render(request, 'admins/adminDashboard.html', context)
 
 
-@login_required
+@login_required(login_url='/login')
 @admin_only
 def allNews(request):
     totalNews = News.objects.all().order_by('-id')
@@ -32,7 +32,7 @@ def allNews(request):
     return render(request, 'admins/allNews.html', context)
 
 
-@login_required
+@login_required(login_url='/login')
 @admin_only
 def newsPost(request):
     form = NewsForm()

@@ -67,7 +67,7 @@ def newsPortal(request):
 
 def tagView(request, slug):
     tag = get_object_or_404(Tag, slug=slug)
-    form = News.objects.filter(Tags=tag)
+    form = News.objects.filter(Tags=tag).order_by('-date_posted')
     form1 = News.objects.all().order_by('-date_posted')
     V_filter = VFilter(request.GET, queryset=form1)
     V_final = V_filter.qs

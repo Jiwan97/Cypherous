@@ -178,10 +178,16 @@ def login_user(request):
                         send_notification_email(user, request)
 
                 login(request, user)
-                return redirect('/home')
+                if 'next' in request.POST:
+                    return redirect(request.POST.get('next'))
+                else:
+                    return redirect('/home')
             elif user.is_staff:
                 login(request, user)
-                return redirect('/admins-dashboard')
+                if 'next' in request.POST:
+                    return redirect(request.POST.get('next'))
+                else:
+                    return redirect('/admins-dashboard')
 
     return render(request, 'accounts/login.html')
 
