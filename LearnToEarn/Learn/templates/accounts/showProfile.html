@@ -333,7 +333,7 @@ body .fc-widget-header a {
             </div>
 
             <div class="profile-header-info">
-                <h4 class="m-t-sm">{{request.user.profile.firstname}} {{request.user.profile.lastname}}</h4>
+                <h4 class="m-t-sm">{{request.user.profile.firstname}} {{request.user.profile.lastname}} {% if request.user.is_staff %}(Admin){% endif %}</h4>
                 <p class="m-b-sm">@{{request.user.profile.username}}</p>
 
                 <a href="/editprofile" class="btn btn-xs btn-primary mb-3">Edit Profile</a>
@@ -450,6 +450,12 @@ body .fc-widget-header a {
             <div class="col-md-4 hidden-xs hidden-sm">
                 <ul class="profile-info-list">
                     <li class="title">PERSONAL INFORMATION</li>
+                    {% if request.user.is_staff %}
+                    <li>
+                        <div class="field">Admin at:</div>
+                        <div class="value">Learn To Earn</div>
+                    </li>
+                    {% endif %}
                     <li>
                         <div class="field">Occupation:</div>
                         <div class="value">{{request.user.profile.occupation}}</div>

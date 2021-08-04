@@ -19,7 +19,7 @@ def admin_only(view_function):
         if request.user.is_staff:
             return view_function(request, *args, **kwargs)
         else:
-            return redirect('/index')
+            return redirect('/home')
 
     return wrapper_function
 

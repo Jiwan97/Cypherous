@@ -12,7 +12,7 @@ from .filters import VFilter
 import os
 
 
-@login_required
+
 @admin_only
 def admin_dashboard(request):
     totalNews = News.objects.all().count()

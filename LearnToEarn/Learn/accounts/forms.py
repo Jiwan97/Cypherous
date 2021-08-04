@@ -7,7 +7,10 @@ class ProfileForm(ModelForm):
     class Meta:
         model = Profile
         fields = "__all__"
-        exclude = ['user', 'username', 'email', 'skills', 'highschool', 'university', 'profile_pic',]
+        exclude = ['user', 'username', 'email', 'skills', 'highschool', 'university', 'profile_pic', ]
+        widgets = {
+            'birthdate': forms.TextInput(attrs={'type': "date", }),
+        }
 
 
 class ProfileForm2(ModelForm):

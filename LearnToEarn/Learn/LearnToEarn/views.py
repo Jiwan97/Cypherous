@@ -7,6 +7,7 @@ from django.core.paginator import Paginator
 from admins.filters import VFilter
 from taggit.models import Tag
 
+
 def home(request):
     context = {
         'activate_h': 'active'}
@@ -24,6 +25,12 @@ def courses(request):
     context = {
         'activate_cou': 'active'}
     return render(request, 'LearnToEarn/courses.html', context)
+
+
+def courseDesk(request):
+    context = {
+        'activate_couD': 'active'}
+    return render(request, 'LearnToEarn/coursesDescription.html', context)
 
 
 # def contact(request):
