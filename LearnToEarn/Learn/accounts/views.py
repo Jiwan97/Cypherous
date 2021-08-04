@@ -3,7 +3,7 @@ from .auth import *
 from django.contrib.auth import update_session_auth_hash
 from validate_email import validate_email  # pip install validate email
 from django.contrib import messages
-from django.http import  HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from .models import User, Profile
 from .forms import ProfileForm, ProfileForm2

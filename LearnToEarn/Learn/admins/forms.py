@@ -2,6 +2,7 @@ from django.forms import ModelForm, Textarea
 from django import forms
 from LearnToEarn.models import News
 from .models import Response
+from taggit.forms import TagWidget
 
 
 class NewsForm(ModelForm):
@@ -10,8 +11,7 @@ class NewsForm(ModelForm):
         fields = "__all__"
         exclude = ['user']
         widgets = {
-            'news_pic': forms.FileInput(),
-            'Tags': forms.TextInput(attrs={'data-role': 'tagsinput', })
+            'Tags': TagWidget(attrs={'data-role': 'tagsinput', })
         }
 
 
