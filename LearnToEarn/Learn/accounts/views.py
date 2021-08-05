@@ -5,6 +5,7 @@ from validate_email import validate_email  # pip install validate email
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from .models import User, Profile
 from .forms import ProfileForm, ProfileForm2
 from django.contrib.sites.shortcuts import get_current_site
@@ -237,6 +238,7 @@ def forget(request):
     return render(request, 'accounts/forgot-password.html')
 
 
+@login_required()
 def show_profile(request):
     profile = request.user
     if not profile.is_email_verified:
@@ -260,6 +262,7 @@ def error_profile(request):
     return render(request, 'accounts/errorView.html')
 
 
+@login_required()
 def edit_profile(request):
     profile = request.user.profile
     form = ProfileForm(instance=profile)
@@ -280,6 +283,7 @@ def edit_profile(request):
     return render(request, 'accounts/editProfile.html', context)
 
 
+@login_required()
 @nopassyet
 def set_password(request):
     if request.method == "POST":

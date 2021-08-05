@@ -2,17 +2,14 @@ from django.shortcuts import render, redirect
 from accounts.auth import admin_only
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import *
-from django.http import HttpResponseRedirect
 from accounts.views import send_response_email
 from accounts.models import User
 from .forms import NewsForm, ResponseForm
 from LearnToEarn.models import News, ContactMessage
-from .filters import VFilter
 import os
 
 
-@login_required(login_url='/login')
+@login_required()
 @admin_only
 def admin_dashboard(request):
     totalNews = News.objects.all().count()
@@ -24,7 +21,7 @@ def admin_dashboard(request):
     return render(request, 'admins/adminDashboard.html', context)
 
 
-@login_required(login_url='/login')
+@login_required()
 @admin_only
 def allNews(request):
     totalNews = News.objects.all().order_by('-id')
@@ -32,7 +29,7 @@ def allNews(request):
     return render(request, 'admins/allNews.html', context)
 
 
-@login_required(login_url='/login')
+@login_required()
 @admin_only
 def newsPost(request):
     form = NewsForm()
@@ -79,12 +76,16 @@ def DeletenewsPost(request, id):
     return redirect('/admins-dashboard/allNews')
 
 
+@login_required()
+@admin_only
 def contactmessage(request):
     totalmsg = ContactMessage.objects.order_by('-id')
     context = {'totalmsg': totalmsg}
     return render(request, 'admins/totalContactMessages.html', context)
 
 
+@login_required()
+@admin_only
 def MessageView(request, id):
     form = ContactMessage.objects.get(id=id)
     context = {
@@ -93,6 +94,8 @@ def MessageView(request, id):
     return render(request, 'admins/VRMessages.html', context)
 
 
+@login_required()
+@admin_only
 def Response_(request, id):
     response = ResponseForm()
     if request.method == 'POST':
