@@ -6642,6 +6642,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#391800', end
     margin-right: 3px;
 }
 
+.notification{
+    position: absolute;
+    top: 50px;
+    right: -9rem;
+    width: 30rem;
+    z-index:3;
+    padding: 0px 20px;
+    border-radius:20px
+}
 
 
 
