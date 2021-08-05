@@ -17,8 +17,8 @@
     <link rel="stylesheet" href="{% static 'css/versions.css'%}">
     <link rel="stylesheet" href="{% static 'css/responsive.css'%}">
     <link rel="stylesheet" href="{% static 'css/custom.css'%}">
-
     <script src="{% static 'js/modernizer.js'%}"></script>
+    <script src="{% static 'js/jquery-3.6.0.min.js'%}"></script>
 </head>
 
 <body class="host_version">
@@ -35,11 +35,9 @@
     {% include 'footer.html' %}
 
     <a href="#" id="scroll-to-top" class="dmtop global-radius" style="bottom: -100px;"><i class="fa fa-angle-up"></i></a>
-    <script src="{% static 'js/jquery-3.6.0.min.js'%}"></script>
     <script src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
     <script src="{% static 'js/all.js'%}"></script>
-
     <script src="{% static 'js/custom.js'%}"></script>
 	<script src="{% static 'js/timeline.min.js'%}"></script>
 
@@ -69,14 +67,5 @@
 		}
 		});
     </script>
-    {% if messages %}
-      <script>
-          {% for message in messages %}
-              $(document).ready(function () {
-                  $('.toast').toast('show');
-              });
-          {% endfor %}
-      </script>
-    {% endif %}
 </body>
 </html>

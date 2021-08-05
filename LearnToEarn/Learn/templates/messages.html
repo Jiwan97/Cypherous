@@ -1,11 +1,83 @@
-{% if messages %}
-<div class="messages">
-    {% for message in messages %}
-    {% if message.tags %}
-    <div class="alert alert-sm alert-{{ message.tags }} text-center">
-        {{ message }}
-        {% endif %}
-    </div>
-    {% endfor %}
-</div>
-{% endif %}
+{% load static %}
+<style>
+.badge-light {
+    margin-top: 2.5em;
+}
+.errorlist {
+    list-style: none;
+    padding-left: 0px;
+    opacity: 0.8;
+    color: #dc3545;
+    font-size: 12px;
+}
+.msg {
+    margin: 0 !important;
+    margin-bottom: 4px !important;
+    margin-top: 25px !important;
+}
+.messages {
+    z-index: 100;
+    position: fixed;
+    right: 2em;
+    margin-top: -1em;
+    list-style: none;
+    text-align: right;
+}
+.alert {
+    margin-top: 2rem;
+}
+.alert-error {
+    background-color: #f2dede;
+    border-color: #ebcccc;
+    color: #a94442;
+}
+</style>
+
+<ul class="messages" id="messages-list">
+    {% if messages %}
+        {% for message in messages %}
+        <li>
+            {% if message.tags %}
+                 <div id="target" class="alert alert-{{ message.tags }} msg fade show" role="alert">{{ message }}</div>
+            {% else %}
+                <div id="target" class="alert alert-info msg fade show" role="alert">{{ message }}</div>
+            {% endif %}
+        </li>
+        {% endfor %}
+    {% endif %}
+</ul>
+
+<script>
+    // logging key-value pairs of FormData object
+    function logFormData(data) {
+        for (const pair of data.entries()) {
+            console.log(pair[0] + ": " + pair[1]);
+        }
+    }
+
+
+    // fade out message alerts
+    function fade_alerts() {
+        alerts = document.getElementsByClassName("alert msg");
+            var i = alerts.length;
+            for (let elem of alerts) {
+                i--;
+                time = 3250+(1000*i);
+                setTimeout(function() {
+                    $(elem).animate({left:'400px'});
+                }, time);
+            }
+    }
+    // call fade out after DOMContentLoaded
+    window.addEventListener('DOMContentLoaded', (event) => {
+        fade_alerts();
+    });
+</script>
+<script>
+    $(document).ready(function(){
+        $('#target').click(function(){
+            $('#target').animate({left:'400px'});
+        })
+
+    })
+</script>
