@@ -3,7 +3,7 @@ from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
-    path('register/', views.register, ),
+    path('register/', views.register, name="signup"),
     path('login/', views.login_user, ),
     path('forgot-p/', views.forget),
     path('logout/', views.logoutUser),
@@ -16,7 +16,7 @@ urlpatterns = [
     path('activate-user/<uidb64>/<token>',
          views.activate_user, name='activate'),
     path('reset/<uidb64>/<token>',
-         auth_views.PasswordResetConfirmView.as_view(template_name="accounts/password_reset.html",),
+         auth_views.PasswordResetConfirmView.as_view(template_name="accounts/password_reset.html", ),
          name="password_reset_confirm"),
     path('reset_password_complete/',
          auth_views.PasswordResetCompleteView.as_view(template_name="accounts/password_reset_done.html"),

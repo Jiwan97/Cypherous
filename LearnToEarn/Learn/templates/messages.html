@@ -1,35 +1,17 @@
 {% load static %}
 <style>
-.badge-light {
-    margin-top: 2.5em;
-}
-.errorlist {
-    list-style: none;
-    padding-left: 0px;
-    opacity: 0.8;
-    color: #dc3545;
-    font-size: 12px;
-}
 .msg {
     margin: 0 !important;
     margin-bottom: 4px !important;
-    margin-top: 25px !important;
+    margin-top: 90px !important;
 }
 .messages {
     z-index: 100;
     position: fixed;
-    right: 2em;
+    right: -1em;
     margin-top: -1em;
     list-style: none;
-    text-align: right;
-}
-.alert {
-    margin-top: 2rem;
-}
-.alert-error {
-    background-color: #f2dede;
-    border-color: #ebcccc;
-    color: #a94442;
+    text-align: left;
 }
 </style>
 
@@ -38,9 +20,9 @@
         {% for message in messages %}
         <li>
             {% if message.tags %}
-                 <div id="target" class="alert alert-{{ message.tags }} msg fade show" role="alert">{{ message }}</div>
+                 <div id="mesg" class="alert alert-{{ message.tags }} msg fade show" role="alert">{{ message }}</div>
             {% else %}
-                <div id="target" class="alert alert-info msg fade show" role="alert">{{ message }}</div>
+                <div id="mesg" class="alert alert-info msg fade show" role="alert">{{ message }}</div>
             {% endif %}
         </li>
         {% endfor %}
@@ -54,8 +36,6 @@
             console.log(pair[0] + ": " + pair[1]);
         }
     }
-
-
     // fade out message alerts
     function fade_alerts() {
         alerts = document.getElementsByClassName("alert msg");
@@ -75,9 +55,11 @@
 </script>
 <script>
     $(document).ready(function(){
-        $('#target').click(function(){
-            $('#target').animate({left:'400px'});
-        })
-
+        alerts = document.getElementsByClassName("alert msg");
+        for (let elem of alerts) {
+            $(elem).click(function(){
+                $(elem).animate({left:'400px'});
+            })
+        }
     })
 </script>

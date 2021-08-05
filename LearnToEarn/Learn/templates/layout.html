@@ -29,9 +29,12 @@
 			</div>
 		</div>
 	</div>
+
     {% include 'navbar.html' %}
+    {% include 'messages.html' %}
     {% block content %}
     {% endblock %}
+
     {% include 'footer.html' %}
 
     <a href="#" id="scroll-to-top" class="dmtop global-radius" style="bottom: -100px;"><i class="fa fa-angle-up"></i></a>
@@ -47,7 +50,7 @@
 			$(window).scroll(function () {
 				var currentScroll = $(this).scrollTop();
 				if (currentScroll < 100) {
-					showTopNav();
+					showNav();
 				} else if (currentScroll > 0 && currentScroll < $(document).height() - $(window).height()) {
 				if (currentScroll > previousScroll) {
 					hideNav();

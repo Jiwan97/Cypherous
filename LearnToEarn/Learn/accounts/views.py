@@ -3,7 +3,7 @@ from .auth import *
 from django.contrib.auth import update_session_auth_hash
 from validate_email import validate_email  # pip install validate email
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .models import User, Profile
@@ -130,28 +130,21 @@ def register(request):
                                  'Username is taken, choose another one')
             context['has_error'] = True
 
-            return render(request, 'accounts/register.html', context, status=409)
-
         elif User.objects.filter(email=email).exists():
             messages.add_message(request, messages.ERROR,
                                  'Email is taken, choose another one')
             context['has_error'] = True
 
-            return render(request, 'accounts/register.html', context, status=409)
-
-        if context['has_error']:
-            return render(request, 'accounts/register.html', context)
-
-        user = User.objects.create_user(username=username, email=email)
-        user.set_password(password)
-        user.save()
+        # if context['has_error']:
+        #     return HttpResponse('')
         if not context['has_error']:
+            user = User.objects.create_user(username=username, email=email)
+            user.set_password(password)
+            user.save()
             send_activation_email(user, request)
 
             messages.add_message(request, messages.SUCCESS,
                                  'We sent you an email to verify your account')
-            return redirect('/login')
-
     return render(request, 'accounts/register.html')
 
 
@@ -179,12 +172,16 @@ def login_user(request):
                         send_notification_email(user, request)
 
                 login(request, user)
+                messages.add_message(request, messages.SUCCESS,
+                                     f'Welcome {user.username}')
                 if 'next' in request.POST:
                     return redirect(request.POST.get('next'))
                 else:
                     return redirect('/home')
             elif user.is_staff:
                 login(request, user)
+                messages.add_message(request, messages.SUCCESS,
+                                     f'Welcome {user.username}')
                 if 'next' in request.POST:
                     return redirect(request.POST.get('next'))
                 else:
