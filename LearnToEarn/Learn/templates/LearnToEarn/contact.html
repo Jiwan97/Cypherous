@@ -5,6 +5,7 @@
 {% endblock%}
 
 {% block content %}
+    {% include 'messages_render.html' %}
 	<div class="all-title-box">
 		<div class="container text-center">
 			<h1>Contact<span class="m_1">Lorem Ipsum dolroin gravida nibh vel velit.</span></h1>
@@ -19,6 +20,7 @@
             </div>
 
             <div class="row">
+
                 <div class="col-xl-6 col-md-12 col-sm-12">
                     <div class="contact_form">
                         <div id="message"></div>
@@ -68,4 +70,93 @@
             </div>
         </div>
     </div>
+{% if user.is_authenticated %}
+<script type="text/javascript">
+    $(document).on('submit','#contactform',function(e){
+        e.preventDefault();
+        $.ajax({
+            type:'POST',
+            url:"{% url 'contact' %}",
+            data:{
+                'subject':$('#subject').val(),
+                'comments':$('#comments').val(),
+                'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+            },
+            success:function(response){
+                console.log(response)
+                var error = $(response).find('#mesg')
+                console.log(error)
+                var error_c = $(error).attr('class')
+                console.log(error_c)
+                console.log(error.text())
+                $('#mesgg').removeAttr("class");
+                $('#mesgg').addClass(error_c);
+                $('#mesgg').text(error.text());
+                $('#mesgg').animate({left:'0px'},500);
+                if(error.text()=="You must enter every field to send messages to us"){
+                    window.setTimeout(function() {
+                            $('#mesgg').animate({left:'600px'});
+                            }, 5000);
+                }else{
+                    $('#contactform').trigger("reset");
+                    window.setTimeout(function() {
+                            $('#mesgg').animate({left:'600px'});
+                            }, 5000);
+                }
+            },
+            error:function(response){
+                console.log(response)
+
+            },
+        });
+    });
+</script>
+{% else %}
+<script type="text/javascript">
+    $(document).on('submit','#contactform',function(e){
+        e.preventDefault();
+        $.ajax({
+            type:'POST',
+            url:"{% url 'contact' %}",
+            data:{
+                'first_name':$('#first_name').val(),
+                'last_name':$('#last_name').val(),
+                'email':$('#email').val(),
+                'phone':$('#phone').val(),
+                'subject':$('#subject').val(),
+                'comments':$('#comments').val(),
+                'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+            },
+            success:function(response){
+                console.log(response)
+                var error = $(response).find('#mesg')
+                console.log(error)
+                var error_c = $(error).attr('class')
+                console.log(error_c)
+                console.log(error.text())
+                $('#mesgg').removeAttr("class");
+                $('#mesgg').addClass(error_c);
+                $('#mesgg').text(error.text());
+                $('#mesgg').animate({left:'0px'},500);
+                if(error.text()=="All field required"){
+                    window.setTimeout(function() {
+                            $('#mesgg').animate({left:'600px'});
+                            }, 5000);
+                }else{
+                    $('#contactform').trigger("reset");
+                    window.setTimeout(function() {
+                            $('#mesgg').animate({left:'600px'});
+                            }, 5000);
+                }
+
+            },
+            error:function(response){
+                console.log(response)
+
+            },
+        });
+    });
+</script>
+
+{% endif %}
 {% endblock %}

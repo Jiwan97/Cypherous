@@ -164,8 +164,9 @@ a {
     }
 }
 </style>
+{% include 'messages_render.html' %}
   <div class="st container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
-    {% include 'messages_render.html' %}
+
     <div class="card card0 border-0">
         <div class="row d-flex">
             <div class="col-lg-6">
@@ -237,6 +238,7 @@ a {
                 $('#mesgg').text(error.text());
                 $('#mesgg').animate({left:'0px'},500);
                 if(error.text()=="We sent you an email to verify your account"){
+                    $('#signup').trigger("reset");
                     window.setTimeout(function() {
                                 $('#mesgg').animate({left:'400px'});
                                 }, 2000);
@@ -246,7 +248,7 @@ a {
                 }else {
                     window.setTimeout(function() {
                             $('#mesgg').animate({left:'400px'});
-                            }, 3000);
+                            }, 4000);
                 }
             },
             error:function(response){

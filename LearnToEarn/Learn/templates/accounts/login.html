@@ -164,6 +164,7 @@ a {
     }
 }
 </style>
+  {% include 'messages_render.html' %}
   <div class="st container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
     <div class="card card0 border-0">
         <div class="row d-flex">
@@ -188,19 +189,19 @@ a {
                         <div class="line"></div> <small class="or text-center">Or</small>
                         <div class="line"></div>
                     </div>
-                    <form method="POST" action="">
+                    <form id="login" method="POST" action="">
                     {% csrf_token %}
                         <div class="row px-3"> <label class="mb-1">
                                 <h6 class="mb-0 text-sm">Username</h6>
-                            </label> <input class="mb-4" type="text" name="username" value="{{ data.username }}" placeholder="Enter Username"> </div>
+                            </label> <input class="mb-4" type="text" id="username" name="username" value="{{ data.username }}" placeholder="Enter Username"> </div>
                         <div class="row px-3"> <label class="mb-1">
                                 <h6 class="mb-0 text-sm">Password</h6>
-                            </label> <input type="password" name="password" placeholder="Enter password"> </div>
+                            </label> <input type="password" id="password" name="password" placeholder="Enter password"> </div>
                         <div class="row px-3 mb-4">
                             <div class="custom-control custom-checkbox custom-control-inline"> <input id="chk1" type="checkbox" name="chk" class="custom-control-input"> <label for="chk1" class="custom-control-label text-sm">Remember me</label> </div> <a href="/forgot-p" class="ml-auto mb-0 text-sm">Forgot Password?</a>
                         </div>
                         {% if request.GET.next %}
-                        <input type="hidden" name="next" value="{{request.GET.next}}">
+                        <input id="url" type="hidden" name="next" value="{{request.GET.next}}">
                         {% endif %}
                         <div class="row mb-3 px-3"> <button type="submit" class="btn btn-blue text-center">Login</button> </div>
                     </form>
@@ -210,4 +211,55 @@ a {
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).on('submit','#login',function(e){
+        e.preventDefault();
+        $.ajax({
+            type:'POST',
+            url:"{% url 'login' %}",
+            data:{
+                'username':$('#username').val(),
+                'password':$('#password').val(),
+                'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+            },
+            success:function(response){
+                console.log(response)
+                var error = $(response).find('#mesg')
+                console.log(error)
+                var error_c = $(error).attr('class')
+                console.log(error_c)
+                console.log(error.text())
+                var url = $('#url').val();
+                var user = $('#username').val()
+
+                $('#mesgg').removeAttr("class");
+                $('#mesgg').addClass(error_c);
+                $('#mesgg').text(error.text());
+                $('#mesgg').animate({left:'0px'},500);
+
+                if(error.text()== `Welcome ${user}`){
+                    $('#login').trigger("reset");
+                    window.setTimeout(function() {
+                                $('#mesgg').animate({left:'400px'});
+                                }, 2000);
+                    window.setTimeout(function() {
+                        if(url){
+                            window.location = url;
+                        }else{
+                            window.location = "/home";
+                        }
+                    }, 2250);
+                }else {
+                    window.setTimeout(function() {
+                            $('#mesgg').animate({left:'400px'});
+                            }, 4000);
+                }
+            },
+            error:function(response){
+                console.log(response)
+
+            },
+        });
+    });
+</script>
 {% endblock %}

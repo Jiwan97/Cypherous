@@ -159,13 +159,12 @@ def login_user(request):
         if not user:
             messages.add_message(request, messages.ERROR,
                                  'Invalid Username or Password')
-            return render(request, 'accounts/login.html', context, status=401)
+
         else:
             if not user.is_staff:
                 if user and not user.is_email_verified:
                     messages.add_message(request, messages.ERROR,
                                          'Email is not verified, please check your email inbox')
-                    return render(request, 'accounts/login.html', context, status=401)
 
                 if user.profile.sendNotification:
                     if user.is_active:

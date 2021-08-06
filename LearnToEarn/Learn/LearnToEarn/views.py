@@ -107,21 +107,26 @@ def newsView(request, id):
         return render(request, 'LearnToEarn/newsView.html', context)
 
 
+
 def contactmessages(request):
     if request.method == "POST":
         if request.user.is_authenticated:
             subject = request.POST.get('subject')
             query = request.POST.get('comments')
-            message = ContactMessage()
-            message.firstname = request.user.profile.firstname
-            message.lastname = request.user.profile.lastname
-            message.email = request.user.profile.email
-            message.phonenumber = request.user.profile.phonenumber
-            message.subject = subject
-            message.query = query
-            message.save()
-            messages.success(request, "Message Send successfully. Thank you!")
-            return redirect('/contact')
+            if subject and query:
+                message = ContactMessage()
+                message.firstname = request.user.profile.firstname
+                message.lastname = request.user.profile.lastname
+                message.email = request.user.profile.email
+                message.phonenumber = request.user.profile.phonenumber
+                message.subject = subject
+                message.query = query
+                message.save()
+                messages.success(request, "Your message has been sent. Your will receive your response shortly. Thank "
+                                          "you!")
+            else:
+                messages.error(request, "You must enter every field to send messages to us")
+
         else:
             firstname = request.POST.get('first_name')
             lastname = request.POST.get('last_name')
@@ -129,16 +134,19 @@ def contactmessages(request):
             phonenumber = request.POST.get('phone')
             subject = request.POST.get('subject')
             query = request.POST.get('comments')
-            message = ContactMessage()
-            message.firstname = firstname
-            message.lastname = lastname
-            message.email = email
-            message.phonenumber = phonenumber
-            message.subject = subject
-            message.query = query
-            message.save()
-            messages.success(request, "Message Send successfully. Thank you!")
-            return redirect('/contact')
+            if firstname and lastname and phonenumber and email and subject and query:
+                message = ContactMessage()
+                message.firstname = firstname
+                message.lastname = lastname
+                message.email = email
+                message.phonenumber = phonenumber
+                message.subject = subject
+                message.query = query
+                message.save()
+                messages.success(request, "Your Message has been sent. Your will receive your response shortly. Thank "
+                                          "you!")
+            else:
+                messages.error(request, "You must enter every field to send messages to us")
 
     context = {
         'activate_c': 'active'

@@ -26,7 +26,7 @@
                         <p style="text-indent:50px; color:#854e85; background-color:#fdfdfd"><b>{{form.query}}</b></p>
 
                         <p>Sincerely,</p>
-                        <p style="text-indent:50px; text-transform: lowercase; text-transform: capitalize; margin-top:-15px;">{{form.firstname}}</p>
+                        <p style="text-indent:50px; text-transform: lowercase; text-transform: capitalize; margin-top:-15px;">{{form.firstname}} {{form.lastname}}</p>
                         <br>
                         {% if form.responded %}
                         <a  href="/admins-dashboard/response/{{form.id}}" style="margin-left:450px;" class="btn btn-info btn-sm disabled">Already Responded</a>
