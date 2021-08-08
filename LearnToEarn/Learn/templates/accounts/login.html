@@ -223,21 +223,17 @@ a {
                 'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
             },
             success:function(response){
-                console.log(response)
                 var error = $(response).find('#mesg')
-                console.log(error)
                 var error_c = $(error).attr('class')
-                console.log(error_c)
-                console.log(error.text())
                 var url = $('#url').val();
                 var user = $('#username').val()
-
+                var text = `Welcome ${user}`
+                var text1= `Welcome Admin ${user}`
                 $('#mesgg').removeAttr("class");
                 $('#mesgg').addClass(error_c);
                 $('#mesgg').text(error.text());
                 $('#mesgg').animate({left:'0px'},500);
-
-                if(error.text()== `Welcome ${user}`){
+                if((error.text()).toUpperCase() == text.toUpperCase()){
                     $('#login').trigger("reset");
                     window.setTimeout(function() {
                                 $('#mesgg').animate({left:'400px'});
@@ -247,6 +243,18 @@ a {
                             window.location = url;
                         }else{
                             window.location = "/home";
+                        }
+                    }, 2250);
+                }else if((error.text()).toUpperCase() == text1.toUpperCase()) {
+                    $('#login').trigger("reset");
+                    window.setTimeout(function() {
+                                $('#mesgg').animate({left:'400px'});
+                                }, 2000);
+                    window.setTimeout(function() {
+                        if(url){
+                            window.location = url;
+                        }else{
+                            window.location = "/admins-dashboard";
                         }
                     }, 2250);
                 }else {

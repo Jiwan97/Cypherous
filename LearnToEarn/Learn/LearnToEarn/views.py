@@ -61,6 +61,8 @@ def newsPortal(request):
         'news': page,
         'tags': tags,
         'pics': pics,
+        'activate_n': 'active',
+        'url_next': '?next=/newsPortal',
     }
     return render(request, 'LearnToEarn/NewsPortal.html', context)
 
@@ -81,6 +83,8 @@ def tagView(request, slug):
         'news': page,
         'tags': tags,
         'pics': pics,
+        'activate_n': 'active',
+        'url_next': '?next=/newsPortal',
     }
     return render(request, 'LearnToEarn/NewsPortal.html', context)
 
@@ -103,9 +107,10 @@ def newsView(request, id):
                    'comments': comments,
                    'pics': pics,
                    'form': V_final,
-                   'tags': tags}
+                   'tags': tags,
+                   'activate_n': 'active',
+                   'url_next': f'?next=/newsPortal/{id}', }
         return render(request, 'LearnToEarn/newsView.html', context)
-
 
 
 def contactmessages(request):
@@ -149,6 +154,7 @@ def contactmessages(request):
                 messages.error(request, "You must enter every field to send messages to us")
 
     context = {
+        'url_next': '?next=/contact',
         'activate_c': 'active'
     }
     return render(request, 'LearnToEarn/contact.html', context)
