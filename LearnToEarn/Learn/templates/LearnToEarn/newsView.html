@@ -6,6 +6,11 @@
 {% endblock%}
 
 {% block content %}
+<style>
+html {
+  scroll-behavior: smooth;
+}
+</style>
 <link rel="stylesheet" href="{% static 'typography.css'%}">
 <link rel="stylesheet" href="{% static '/shortcodes/shortcodes.css'%}">
 <div class="content-block">
@@ -24,8 +29,8 @@
 							</div>
 							<ul class="media-post">
 								<li><a href="#"><i class="fa fa-calendar"></i>{{news.date_posted| date:"F d, Y"}}</a></li>
-								<li><a href="#"><i class="fa fa-comments-o"></i>{{comments.count}} Comment</a></li>
-								<li><a href="#"><i class="fa fa-user"></i>by {{news.user.username}}</a></li>
+								<li><a href="#comment-list"><i class="fa fa-comments-o"></i>{{comments.count}} Comment</a></li>
+								<li><a href="#"><i class="fa fa-user"></i>by {{news.user.profile.firstname}} {{news.user.profile.lastname}}</a></li>
 							</ul>
 							<h5 class="post-title"><a href="#">{{news.heading}}</a></h5>
 							<p style="white-space: pre-line;">{{news.content|safe}}</p>
@@ -65,7 +70,7 @@
 									{% for comment in comments %}
 									<li class="comment">
 										<div class="comment-body">
-											<div class="comment-author vcard"> <img  class="avatar photo" src="/{{comment.user.profile.profile_pic}}" alt=""> <cite class="fn">{{comment.user.profile.firstname}} {{comment.user.profile.lastname}}</cite> <span class="says">says:</span> </div>
+											<div class="comment-author vcard"> <img  class="avatar photo" src="/{{comment.user.profile.profile_pic}}" alt=""><a href="/viewprofile/{{comment.user.profile.username}}"> <cite class="fn">{{comment.user.profile.firstname}} {{comment.user.profile.lastname}}</cite></a> <span class="says">says:</span> </div>
 											<div class="comment-meta"> <a href="#">{{comment.date_commented}}</a> </div>
 											<p style="white-space: pre-line;">{{comment.comment}}</p>
 										</div>

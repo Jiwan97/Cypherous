@@ -3990,6 +3990,11 @@ ol.comment-list li.comment .comment-author .fn {
     font-weight: 500;
     font-style: normal;
 }
+ol.comment-list li.comment .comment-author .fn:hover {
+
+    color: red;
+
+}
 ol.comment-list li.comment .comment-author .says {
     display: none;
     color: #999999;
