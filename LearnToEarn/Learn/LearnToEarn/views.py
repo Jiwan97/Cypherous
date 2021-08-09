@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.views.generic import ListView, DetailView
 from .models import News, Comment, ContactMessage
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib import messages
 from django.core.paginator import Paginator
 from admins.filters import VFilter
@@ -93,8 +93,16 @@ def newsView(request, id):
     if request.method == 'POST':
         comment = request.POST.get('comment-message')
         cmt = Comment.objects.create(comment=comment, user_id=request.user.id, news_id=id)
+        count = Comment.objects.filter(news_id=id).count()
+        comment_data = Comment.objects.values().filter(id=cmt.id)
+        data = list(comment_data)
+
         if cmt:
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            return JsonResponse(
+                {'data': data, 'count': count, 'username': request.user.profile.username,
+                 'firstname': request.user.profile.firstname,
+                 'lastname': request.user.profile.lastname, 'profile': str(request.user.profile.profile_pic)},
+                safe=False)
     else:
         Allnews = News.objects.all().order_by('-date_posted')
         V_filter = VFilter(request.GET, queryset=Allnews)
@@ -102,7 +110,7 @@ def newsView(request, id):
         tags = News.Tags.all()[:13]
         news = News.objects.get(id=id)
         pics = News.objects.values_list('news_pic', flat=True).distinct()
-        comments = Comment.objects.filter(news_id=id)
+        comments = Comment.objects.filter(news_id=id).order_by('-date_commented')
         context = {'news': news,
                    'comments': comments,
                    'pics': pics,

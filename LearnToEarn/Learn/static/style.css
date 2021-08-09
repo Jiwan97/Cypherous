@@ -3966,7 +3966,7 @@ ol.comment-list li.comment .comment-body {
     position: relative;
     margin-bottom: 40px;
     margin-left: 80px;
-    position: relative;
+    border-bottom:2px solid #f2f2f2;
 }
 ol.comment-list li.comment .comment-author {
     display: block;
@@ -4113,7 +4113,6 @@ ol.comment-list li.comment .comment-respond .comment-form p {
     border: 1px solid #000;
     border-radius: 0;
     -webkit-border-radius: 0;
-	text-transform: capitalize;
 	border-width: 0 0 2px 0;
 	color: #000000;
 	background: transparent;

@@ -66,7 +66,7 @@ html {
 						<div class="comments-area" id="comments">
 							<h2 class="comments-title">{{comments.count}} Comments</h2>
 							<div class="clearfix m-b20">
-								<ol class="comment-list">
+								<ol id="comment-all" class="comment-list">
 									{% for comment in comments %}
 									<li class="comment">
 										<div class="comment-body">
@@ -84,7 +84,7 @@ html {
 											{% csrf_token %}
 											<p class="comment-form-comment">
 												<label for="comment">Comment</label>
-												<textarea rows="8" name="comment-message" placeholder="Comment" id="comment"></textarea>
+												<textarea rows="8" required name="comment-message" placeholder="Comment" id="comment"></textarea>
 											</p>
 											<p class="form-submit">
 												<input type="submit" value="Submit Comment" class="submit" id="submit" name="submit">
@@ -171,6 +171,56 @@ html {
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+    $(document).on('submit','#commentform',function(e){
+        e.preventDefault();
 
+		$.ajax({
+			type:'POST',
+			url:"{% url 'news-view' news.id %}",
+			data:{
+				'comment-message':$('#comment').val(),
+				'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+			},
+			success:function(response){
+				data= response.data
+				var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+				var today = new Date();
+				var date = months[today.getMonth()]+'.'+' '+ today.getDate()+','+' '+today.getFullYear()+',';
+				var hr = today.getHours();
+				var min = today.getMinutes();
+				if (min < 10) {
+					min = "0" + min;
+				}
+				var ampm = "A.M";
+				if( hr > 12 ) {
+					hr -= 12;
+					ampm = "P.M";
+				}
+				var time = hr + ":" + min+ ' '+ ampm;
+				var dateTime = date+' '+time;
+				console.log(dateTime)
+				$('.comments-title').empty()
+				$('.comments-title').append(`${response.count} Comments`)
+				$('#comment-all').append(
+				`
+				<li class="comment">
+					<div class="comment-body">
+						<div class="comment-author vcard"> <img  class="avatar photo" src="/${response.profile}" alt=""><a href="/viewprofile/${response.username}"> <cite class="fn">${response.firstname} ${response.lastname}</cite></a> <span class="says">says:</span> </div>
+						<div class="comment-meta"> <a href="#">${dateTime}</a> </div>
+						<p style="white-space: pre-line;">${data[0].comment}</p>
+					</div>
+				</li>
+				`
+				)
+			},
+			error:function(response){
+				console.log(response)
+
+			},
+		});
+
+    });
+</script>
 
 {% endblock %}
