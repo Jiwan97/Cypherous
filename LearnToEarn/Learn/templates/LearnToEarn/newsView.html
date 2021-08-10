@@ -184,6 +184,7 @@ html {
 			},
 			success:function(response){
 				data= response.data
+				$("body").css("cursor", "wait");
 				var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 				var today = new Date();
 				var date = months[today.getMonth()]+'.'+' '+ today.getDate()+','+' '+today.getFullYear()+',';
@@ -202,17 +203,21 @@ html {
 				console.log(dateTime)
 				$('.comments-title').empty()
 				$('.comments-title').append(`${response.count} Comments`)
-				$('#comment-all').append(
-				`
-				<li class="comment">
-					<div class="comment-body">
-						<div class="comment-author vcard"> <img  class="avatar photo" src="/${response.profile}" alt=""><a href="/viewprofile/${response.username}"> <cite class="fn">${response.firstname} ${response.lastname}</cite></a> <span class="says">says:</span> </div>
-						<div class="comment-meta"> <a href="#">${dateTime}</a> </div>
-						<p style="white-space: pre-line;">${data[0].comment}</p>
-					</div>
-				</li>
-				`
-				)
+				$('#commentform').trigger('reset')
+				window.setTimeout(function() {
+					$("body").css("cursor", "default");
+					$('#comment-all').append(
+						`
+						<li class="comment">
+							<div class="comment-body">
+								<div class="comment-author vcard"> <img  class="avatar photo" src="/${response.profile}" alt=""><a href="/viewprofile/${response.username}"> <cite class="fn">${response.firstname} ${response.lastname}</cite></a> <span class="says">says:</span> </div>
+								<div class="comment-meta"> <a href="#">${dateTime}</a> </div>
+								<p style="white-space: pre-line;">${data[0].comment}</p>
+							</div>
+						</li>
+						`
+					)
+				}, 1000);
 			},
 			error:function(response){
 				console.log(response)
