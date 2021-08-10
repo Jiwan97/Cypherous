@@ -68,11 +68,14 @@ html {
 							<div class="clearfix m-b20">
 								<ol id="comment-all" class="comment-list">
 									{% for comment in comments %}
-									<li class="comment">
+									<li id="comment-{{comment.id}}" class="comment">
 										<div class="comment-body">
 											<div class="comment-author vcard"> <img  class="avatar photo" src="/{{comment.user.profile.profile_pic}}" alt=""><a href="/viewprofile/{{comment.user.profile.username}}"> <cite class="fn">{{comment.user.profile.firstname}} {{comment.user.profile.lastname}}</cite></a> <span class="says">says:</span> </div>
 											<div class="comment-meta"> <a href="#">{{comment.date_commented}}</a> </div>
 											<p style="white-space: pre-line;">{{comment.comment}}</p>
+											{% if user.id == comment.user_id %}
+												<div class="delete"><b class="btn-link" style="font-size:10px" onclick="deleteCom({{comment.id}})">Delete</b></div>
+											{% endif %}
 										</div>
 									</li>
 									{% endfor %}
@@ -201,18 +204,19 @@ html {
 				var time = hr + ":" + min+ ' '+ ampm;
 				var dateTime = date+' '+time;
 				console.log(dateTime)
-				$('.comments-title').empty()
-				$('.comments-title').append(`${response.count} Comments`)
 				$('#commentform').trigger('reset')
 				window.setTimeout(function() {
+					$('.comments-title').empty()
+					$('.comments-title').append(`${response.count} Comments`)
 					$("body").css("cursor", "default");
 					$('#comment-all').append(
 						`
-						<li class="comment">
+						<li id="comment-${data[0].id}" class="comment">
 							<div class="comment-body">
 								<div class="comment-author vcard"> <img  class="avatar photo" src="/${response.profile}" alt=""><a href="/viewprofile/${response.username}"> <cite class="fn">${response.firstname} ${response.lastname}</cite></a> <span class="says">says:</span> </div>
 								<div class="comment-meta"> <a href="#">${dateTime}</a> </div>
 								<p style="white-space: pre-line;">${data[0].comment}</p>
+								<div class="delete"><b class="btn-link" style="font-size:10px" onclick="deleteCom(${data[0].id})">Delete</b></div>
 							</div>
 						</li>
 						`
@@ -226,6 +230,23 @@ html {
 		});
 
     });
+
+    function deleteCom(id) {
+	  var action = confirm("Are you sure you want to delete this user?");
+	  if (action != false) {
+		$.ajax({
+			url: '{% url 'del-com' news.id %}',
+			data: {
+				'id': id,
+			},
+			success:function(response){
+				$('.comments-title').empty()
+				$('.comments-title').append(`${response.count} Comments`)
+				$('#comment-'+id).remove()
+			}
+		});
+	  }
+	}
 </script>
 
 {% endblock %}

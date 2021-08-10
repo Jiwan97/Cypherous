@@ -3394,6 +3394,7 @@ blockquote.default {
 	overflow: hidden;
 	position: relative;
 	margin-top: 30px;
+	height:150px;
 }
 .author-bio {
     display: block;
@@ -3960,6 +3961,7 @@ ol.comment-list {
 }
 ol.comment-list li.comment {
     position: relative;
+    overflow:hidden;
     padding: 0;
 }
 ol.comment-list li.comment .comment-body {
@@ -4004,6 +4006,16 @@ ol.comment-list li.comment .comment-meta {
     color: #8d8d8d;
     text-transform: uppercase;
     margin-bottom: 15px;
+}
+ol.comment-list li.comment .delete {
+    color: #8d8d8d;
+    text-transform: uppercase;
+    margin-top: -90px;
+    float:right;
+}
+ol.comment-list li.comment .delete:hover {
+    cursor:pointer;
+    text-decoration:none;
 }
 ol.comment-list li.comment .comment-meta a {
     color: #8d8d8d;
@@ -4266,6 +4278,10 @@ padding: 8px 10px;
     color: #000;
 	font-weight: 400;
 	text-transform:capitalize;
+}
+.media-post li b:hover{
+    background-color: #000;
+    color:#fff;
 }
 .media-post li a i{
 	margin-right:5px;

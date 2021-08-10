@@ -121,6 +121,14 @@ def newsView(request, id):
         return render(request, 'LearnToEarn/newsView.html', context)
 
 
+def DeleteComments(request, news_id):
+    id = request.GET.get('id', None)
+    delete = Comment.objects.get(id=id)
+    delete.delete()
+    count = Comment.objects.filter(news_id=news_id).count()
+    return JsonResponse({'count': count}, safe=False)
+
+
 def contactmessages(request):
     if request.method == "POST":
         if request.user.is_authenticated:
