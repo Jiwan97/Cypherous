@@ -180,7 +180,7 @@ def login_user(request):
             elif user.is_staff:
                 login(request, user)
                 messages.add_message(request, messages.SUCCESS,
-                                     f'Welcome Admin {user.username}')
+                                     f'Welcome to Admin-Dashboard, {user.username}')
                 if 'next' in request.POST:
                     return redirect(request.POST.get('next'))
                 else:
