@@ -74,12 +74,13 @@ html {
 											<div class="comment-meta"> <a href="#">{{comment.date_commented}}</a> </div>
 											<p style="white-space: pre-line;">{{comment.comment}}</p>
 											{% if user.id == comment.user_id %}
-												<div class="delete"><b class="btn-link" style="font-size:10px" onclick="deleteCom({{comment.id}})">Delete</b></div>
+												<div class="delete"><b class="small-btn" onclick="deleteCom({{comment.id}})">Delete</b></div>
 											{% endif %}
 										</div>
 									</li>
 									{% endfor %}
 								</ol>
+<!--								<b class="read-m">Load More Comments</b>-->
 								<div class="comment-respond" id="respond">
 									<h4 class="comment-reply-title" id="reply-title">Leave a Reply <small> <a style="display:none;" href="#" id="cancel-comment-reply-link" rel="nofollow">Cancel reply</a> </small> </h4>
 									{% if user.is_authenticated %}
@@ -232,7 +233,7 @@ html {
     });
 
     function deleteCom(id) {
-	  var action = confirm("Are you sure you want to delete this user?");
+	  var action = confirm("You are going to delete this comment?");
 	  if (action != false) {
 		$.ajax({
 			url: '{% url 'del-com' news.id %}',

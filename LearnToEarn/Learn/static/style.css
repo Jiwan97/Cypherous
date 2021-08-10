@@ -4243,9 +4243,20 @@ ol.comment-list li.comment .comment-respond .comment-form p {
 }
 .post-extra {
     display: flex;
-    border-top: 1px solid #EEEEEE;
+
     padding-top: 20px;
 	margin-top: 20px;
+}
+.small-btn {
+    font-size:10px;
+    font-weight:bold;
+    color:black;
+
+}
+.small-btn:hover {
+    color:red;
+    cursor:pointer;
+
 }
 .media-post{
 	border-bottom: 1px solid #EEEEEE;
