@@ -26,7 +26,7 @@
 						<div class="info-bx">
 							<ul class="media-post">
 								<li><i class="fa fa-calendar"></i> <a href="#">{{news.date_posted| date:"F d, Y"}}</a></li>
-								<li> <i class="fa fa-user"></i> By <a href="/viewprofile/{{news.user.profile.username}}"> {{news.user.profile.firstname}} {{news.user.profile.lastname}}</a></li>
+								<li> <i class="fa fa-user"></i> By <a href="/newsPortal/post-by/{{news.user.id}}"> {{news.user.profile.firstname}} {{news.user.profile.lastname}}</a></li>
 
 								<li><i class="fa fa-tag"></i>Tags:
 									{% for tag in news.Tags.all|slice:4 %}

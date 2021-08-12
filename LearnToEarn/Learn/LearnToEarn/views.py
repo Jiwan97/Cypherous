@@ -89,6 +89,27 @@ def tagView(request, slug):
     return render(request, 'LearnToEarn/NewsPortal.html', context)
 
 
+def UserView(request, username):
+    form = News.objects.filter(user=username).order_by('-date_posted')
+    form1 = News.objects.all().order_by('-date_posted')
+    V_filter = VFilter(request.GET, queryset=form1)
+    V_final = V_filter.qs
+    tags = News.Tags.all()[:13]
+    pics = News.objects.values_list('news_pic', flat=True).distinct()
+    p = Paginator(form, 3)
+    page_no = request.GET.get('page', 1)
+    page = p.page(page_no)
+    context = {
+        'form': V_final,
+        'news': page,
+        'tags': tags,
+        'pics': pics,
+        'activate_n': 'active',
+        'url_next': '?next=/newsPortal',
+    }
+    return render(request, 'LearnToEarn/NewsPortal.html', context)
+
+
 def newsView(request, id):
     if request.method == 'POST':
         comment = request.POST.get('comment-message')

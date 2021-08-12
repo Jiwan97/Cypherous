@@ -17,6 +17,7 @@ urlpatterns = [
     path('courseDesk/', views.courseDesk),
     path('newsPortal/', views.newsPortal, name='news-portal'),
     path('newsPortal/category/<slug:slug>', views.tagView),
+    path('newsPortal/post-by/<str:username>', views.UserView),
     path('newsPortal/<int:id>/', views.newsView, name='news-view'),
     path('delComments/<int:news_id>/', views.DeleteComments, name='del-com'),
 ]
