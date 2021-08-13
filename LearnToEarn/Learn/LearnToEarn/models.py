@@ -43,3 +43,56 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return self.firstname
+
+
+class Course(models.Model):
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    course_name = models.CharField("Course Name", max_length=200, null=True, default="Not Updated",
+                                   validators=[validators.MinLengthValidator(4)])
+    course_summary = models.CharField("Course Summary", max_length=200, null=True, default="Not Updated",
+                                      validators=[validators.MinLengthValidator(4)])
+    to_learn = RichTextField("What students needs to learn before joining this course", max_length=200, null=True,
+                             default="You can join this course right away",
+                             )
+    course_pic = models.ImageField("Course Pic", max_length=500, upload_to='static/uploads',
+                                   default='static/images/newsDefault.jpg')
+    date = models.DateField(auto_now_add=True, null=True)
+    category = TaggableManager()
+
+    def __str__(self):
+        return self.course_name
+
+
+class CourseEnrollement(models.Model):
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    course = models.OneToOneField(Course, null=True, on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True, null=True)
+    enrolled = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.enrolled
+
+
+class CourseModule(models.Model):
+    course = models.ForeignKey(Course, null=True, on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True, null=True)
+    modulenumber = models.IntegerField('Lecture Number', max_length=30, null=True
+                                       )
+    module = models.CharField('Module Name', max_length=200, null=True,
+                              validators=[validators.MinLengthValidator(4)])
+
+    ModuleLecture = RichTextField('Module Lecture', max_length=200, null=True,
+                                  validators=[validators.MinLengthValidator(4)])
+
+    def __str__(self):
+        return self.module
+
+    class Meta:
+        ordering = ('modulenumber',)
+
+
+class CourseReview(models.Model):
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, null=True, on_delete=models.CASCADE)
+    comment = models.CharField(max_length=200, null=True, default="Not Updated",
+                               validators=[validators.MinLengthValidator(4)])

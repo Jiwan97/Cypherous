@@ -1,11 +1,14 @@
 {% extends 'layout-admin.html' %}
-{% load static %}
-{% load crispy_forms_tags %}
 {% load bootstrap %}
 {% block title %}
     <title>Learn To Earn</title>
 {% endblock%}
 {% block content %}
+<style>
+.col-sm-2 {
+max-width:400% !important;
+}
+</style>
 <div id="layoutSidenav">
     {% include 'navbar-admin.html' %}
     <div id="layoutSidenav_content">
@@ -18,7 +21,7 @@
                     {{ form.media }}
                     {{ form | bootstrap_horizontal }}
                     <br>
-                    <button type="submit" class="btn btn-primary">Publish</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
                 </div>
             </div>

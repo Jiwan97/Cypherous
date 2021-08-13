@@ -1,11 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from accounts.auth import admin_only
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from accounts.views import send_response_email
 from accounts.models import User
-from .forms import NewsForm, ResponseForm
-from LearnToEarn.models import News, ContactMessage
+from .forms import NewsForm, ResponseForm, CourseForm, ModuleForm
+from LearnToEarn.models import News, ContactMessage, Course, CourseModule
 import os
 
 
@@ -15,9 +15,11 @@ def admin_dashboard(request):
     totalNews = News.objects.all().count()
     users = User.objects.filter(is_staff=False)
     totalmssg = ContactMessage.objects.all().count()
+    totalcourse = Course.objects.all().count()
     context = {'users': users,
                'totalNews': totalNews,
-               'totalmssg': totalmssg}
+               'totalmssg': totalmssg,
+               'totalcourse': totalcourse}
     return render(request, 'admins/adminDashboard.html', context)
 
 
@@ -44,7 +46,7 @@ def newsPost(request):
             return redirect('/admins-dashboard/allNews')
 
     context = {'form': form}
-    return render(request, 'admins/newsPostCreate.html', context)
+    return render(request, 'admins/CreateAdd.html', context)
 
 
 @login_required
@@ -117,3 +119,109 @@ def Response_(request, id):
         'form': response
     }
     return render(request, 'admins/Response_.html', context)
+
+
+@login_required()
+@admin_only
+def allCourses(request):
+    total_courses = Course.objects.all().order_by('-id')
+    context = {'courses': total_courses}
+    return render(request, 'admins/allCourses.html', context)
+
+
+@login_required()
+@admin_only
+def CourseCreate(request):
+    form = CourseForm()
+    if request.method == "POST":
+        form = CourseForm(request.POST, request.FILES)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.user = request.user
+            instance.save()
+            form.save_m2m()
+            messages.success(request, 'Course added successfully.')
+            return redirect('/admins-dashboard/allCourses')
+
+    context = {'form': form}
+    return render(request, 'admins/CreateAdd.html', context)
+
+
+@login_required
+@admin_only
+def DeleteCourse(request, course_id):
+    delete = Course.objects.get(id=course_id)
+    if delete.news_pic == 'static/images/newsDefault.jpg':
+        delete.delete()
+    else:
+        os.remove(delete.news_pic.path)
+        delete.delete()
+    return redirect('/admins-dashboard/allCourses')
+
+
+@login_required()
+@admin_only
+def allModules(request, course_id):
+    total_modules = CourseModule.objects.filter(course_id=course_id)
+    context = {'modules': total_modules,
+               'course_id': course_id}
+    return render(request, 'admins/allModules.html', context)
+
+
+@login_required()
+@admin_only
+def ModuleCreate(request, course_id):
+    form = ModuleForm()
+    context = {'form': form}
+    if request.method == "POST":
+        form = ModuleForm(request.POST)
+        if form.is_valid():
+            number = form.cleaned_data['modulenumber']
+            if CourseModule.objects.filter(course_id=course_id, modulenumber=number).exists():
+                messages.add_message(request, messages.ERROR,
+                                     'Lecture no. already exits')
+                return render(request, 'admins/CreateAdd.html', context)
+            instance = form.save(commit=False)
+            course = Course.objects.get(id=course_id)
+            instance.course = course
+            instance.save()
+            messages.success(request, 'Module added successfully.')
+            return redirect(f'/admins-dashboard/allModules/{course_id}')
+
+    return render(request, 'admins/CreateAdd.html', context)
+
+
+@login_required
+@admin_only
+def editModule(request, course_id, module_id):
+    Module = CourseModule.objects.get(id=module_id)
+    context = {
+        'form': ModuleForm(instance=Module),
+    }
+    if request.method == 'POST':
+        form = ModuleForm(request.POST, instance=Module)
+        if form.is_valid():
+            number = form.cleaned_data['modulenumber']
+            try:
+                delete = CourseModule.objects.get(course_id=course_id, id=module_id)
+                delete.modulenumber=0
+                delete.save()
+            except Exception:
+                pass
+            if CourseModule.objects.filter(course_id=course_id, modulenumber=number).exists():
+                messages.add_message(request, messages.ERROR,
+                                     'Lecture no. already exits')
+                return render(request, 'admins/CreateAdd.html', context)
+            form.save()
+            messages.success(request, 'Module updated successfully.')
+            return redirect(f'/admins-dashboard/allModules/{course_id}')
+
+    return render(request, 'admins/editNewsPost.html', context)
+
+
+@login_required
+@admin_only
+def DeleteModule(request, course_id, module_id):
+    delete = CourseModule.objects.get(id=module_id)
+    delete.delete()
+    return redirect(f'/admins-dashboard/allModules/{course_id}')
