@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.views.generic import ListView, DetailView
-from .models import News, Comment, ContactMessage
+from .models import News, Comment, ContactMessage, Course, CourseModule
 from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib import messages
 from django.core.paginator import Paginator
@@ -22,8 +22,17 @@ def about(request):
 
 
 def courses(request):
+    form = Course.objects.all().order_by('-date')
+    V_filter = VFilter(request.GET, queryset=form)
+    V_final = V_filter.qs
+    p = Paginator(V_final, 6)
+    page_no = request.GET.get('page', 1)
+    page = p.page(page_no)
     context = {
-        'activate_cou': 'active'}
+        'courses': page,
+        'activate_cou': 'active',
+        'url_next': '?next=/newsPortal',
+    }
     return render(request, 'LearnToEarn/courses.html', context)
 
 
@@ -31,6 +40,53 @@ def courseDesk(request):
     context = {
         'activate_couD': 'active'}
     return render(request, 'LearnToEarn/coursesDescription.html', context)
+
+
+def contactmessages(request):
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            subject = request.POST.get('subject')
+            query = request.POST.get('comments')
+            if subject and query:
+                message = ContactMessage()
+                message.firstname = request.user.profile.firstname
+                message.lastname = request.user.profile.lastname
+                message.email = request.user.profile.email
+                message.phonenumber = request.user.profile.phonenumber
+                message.subject = subject
+                message.query = query
+                message.save()
+                messages.success(request, "Your message has been sent. Your will receive your response shortly. Thank "
+                                          "you!")
+            else:
+                messages.error(request, "You must enter every field to send messages to us")
+
+        else:
+            firstname = request.POST.get('first_name')
+            lastname = request.POST.get('last_name')
+            email = request.POST.get('email')
+            phonenumber = request.POST.get('phone')
+            subject = request.POST.get('subject')
+            query = request.POST.get('comments')
+            if firstname and lastname and phonenumber and email and subject and query:
+                message = ContactMessage()
+                message.firstname = firstname
+                message.lastname = lastname
+                message.email = email
+                message.phonenumber = phonenumber
+                message.subject = subject
+                message.query = query
+                message.save()
+                messages.success(request, "Your Message has been sent. Your will receive your response shortly. Thank "
+                                          "you!")
+            else:
+                messages.error(request, "You must enter every field to send messages to us")
+
+    context = {
+        'url_next': '?next=/contact',
+        'activate_c': 'active'
+    }
+    return render(request, 'LearnToEarn/contact.html', context)
 
 
 # def contact(request):
@@ -148,50 +204,3 @@ def DeleteComments(request, news_id):
     delete.delete()
     count = Comment.objects.filter(news_id=news_id).count()
     return JsonResponse({'count': count}, safe=False)
-
-
-def contactmessages(request):
-    if request.method == "POST":
-        if request.user.is_authenticated:
-            subject = request.POST.get('subject')
-            query = request.POST.get('comments')
-            if subject and query:
-                message = ContactMessage()
-                message.firstname = request.user.profile.firstname
-                message.lastname = request.user.profile.lastname
-                message.email = request.user.profile.email
-                message.phonenumber = request.user.profile.phonenumber
-                message.subject = subject
-                message.query = query
-                message.save()
-                messages.success(request, "Your message has been sent. Your will receive your response shortly. Thank "
-                                          "you!")
-            else:
-                messages.error(request, "You must enter every field to send messages to us")
-
-        else:
-            firstname = request.POST.get('first_name')
-            lastname = request.POST.get('last_name')
-            email = request.POST.get('email')
-            phonenumber = request.POST.get('phone')
-            subject = request.POST.get('subject')
-            query = request.POST.get('comments')
-            if firstname and lastname and phonenumber and email and subject and query:
-                message = ContactMessage()
-                message.firstname = firstname
-                message.lastname = lastname
-                message.email = email
-                message.phonenumber = phonenumber
-                message.subject = subject
-                message.query = query
-                message.save()
-                messages.success(request, "Your Message has been sent. Your will receive your response shortly. Thank "
-                                          "you!")
-            else:
-                messages.error(request, "You must enter every field to send messages to us")
-
-    context = {
-        'url_next': '?next=/contact',
-        'activate_c': 'active'
-    }
-    return render(request, 'LearnToEarn/contact.html', context)
