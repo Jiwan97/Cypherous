@@ -63,7 +63,7 @@ def editnewsPost(request, id):
     context = {
         'form': NewsForm(instance=newss),
     }
-    return render(request, 'admins/editNewsPost.html', context)
+    return render(request, 'admins/updateEdit.html', context)
 
 
 @login_required
@@ -177,6 +177,7 @@ def ModuleCreate(request, course_id):
         form = ModuleForm(request.POST)
         if form.is_valid():
             number = form.cleaned_data['modulenumber']
+
             if CourseModule.objects.filter(course_id=course_id, modulenumber=number).exists():
                 messages.add_message(request, messages.ERROR,
                                      'Lecture no. already exits')
@@ -187,7 +188,10 @@ def ModuleCreate(request, course_id):
             instance.save()
             messages.success(request, 'Module added successfully.')
             return redirect(f'/admins-dashboard/allModules/{course_id}')
-
+        else:
+            messages.add_message(request, messages.ERROR,
+                                 "Please don't leave anything blank")
+            return render(request, 'admins/CreateAdd.html', context)
     return render(request, 'admins/CreateAdd.html', context)
 
 
@@ -211,12 +215,12 @@ def editModule(request, course_id, module_id):
             if CourseModule.objects.filter(course_id=course_id, modulenumber=number).exists():
                 messages.add_message(request, messages.ERROR,
                                      'Lecture no. already exits')
-                return render(request, 'admins/CreateAdd.html', context)
+                return render(request, 'admins/updateEdit.html', context)
             form.save()
             messages.success(request, 'Module updated successfully.')
             return redirect(f'/admins-dashboard/allModules/{course_id}')
 
-    return render(request, 'admins/editNewsPost.html', context)
+    return render(request, 'admins/updateEdit.html', context)
 
 
 @login_required

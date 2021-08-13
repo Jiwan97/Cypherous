@@ -194,3 +194,10 @@ SOCIALACCOUNT_PROVIDERS = {
          'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
          }
 }
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'width': 'auto',
+
+    },
+}

@@ -76,7 +76,7 @@ class CourseEnrollement(models.Model):
 class CourseModule(models.Model):
     course = models.ForeignKey(Course, null=True, on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True, null=True)
-    modulenumber = models.IntegerField('Lecture Number', max_length=30, null=True
+    modulenumber = models.IntegerField('Lecture Number', null=True
                                        )
     module = models.CharField('Module Name', max_length=200, null=True,
                               validators=[validators.MinLengthValidator(4)])
