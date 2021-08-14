@@ -12,6 +12,7 @@ urlpatterns = [
     path('delNewsPost/<int:id>/', views.DeletenewsPost),
     path('allCourses/', views.allCourses),
     path('CourseCreate/', views.CourseCreate),
+    path('editCourse/<int:course_id>/', views.editCourse),
     path('allModules/<int:course_id>', views.allModules),
     path('addModule/<int:course_id>', views.ModuleCreate),
     path('editModule/<int:course_id>/<int:module_id>/', views.editModule),

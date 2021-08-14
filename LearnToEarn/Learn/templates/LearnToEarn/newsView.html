@@ -241,9 +241,11 @@ html {
 				'id': id,
 			},
 			success:function(response){
-				$('.comments-title').empty()
-				$('.comments-title').append(`${response.count} Comments`)
-				$('#comment-'+id).remove()
+				window.setTimeout(function() {
+					$('.comments-title').empty()
+					$('.comments-title').append(`${response.count} Comments`)
+					$('#comment-'+id).remove()
+				}, 1000);
 			}
 		});
 	  }

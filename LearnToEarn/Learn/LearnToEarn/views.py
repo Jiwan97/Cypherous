@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.views.generic import ListView, DetailView
-from .models import News, Comment, ContactMessage, Course, CourseModule
+from .models import *
 from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib import messages
 from django.core.paginator import Paginator
 from admins.filters import VFilter
 from taggit.models import Tag
+from django.contrib.auth.decorators import login_required
 
 
 def home(request):
@@ -21,6 +22,7 @@ def about(request):
     return render(request, 'LearnToEarn/about.html', context)
 
 
+@login_required()
 def courses(request):
     form = Course.objects.all().order_by('-date')
     V_filter = VFilter(request.GET, queryset=form)
@@ -36,9 +38,48 @@ def courses(request):
     return render(request, 'LearnToEarn/courses.html', context)
 
 
-def courseDesk(request):
+@login_required()
+def courseEnrollment(request, course_id):
+    if CourseEnrollement.objects.filter(course_id=course_id, user=request.user).exists():
+        messages.add_message(request, messages.SUCCESS,
+                             'You are already enrolled to this course')
+        return redirect(f'/courses/courseDesk/{course_id}')
+    else:
+        enroll = CourseEnrollement()
+        enroll.user = request.user
+        enroll.course_id = course_id
+        enroll.enrolled = True
+        enroll.save()
+        messages.add_message(request, messages.SUCCESS,
+                             'You have successfully enrolled to this course')
+        return redirect(f'/courses/courseDesk/{course_id}')
+
+
+@login_required()
+def courseDesk(request, course_id):
+    enrollment = CourseEnrollement.objects.filter(course_id=course_id, user=request.user).exists()
+    enrollcount = CourseEnrollement.objects.filter(course_id=course_id).count()
+    modulecount = CourseModule.objects.filter(course_id=course_id).count()
+    maylike = Course.objects.all().order_by('date')[:3]
+    form = Course.objects.get(id=course_id)
+    tags = form.category.first()
+    tag = get_object_or_404(Tag, slug=tags)
+    related = Course.objects.filter(category=tag).exclude(id=course_id).order_by('-date')[:2]
+    lesson = CourseModule.objects.filter(course_id=course_id)
     context = {
-        'activate_couD': 'active'}
+        'course': form,
+        'lesson': lesson,
+        'category': tags,
+        'enrollment': enrollment,
+        'related': related,
+        'courselike': maylike,
+        'enrollcount': enrollcount,
+        'modulecount': modulecount,
+        'activate_cou': 'active',
+        'url_next': f'?next=/courses/courseDesk/{course_id}',
+        'activate_couD': 'active'
+    }
+
     return render(request, 'LearnToEarn/coursesDescription.html', context)
 
 

@@ -147,14 +147,29 @@ def CourseCreate(request):
     return render(request, 'admins/CreateAdd.html', context)
 
 
+def editCourse(request, course_id):
+    course = Course.objects.get(id=course_id)
+    context = {
+        'form': CourseForm(instance=course),
+    }
+    if request.method == 'POST':
+        form = CourseForm(request.POST, instance=course)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Course updated successfully.')
+            return redirect('/admins-dashboard/allCourses')
+
+    return render(request, 'admins/updateEdit.html', context)
+
+
 @login_required
 @admin_only
 def DeleteCourse(request, course_id):
     delete = Course.objects.get(id=course_id)
-    if delete.news_pic == 'static/images/newsDefault.jpg':
+    if delete.course_pic == 'static/images/newsDefault.jpg':
         delete.delete()
     else:
-        os.remove(delete.news_pic.path)
+        os.remove(delete.course_pic.path)
         delete.delete()
     return redirect('/admins-dashboard/allCourses')
 
@@ -208,7 +223,7 @@ def editModule(request, course_id, module_id):
             number = form.cleaned_data['modulenumber']
             try:
                 delete = CourseModule.objects.get(course_id=course_id, id=module_id)
-                delete.modulenumber=0
+                delete.modulenumber = 0
                 delete.save()
             except Exception:
                 pass
