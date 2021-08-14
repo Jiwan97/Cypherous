@@ -212,12 +212,12 @@ html {
 					$("body").css("cursor", "default");
 					$('#comment-all').append(
 						`
-						<li id="comment-${data[0].id}" class="comment">
+						<li id="comment-${data.id}" class="comment">
 							<div class="comment-body">
 								<div class="comment-author vcard"> <img  class="avatar photo" src="/${response.profile}" alt=""><a href="/viewprofile/${response.username}"> <cite class="fn">${response.firstname} ${response.lastname}</cite></a> <span class="says">says:</span> </div>
 								<div class="comment-meta"> <a href="#">${dateTime}</a> </div>
-								<p style="white-space: pre-line;">${data[0].comment}</p>
-								<div class="delete"><b class="btn-link" style="font-size:10px" onclick="deleteCom(${data[0].id})">Delete</b></div>
+								<p style="white-space: pre-line;">${data.comment}</p>
+								<div class="delete"><b class="btn-link" style="font-size:10px" onclick="deleteCom(${data.id})">Delete</b></div>
 							</div>
 						</li>
 						`

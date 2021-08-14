@@ -212,12 +212,12 @@ def newsView(request, id):
         comment = request.POST.get('comment-message')
         cmt = Comment.objects.create(comment=comment, user_id=request.user.id, news_id=id)
         count = Comment.objects.filter(news_id=id).count()
-        comment_data = Comment.objects.values().filter(id=cmt.id)
-        data = list(comment_data)
-
+        comment_data = Comment.objects.values().get(id=cmt.id)
+        # data = list(comment_data)
+        # print(comment_data)
         if cmt:
             return JsonResponse(
-                {'data': data, 'count': count, 'username': request.user.profile.username,
+                {'data': comment_data, 'count': count, 'username': request.user.profile.username,
                  'firstname': request.user.profile.firstname,
                  'lastname': request.user.profile.lastname, 'profile': str(request.user.profile.profile_pic)},
                 safe=False)
