@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django_filters',
     'crispy_forms',
     'ckeditor',
+    'ckeditor_uploader',
     'taggit',
     'django_cleanup',
     'LearnToEarn.apps.LearntoearnConfig',
@@ -59,6 +60,8 @@ INSTALLED_APPS = [
     'admins.apps.AdminsConfig'
 
 ]
+
+CKEDITOR_UPLOAD_PATH = 'static/uploads/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -171,6 +174,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = 'media/'
 
 LOGIN_REDIRECT_URL = '/home'
 

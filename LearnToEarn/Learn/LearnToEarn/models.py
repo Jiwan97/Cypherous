@@ -2,6 +2,7 @@ from django.db import models
 from django.core import validators
 from accounts.models import User
 from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 from taggit.managers import TaggableManager
 import readtime
 
@@ -10,7 +11,7 @@ class News(models.Model):
     user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     heading = models.CharField("Title", max_length=200, null=True, default="Not Updated",
                                validators=[validators.MinLengthValidator(4)])
-    content = RichTextField("Put Your Content Here", null=True, default="Not Updated",
+    content = RichTextUploadingField("Put Your Content Here", null=True, default="Not Updated",
                             validators=[validators.MinLengthValidator(4)])
 
     news_pic = models.ImageField("News Pic", max_length=500, upload_to='static/uploads',
@@ -82,7 +83,7 @@ class CourseModule(models.Model):
     module = models.CharField('Module Name', max_length=200, null=True,
                               )
 
-    ModuleLecture = RichTextField('Module Lecture', max_length=50000, null=True,
+    ModuleLecture = RichTextUploadingField('Module Lecture', max_length=50000, null=True,
                                   )
 
     def __str__(self):

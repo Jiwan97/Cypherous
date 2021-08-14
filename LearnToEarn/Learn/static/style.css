@@ -5904,8 +5904,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#391800', end
 .singel-course .course-teacher .name {
 	display: inline-block;
 	margin-left: 10px;
-	position: relative;
-	bottom: 13px;
 }
 .singel-course .course-teacher .name a h6{
     font-size: 15px;
