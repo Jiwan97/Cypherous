@@ -34,7 +34,7 @@
                                     {% for i in news  %}
                                     <tr>
                                         <td>{{forloop.counter}}</td>
-                                        <td>{{i.heading}}</td>
+                                        <td><a href="/newsPortal/{{i.id}}">{{i.heading}}</a></td>
                                         <td>{{i.date_posted| date:"F d, Y"}}</td>
                                         <td>
                                           <a href="/admins-dashboard/editNewsPost/{{i.id}}" class="btn btn-outline-primary btn-sm">Edit</a>

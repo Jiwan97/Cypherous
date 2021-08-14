@@ -152,13 +152,16 @@ def editCourse(request, course_id):
     context = {
         'form': CourseForm(instance=course),
     }
-    if request.method == 'POST':
-        form = CourseForm(request.POST, instance=course)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Course updated successfully.')
-            return redirect('/admins-dashboard/allCourses')
-
+    if course.user_id == request.user.id:
+        if request.method == 'POST':
+            form = CourseForm(request.POST, instance=course)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Course updated successfully.')
+                return redirect('/admins-dashboard/allCourses')
+    else:
+        messages.warning(request, 'You do not have permission to edit this course.')
+        return redirect('/admins-dashboard/allCourses')
     return render(request, 'admins/updateEdit.html', context)
 
 
@@ -166,12 +169,18 @@ def editCourse(request, course_id):
 @admin_only
 def DeleteCourse(request, course_id):
     delete = Course.objects.get(id=course_id)
-    if delete.course_pic == 'static/images/newsDefault.jpg':
-        delete.delete()
+    if delete.user_id == request.user.id:
+        if delete.course_pic == 'static/images/slider-01.jpg':
+            delete.delete()
+        else:
+            os.remove(delete.course_pic.path)
+            delete.delete()
+        messages.success(request, 'Course Successfully Deleted')
+        return redirect('/admins-dashboard/allCourses')
     else:
-        os.remove(delete.course_pic.path)
-        delete.delete()
-    return redirect('/admins-dashboard/allCourses')
+        messages.warning(request, 'You do not have permission to delete this course.')
+        return redirect('/admins-dashboard/allCourses')
+
 
 
 @login_required()
@@ -188,25 +197,29 @@ def allModules(request, course_id):
 def ModuleCreate(request, course_id):
     form = ModuleForm()
     context = {'form': form}
-    if request.method == "POST":
-        form = ModuleForm(request.POST)
-        if form.is_valid():
-            number = form.cleaned_data['modulenumber']
+    course = Course.objects.get(id=course_id)
+    if course.user_id == request.user.id:
+        if request.method == "POST":
+            form = ModuleForm(request.POST)
+            if form.is_valid():
+                number = form.cleaned_data['modulenumber']
 
-            if CourseModule.objects.filter(course_id=course_id, modulenumber=number).exists():
+                if CourseModule.objects.filter(course_id=course_id, modulenumber=number).exists():
+                    messages.add_message(request, messages.ERROR,
+                                         'Lecture no. already exits')
+                    return render(request, 'admins/CreateAdd.html', context)
+                instance = form.save(commit=False)
+                instance.course = course
+                instance.save()
+                messages.success(request, 'Module added successfully.')
+                return redirect(f'/admins-dashboard/allModules/{course_id}')
+            else:
                 messages.add_message(request, messages.ERROR,
-                                     'Lecture no. already exits')
-                return render(request, 'admins/CreateAdd.html', context)
-            instance = form.save(commit=False)
-            course = Course.objects.get(id=course_id)
-            instance.course = course
-            instance.save()
-            messages.success(request, 'Module added successfully.')
-            return redirect(f'/admins-dashboard/allModules/{course_id}')
-        else:
-            messages.add_message(request, messages.ERROR,
-                                 "Please don't leave anything blank")
-            return render(request, 'admins/CreateAdd.html', context)
+                                     "Please don't leave anything blank")
+                # return render(request, 'admins/CreateAdd.html', context)
+    else:
+        messages.warning(request, 'You do not have permission to add module to this course.')
+        return redirect('/admins-dashboard/allCourses')
     return render(request, 'admins/CreateAdd.html', context)
 
 

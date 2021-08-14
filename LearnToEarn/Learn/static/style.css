@@ -469,7 +469,7 @@ a img.aligncenter {
     z-index: 2000;
     width: 100%;
     top: 0;
-    opacity: 0;
+    opacity: 0 !important;
     transition: opacity 0.5s;
 
 }
@@ -478,7 +478,9 @@ a img.aligncenter {
 
 
 }
-
+.top-navbar{
+	opacity: 0.98;
+}
 
 .top-navbar .navbar-fixed{
 	background: #ffffff !important;
@@ -5880,6 +5882,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#391800', end
     padding-bottom: 40px;
     -webkit-transition: all 0.4s linear;
     transition: all 0.4s linear;
+    height:100px;
 }
 .singel-course .cont h4:hover{
     color: #ffc600;
