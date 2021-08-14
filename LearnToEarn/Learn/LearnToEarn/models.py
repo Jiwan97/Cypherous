@@ -3,6 +3,7 @@ from django.core import validators
 from accounts.models import User
 from ckeditor.fields import RichTextField
 from taggit.managers import TaggableManager
+import readtime
 
 
 class News(models.Model):
@@ -89,6 +90,10 @@ class CourseModule(models.Model):
 
     class Meta:
         ordering = ('modulenumber',)
+
+    def get_readtime(self):
+        result = readtime.of_text(self.ModuleLecture)
+        return result.text
 
 
 class CourseReview(models.Model):

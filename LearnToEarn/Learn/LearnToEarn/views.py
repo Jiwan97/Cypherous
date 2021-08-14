@@ -62,9 +62,8 @@ def courseDesk(request, course_id):
     modulecount = CourseModule.objects.filter(course_id=course_id).count()
     maylike = Course.objects.all().order_by('date')[:3]
     form = Course.objects.get(id=course_id)
-    tags = form.category.first()
-    tag = get_object_or_404(Tag, slug=tags)
-    related = Course.objects.filter(category=tag).exclude(id=course_id).order_by('-date')[:2]
+    tags = form.category.last()
+    related = Course.objects.filter(category=tags).exclude(id=course_id).order_by('-date')[:2]
     lesson = CourseModule.objects.filter(course_id=course_id)
     context = {
         'course': form,
