@@ -5,7 +5,6 @@
 {% endblock%}
 
 {% block content %}
-    {% include 'messages_render.html' %}
 	<div class="all-title-box">
 		<div class="container text-center">
 			<h1>Contact<span class="m_1">Lorem Ipsum dolroin gravida nibh vel velit.</span></h1>
@@ -87,16 +86,16 @@
                 success:function(response){
                     $button.data("pressed", true);
                     console.log(response)
-                    var error = $(response).find('#mesg')
-                    console.log(error)
-                    var error_c = $(error).attr('class')
-                    console.log(error_c)
-                    console.log(error.text())
+                    var messages = $(response).find('#mesg')
+                    console.log(messages)
+                    var messages_c = $(messages).attr('class')
+                    console.log(messages_c)
+                    console.log(messages.text())
                     $('#mesgg').removeAttr("class");
-                    $('#mesgg').addClass(error_c);
-                    $('#mesgg').text(error.text());
+                    $('#mesgg').addClass(messages_c);
+                    $('#mesgg').text(messages.text());
                     $('#mesgg').animate({left:'0px'},600);
-                    if(error.text()=="You must enter every field to send messages to us"){
+                    if(messages.text()=="You must enter every field to send messages to us"){
                         window.setTimeout(function() {
                                 $('#mesgg').animate({left:'600px'});
                                 }, 5000);

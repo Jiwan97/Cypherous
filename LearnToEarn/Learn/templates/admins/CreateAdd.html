@@ -9,24 +9,16 @@
 max-width:400% !important;
 }
 </style>
-<div id="layoutSidenav">
-    {% include 'navbar-admin.html' %}
-    <div id="layoutSidenav_content">
-        <main>
-            <div class="container-fluid px-4">
-                <h1 class="mt-4">Dashboard</h1>
-                <div class="card py-2 px-2">
-                <form class="form" action="" enctype="multipart/form-data" method="POST">
-                    {% csrf_token %}
-                    {{ form.media }}
-                    {{ form | bootstrap_horizontal }}
-                    <br>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-                </div>
-            </div>
-        </main>
-        {% include 'footer-admin.html' %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Dashboard</h1>
+    <div class="card py-2 px-2">
+    <form class="form" action="" enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form | bootstrap_horizontal }}
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
     </div>
 </div>
 {% endblock %}

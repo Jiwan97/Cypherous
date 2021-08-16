@@ -154,7 +154,7 @@ def editCourse(request, course_id):
     }
     if course.user_id == request.user.id:
         if request.method == 'POST':
-            form = CourseForm(request.POST, instance=course)
+            form = CourseForm(request.POST, request.FILES, instance=course)
             if form.is_valid():
                 form.save()
                 messages.success(request, 'Course updated successfully.')

@@ -12,64 +12,58 @@
     width:120px
 }
 </style>
-<div id="layoutSidenav">
-    {% include 'navbar-admin.html' %}
-    <div id="layoutSidenav_content">
-        <main>
-            <div class="container-fluid px-4">
-                <h1 class="mt-4">Dashboard</h1>
-                <div style="margin-top:3rem; margin-bottom:3rem">
-                  <a href="/admins-dashboard/CourseCreate" class="btn btn-primary">Add New Course</a>
-                     <div class="card mb-4" style="margin-top:3rem; margin-right:3rem;">
-                        <div class="card-header">
-                            <i class="fas fa-table me-1"></i>
-                            Total News : {{courses.count}}
-                        </div>
-                        <div class="card-body">
-                            <table id="datatablesSimple">
-                                <thead>
-                                    <tr>
-                                        <th>S.N</th>
-                                        <th>Course Name</th>
-                                        <th>Date Added</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
 
-                                <tbody>
-                                    {% for i in courses  %}
-                                    <tr>
-                                        <td>{{forloop.counter}}</td>
-                                        <td><a href="/courses/courseDesk/{{i.id}}">{{i.course_name}}</a></td>
-                                        <td>{{i.date| date:"F d, Y"}}</td>
-                                        {% if user.id == i.user_id %}
-                                        <td>
-                                          <a href="/admins-dashboard/editCourse/{{i.id}}" class="btn btn-warning btn-sm">Edit</a>
-                                          <a href="/admins-dashboard/delCourse/{{i.id}}" class="btn btn-danger btn-sm" onclick="return confirm('Want to delete?')">Delete</a>
-                                            {% if i.id|getModule %}
-                                                <a href="/admins-dashboard/allModules/{{i.id}}" class="btn btn-v btn-primary btn-sm">View Module</a>
-                                            {% else %}
-                                                <a href="/admins-dashboard/addModule/{{i.id}}" class="btn btn-v btn-primary btn-sm">Create Module</a>
-                                            {% endif %}
-                                          <a href="/admins-dashboard/editNewsPost/{{i.id}}" class="btn btn-primary btn-sm">Add Test</a>
-                                        </td>
-                                        {% else %}
-                                        <td>
-                                          <a href="/admins-dashboard/editCourse/{{i.id}}" class="disabled btn btn-warning btn-sm">Edit</a>
-                                          <a href="/admins-dashboard/delCourse/{{i.id}}" class="disabled btn btn-danger btn-sm" onclick="return confirm('Want to delete?')">Delete</a>
-                                            <span>You don't have permission</span>
-                                        </td>
-                                        {% endif %}
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                     </div>
-                </div>
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Dashboard</h1>
+    <div style="margin-top:3rem; margin-bottom:3rem">
+      <a href="/admins-dashboard/CourseCreate" class="btn btn-primary">Add New Course</a>
+         <div class="card mb-4" style="margin-top:3rem; margin-right:3rem;">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Total News : {{courses.count}}
             </div>
-        </main>
-        {% include 'footer-admin.html' %}
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>S.N</th>
+                            <th>Course Name</th>
+                            <th>Date Added</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for i in courses  %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td><a href="/courses/courseDesk/{{i.id}}">{{i.course_name}}</a></td>
+                            <td>{{i.date| date:"F d, Y"}}</td>
+                            {% if user.id == i.user_id %}
+                            <td>
+                              <a href="/admins-dashboard/editCourse/{{i.id}}" class="btn btn-warning btn-sm">Edit</a>
+                              <a href="/admins-dashboard/delCourse/{{i.id}}" class="btn btn-danger btn-sm" onclick="return confirm('Want to delete?')">Delete</a>
+                                {% if i.id|getModule %}
+                                    <a href="/admins-dashboard/allModules/{{i.id}}" class="btn btn-v btn-primary btn-sm">View Module</a>
+                                {% else %}
+                                    <a href="/admins-dashboard/addModule/{{i.id}}" class="btn btn-v btn-primary btn-sm">Create Module</a>
+                                {% endif %}
+                              <a href="/admins-dashboard/editNewsPost/{{i.id}}" class="btn btn-primary btn-sm">Add Test</a>
+                            </td>
+                            {% else %}
+                            <td>
+                              <a href="/admins-dashboard/editCourse/{{i.id}}" class="disabled btn btn-warning btn-sm">Edit</a>
+                              <a href="/admins-dashboard/delCourse/{{i.id}}" class="disabled btn btn-danger btn-sm" onclick="return confirm('Want to delete?')">Delete</a>
+                                <span>You don't have permission</span>
+                            </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+         </div>
     </div>
 </div>
+
 {%endblock%}

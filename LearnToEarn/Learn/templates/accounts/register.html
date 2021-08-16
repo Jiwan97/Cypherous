@@ -164,7 +164,6 @@ a {
     }
 }
 </style>
-{% include 'messages_render.html' %}
   <div class="st container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
 
     <div class="card card0 border-0">
@@ -216,46 +215,45 @@ a {
 <script type="text/javascript">
     $(document).on('submit','#signup',function(e){
         e.preventDefault();
-        $.ajax({
-            type:'POST',
-            url:"{% url 'signup' %}",
-            data:{
-                'username':$('#username').val(),
-                'email':$('#email').val(),
-                'password':$('#password').val(),
-                'password2':$('#password2').val(),
-                'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
-            },
-            success:function(response){
-                console.log(response)
-                var error = $(response).find('#mesg')
-                console.log(error)
-                var error_c = $(error).attr('class')
-                console.log(error_c)
-                console.log(error.text())
-                $('#mesgg').removeAttr("class");
-                $('#mesgg').addClass(error_c);
-                $('#mesgg').text(error.text());
-                $('#mesgg').animate({left:'0px'},500);
-                if(error.text()=="We sent you an email to verify your account"){
-                    $('#signup').trigger("reset");
-                    window.setTimeout(function() {
-                                $('#mesgg').animate({left:'400px'});
-                                }, 2000);
-                    window.setTimeout(function() {
-                        window.location = "/login";
-                        }, 2250);
-                }else {
-                    window.setTimeout(function() {
+        $button = $("#signup");
+        if ($button.data("pressed") !== true) {
+            $.ajax({
+                type:'POST',
+                url:"{% url 'signup' %}",
+                data:{
+                    'username':$('#username').val(),
+                    'email':$('#email').val(),
+                    'password':$('#password').val(),
+                    'password2':$('#password2').val(),
+                    'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+                },
+                success:function(response){
+                    localStorage.setItem('myData', response);
+                    console.log(response)
+                    var messages = $(response).find('#mesg')
+                    console.log(messages)
+                    var messages_c = $(messages).attr('class')
+                    $button.data("pressed", true);
+                    if(messages.text()=="We sent you an email to verify your account"){
+                        $('#signup').trigger("reset");
+                         window.location = "/login";
+                    }else {
+                        $('#mesgg').removeAttr("class");
+                        $('#mesgg').addClass(messages_c);
+                        $('#mesgg').text(messages.text());
+                        $('#mesgg').animate({left:'0px'},500);
+                        window.setTimeout(function() {
+                            $button.data("pressed", false);
                             $('#mesgg').animate({left:'400px'});
-                            }, 4000);
-                }
-            },
-            error:function(response){
-                console.log(response)
+                            }, 3000);
+                    }
+                },
+                error:function(response){
+                    console.log(response)
 
-            },
-        });
+                },
+            });
+        }
     });
 </script>
 {% endblock %}

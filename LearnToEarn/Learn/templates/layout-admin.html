@@ -18,9 +18,19 @@
 </head>
 
 <body class="sb-nav-fixed">
-    {% include 'messages.html' %}
-    {% block content %}
-    {% endblock %}
+    <div id="layoutSidenav">
+        {% include 'navbar-admin.html' %}
+
+        <div id="layoutSidenav_content">
+            {% include 'messages.html' %}
+            {% include 'messages_render.html' %}
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+            {% include 'footer-admin.html' %}
+        </div>
+    </div>
     <a href="#" id="scroll-to-top" class="dmtop global-radius" style="bottom: -100px;"><i class="fa fa-angle-up"></i></a>
     <script src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
     <script src="{% static 'js/scripts.js'%}"></script>

@@ -193,7 +193,7 @@
                 $('#mesgg').addClass(messages_c);
                 $('#mesgg').text(messages.text());
                 $('#mesgg').animate({left:'0px'},600);
-                if(messages.text()=="You have added this course to liked course"){
+                if(messages.text()=="You have saved this course for later"){
                     $('.fa-heart').css('pointer-events', 'none');
                     value =parseInt(text) + 1;
                     $('#count-'+id).empty()
@@ -206,7 +206,7 @@
                         $('.fa-heart').css('pointer-events', '');
                         $('#mesgg').animate({left:'600px'});
                     }, 3000);
-                }else if (messages.text()=="You have removed this course from liked course"){
+                }else if (messages.text()=="This course has been removed from your wishlist"){
                     $('.fa-heart').css('pointer-events', 'none');
                     value =parseInt(text) - 1;
                     $('#count-'+id).empty()

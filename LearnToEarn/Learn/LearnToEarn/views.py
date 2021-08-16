@@ -91,8 +91,8 @@ def courseLike(request):
         liked = CourseLike.objects.filter(course_id=course_id, user=request.user)
         liked.delete()
         messages.add_message(request, messages.SUCCESS,
-                             'You have removed this course from liked course')
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+                             'This course has been removed from your wishlist')
+
     else:
         liked = CourseLike()
         liked.user = request.user
@@ -100,8 +100,7 @@ def courseLike(request):
         liked.like = True
         liked.save()
         messages.add_message(request, messages.SUCCESS,
-                             'You have added this course to liked course')
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+                             'You have saved this course for later')
 
 
 @login_required()

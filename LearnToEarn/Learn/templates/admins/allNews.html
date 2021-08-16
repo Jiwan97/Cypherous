@@ -6,50 +6,43 @@
     <title>Learn To Earn</title>
 {% endblock%}
 {% block content %}
-<div id="layoutSidenav">
-    {% include 'navbar-admin.html' %}
-    <div id="layoutSidenav_content">
-        <main>
-            <div class="container-fluid px-4">
-                <h1 class="mt-4">Dashboard</h1>
-                <div style="margin-top:3rem; margin-bottom:3rem">
-                  <a href="/admins-dashboard/newsPost" class="btn btn-primary">Add News</a>
-                     <div class="card mb-4" style="margin-top:3rem; margin-right:3rem;">
-                        <div class="card-header">
-                            <i class="fas fa-table me-1"></i>
-                            Total News : {{news.count}}
-                        </div>
-                        <div class="card-body">
-                            <table id="datatablesSimple">
-                                <thead>
-                                    <tr>
-                                        <th>S.N</th>
-                                        <th>Heading</th>
-                                        <th>Date Published</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    {% for i in news  %}
-                                    <tr>
-                                        <td>{{forloop.counter}}</td>
-                                        <td><a href="/newsPortal/{{i.id}}">{{i.heading}}</a></td>
-                                        <td>{{i.date_posted| date:"F d, Y"}}</td>
-                                        <td>
-                                          <a href="/admins-dashboard/editNewsPost/{{i.id}}" class="btn btn-outline-primary btn-sm">Edit</a>
-                                          <a href="/admins-dashboard/delNewsPost/{{i.id}}" class="btn btn-danger btn-sm" onclick="return confirm('Want to delete?')">Delete</a>
-                                        </td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                     </div>
-                </div>
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Dashboard</h1>
+    <div style="margin-top:3rem; margin-bottom:3rem">
+      <a href="/admins-dashboard/newsPost" class="btn btn-primary">Add News</a>
+         <div class="card mb-4" style="margin-top:3rem; margin-right:3rem;">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Total News : {{news.count}}
             </div>
-        </main>
-        {% include 'footer-admin.html' %}
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>S.N</th>
+                            <th>Heading</th>
+                            <th>Date Published</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for i in news  %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td><a href="/newsPortal/{{i.id}}">{{i.heading}}</a></td>
+                            <td>{{i.date_posted| date:"F d, Y"}}</td>
+                            <td>
+                              <a href="/admins-dashboard/editNewsPost/{{i.id}}" class="btn btn-outline-primary btn-sm">Edit</a>
+                              <a href="/admins-dashboard/delNewsPost/{{i.id}}" class="btn btn-danger btn-sm" onclick="return confirm('Want to delete?')">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+         </div>
     </div>
 </div>
+
 {%endblock%}
