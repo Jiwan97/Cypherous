@@ -12,7 +12,7 @@ class News(models.Model):
     heading = models.CharField("Title", max_length=200, null=True, default="Not Updated",
                                validators=[validators.MinLengthValidator(4)])
     content = RichTextUploadingField("Put Your Content Here", null=True, default="Not Updated",
-                            validators=[validators.MinLengthValidator(4)])
+                                     validators=[validators.MinLengthValidator(4)])
 
     news_pic = models.ImageField("News Pic", max_length=500, upload_to='static/uploads',
                                  default='static/images/newsDefault.jpg')
@@ -71,8 +71,12 @@ class CourseEnrollement(models.Model):
     date = models.DateTimeField(auto_now_add=True, null=True)
     enrolled = models.BooleanField(default=False)
 
-    def __str__(self):
-        return self.enrolled
+
+class CourseLike(models.Model):
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, null=True, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True, null=True)
+    like = models.BooleanField(default=False)
 
 
 class CourseModule(models.Model):
@@ -84,7 +88,7 @@ class CourseModule(models.Model):
                               )
 
     ModuleLecture = RichTextUploadingField('Module Lecture', max_length=50000, null=True,
-                                  )
+                                           )
 
     def __str__(self):
         return self.module

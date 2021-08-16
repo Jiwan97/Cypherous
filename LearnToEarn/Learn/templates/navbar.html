@@ -1,5 +1,5 @@
 {% load static %}
-<header class="top-navbar">
+<header class="top-navbar is-shownUp">
 	<nav class="navbar navbar-fixed navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="/home">
@@ -12,9 +12,16 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbars-host">
 				{% if user.is_authenticated %}
-				<ul class="navbar-nav ">
+				<ul class="nav navbar-nav ">
 					<li class="nav-item {{activate_h}}"><a class="nav-link" href="/home">Home</a></li>
-					<li class="nav-item {{activate_cou}}"><a class="nav-link" href="/courses">Courses</a></li>
+					<li class="nav-item dropdown ">
+						<a class="nav-link dropdown-toggle" href="/courses" id="dropdown-b" data-toggle="dropdown">Courses</a>
+						<div class="dropdown-menu" aria-labelledby="dropdown-b">
+							<a class="dropdown-item" href="/courses">Courses </a>
+							<a class="dropdown-item" href="/courseEnrolled">Enrolled Course </a>
+							<a class="dropdown-item" href="/likedCourses">Liked Course </a>
+						</div>
+					</li>
 					<li class="nav-item"><a class="nav-link" href="#">Online Test</a></li>
 					<li class="nav-item {{activate_n}}"><a class="nav-link" href="/newsPortal">News Portal</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Student Forum</a></li>

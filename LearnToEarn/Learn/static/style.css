@@ -488,8 +488,6 @@ a img.aligncenter {
     right: 0;
     left: 0;
     z-index: 2000;
-    animation-duration: 1s;
-    animation-name: slideInDown;
 
 }
 .top-navbar .navbar-light .navbar-nav .nav-link{
@@ -651,6 +649,7 @@ a img.aligncenter {
     border-radius: 0px;
     margin: 0px;
 	padding: 10px;
+	position: absolute;
 }
 
 .top-navbar .navbar-light .navbar-nav li .dropdown-menu a:hover{

@@ -29,7 +29,7 @@
                             </li>
 
                         </ul>
-                        
+
                         <div class="courses-search float-right">
                             <form method="get" action="#">
                                 <input name="title_contains" type="text" placeholder="Search">
@@ -43,7 +43,7 @@
               <div class="tab-pane fade show active" id="courses-grid" role="tabpanel" aria-labelledby="courses-grid-tab">
                     <div class="row">
                         {% for course in courses %}
-                        <div class="col-lg-4 col-md-6">
+                        <div id="course-{{course.id}}" class="col-lg-4 col-md-6">
                             <div class="singel-course mt-30">
                                 <div class="thum">
                                     <div class="image">
@@ -90,7 +90,7 @@
                 <div class="tab-pane fade" id="courses-list" role="tabpanel" aria-labelledby="courses-list-tab">
                     <div class="row">
                         {% for course in courses %}
-                        <div class="col-lg-12">
+                        <div id="course1-{{course.id}}" class="col-lg-12">
                             <div class="singel-course mt-30">
                                 <div class="row no-gutters">
                                     <div class="col-md-6">
@@ -193,33 +193,20 @@
                 $('#mesgg').addClass(messages_c);
                 $('#mesgg').text(messages.text());
                 $('#mesgg').animate({left:'0px'},600);
-                if(messages.text()=="You have added this course to liked course"){
-                    $('.fa-heart').css('pointer-events', 'none');
-                    value =parseInt(text) + 1;
-                    $('#count-'+id).empty()
-                    $('#count1-'+id).empty()
-                    $('#count-'+id).append(`${value}`)
-                    $('#count1-'+id).append(`${value}`)
-                    $('#like-'+id).css("color","#ffc600");
-                    $('#like1-'+id).css("color","#ffc600");
-                    window.setTimeout(function() {
-                        $('.fa-heart').css('pointer-events', '');
-                        $('#mesgg').animate({left:'600px'});
-                    }, 3000);
-                }else if (messages.text()=="You have removed this course from liked course"){
-                    $('.fa-heart').css('pointer-events', 'none');
-                    value =parseInt(text) - 1;
-                    $('#count-'+id).empty()
-                    $('#count1-'+id).empty()
-                    $('#count-'+id).append(`${value}`)
-                    $('#count1-'+id).append(`${value}`)
-                    $('#like-'+id).css('color', '');
-                    $('#like1-'+id).css('color', '');
-                    window.setTimeout(function() {
-                        $('.fa-heart').css('pointer-events', '');
-                        $('#mesgg').animate({left:'600px'});
-                    }, 3000);
-                }
+                $('#course-'+id).remove()
+                $('#course1-'+id).remove()
+                $('.fa-heart').css('pointer-events', 'none');
+                value =parseInt(text) - 1;
+                $('#count-'+id).empty()
+                $('#count1-'+id).empty()
+                $('#count-'+id).append(`${value}`)
+                $('#count1-'+id).append(`${value}`)
+                $('#like-'+id).css('color', '');
+                $('#like1-'+id).css('color', '');
+                window.setTimeout(function() {
+                    $('.fa-heart').css('pointer-events', '');
+                    $('#mesgg').animate({left:'600px'});
+                }, 3000);
             }
         });
 	}

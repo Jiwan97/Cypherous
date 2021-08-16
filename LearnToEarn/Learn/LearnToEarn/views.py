@@ -4,7 +4,7 @@ from .models import *
 from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib import messages
 from django.core.paginator import Paginator
-from admins.filters import VFilter
+from admins.filters import *
 from taggit.models import Tag
 from django.contrib.auth.decorators import login_required
 
@@ -25,7 +25,7 @@ def about(request):
 @login_required()
 def courses(request):
     form = Course.objects.all().order_by('-date')
-    V_filter = VFilter(request.GET, queryset=form)
+    V_filter = VFilter1(request.GET, queryset=form)
     V_final = V_filter.qs
     p = Paginator(V_final, 6)
     page_no = request.GET.get('page', 1)
@@ -37,6 +37,35 @@ def courses(request):
     }
     return render(request, 'LearnToEarn/courses.html', context)
 
+@login_required()
+def Likedcourses(request):
+    likedcourse = Course.objects.filter(courselike__user=request.user).order_by('-date')
+    V_filter = VFilter1(request.GET, queryset=likedcourse)
+    V_final = V_filter.qs
+    p = Paginator(V_final, 6)
+    page_no = request.GET.get('page', 1)
+    page = p.page(page_no)
+    context = {
+        'courses': page,
+        'activate_cou': 'active',
+        'url_next': '?next=/newsPortal',
+    }
+    return render(request, 'LearnToEarn/courseLike.html', context)
+
+@login_required()
+def enrolledCourse(request):
+    likedcourse = Course.objects.filter(courseenrollement__user=request.user).order_by('-date')
+    V_filter = VFilter1(request.GET, queryset=likedcourse)
+    V_final = V_filter.qs
+    p = Paginator(V_final, 6)
+    page_no = request.GET.get('page', 1)
+    page = p.page(page_no)
+    context = {
+        'courses': page,
+        'activate_cou': 'active',
+        'url_next': '?next=/newsPortal',
+    }
+    return render(request, 'LearnToEarn/courses.html', context)
 
 @login_required()
 def courseEnrollment(request, course_id):
@@ -53,6 +82,26 @@ def courseEnrollment(request, course_id):
         messages.add_message(request, messages.SUCCESS,
                              'You have successfully enrolled to this course')
         return redirect(f'/courses/courseDesk/{course_id}')
+
+
+@login_required()
+def courseLike(request):
+    course_id = request.GET.get('id', None)
+    if CourseLike.objects.filter(course_id=course_id, user=request.user).exists():
+        liked = CourseLike.objects.filter(course_id=course_id, user=request.user)
+        liked.delete()
+        messages.add_message(request, messages.SUCCESS,
+                             'You have removed this course from liked course')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    else:
+        liked = CourseLike()
+        liked.user = request.user
+        liked.course_id = course_id
+        liked.like = True
+        liked.save()
+        messages.add_message(request, messages.SUCCESS,
+                             'You have added this course to liked course')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 @login_required()
