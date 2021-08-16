@@ -228,13 +228,13 @@ a {
                     'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
                 },
                 success:function(response){
-                    localStorage.setItem('myData', response);
                     console.log(response)
                     var messages = $(response).find('#mesg')
                     console.log(messages)
                     var messages_c = $(messages).attr('class')
                     $button.data("pressed", true);
                     if(messages.text()=="We sent you an email to verify your account"){
+                        localStorage.setItem('myData', response);
                         $('#signup').trigger("reset");
                          window.location = "/login";
                     }else {

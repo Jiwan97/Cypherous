@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
+    'debug_toolbar',
     'bootstrapform',
     'django_filters',
     'crispy_forms',
@@ -75,6 +76,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'Learn.urls'
@@ -207,3 +209,9 @@ CKEDITOR_CONFIGS = {
 
     },
 }
+
+# INTERNAL_IPS = [
+#     # ...
+#     '127.0.0.1',
+#     # ...
+# ]

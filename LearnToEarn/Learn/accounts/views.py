@@ -165,18 +165,18 @@ def login_user(request):
                 if user and not user.is_email_verified:
                     messages.add_message(request, messages.ERROR,
                                          'Email is not verified, please check your email inbox')
-
-                if user.profile.sendNotification:
-                    if user.is_active:
-                        send_notification_email(user, request)
-
-                login(request, user)
-                messages.add_message(request, messages.SUCCESS,
-                                     f'Welcome {user.username}')
-                if 'next' in request.POST:
-                    return redirect(request.POST.get('next'))
                 else:
-                    return redirect('/home')
+                    if user.profile.sendNotification:
+                        if user.is_active:
+                            send_notification_email(user, request)
+
+                    login(request, user)
+                    messages.add_message(request, messages.SUCCESS,
+                                         f'Welcome {user.username}')
+                    if 'next' in request.POST:
+                        return redirect(request.POST.get('next'))
+                    else:
+                        return redirect('/home')
             elif user.is_staff:
                 login(request, user)
                 messages.add_message(request, messages.SUCCESS,

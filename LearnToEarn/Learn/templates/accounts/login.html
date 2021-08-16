@@ -225,16 +225,14 @@ a {
                     'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
                 },
                 success:function(response){
-
-                    localStorage.setItem('myData', response);
                     var messages = $(response).find('#mesg')
                     var messages_c = $(messages).attr('class')
                     var url = $('#url').val();
                     var user = $('#username').val()
                     var text = `Welcome ${user}`
                     var text1= `Welcome Admin, ${user}`
-
                     if((messages.text()).toUpperCase() == text.toUpperCase()){
+                        localStorage.setItem('myData', response);
                         $('#login').trigger("reset");
                             if(url){
                                 window.location = url;
@@ -242,6 +240,7 @@ a {
                                 window.location = "/home";
                             }
                     }else if((messages.text()).toUpperCase() == text1.toUpperCase()) {
+                        localStorage.setItem('myData', response);
                         $('#login').trigger("reset");
                         if(url){
                             window.location = url;
@@ -257,7 +256,7 @@ a {
                         window.setTimeout(function() {
                                 $('#mesgg').animate({left:'400px'});
                                 $button.data("pressed", false);
-                                }, 2000);
+                                }, 3000);
                     }
                 },
                 error:function(response){
