@@ -119,12 +119,18 @@ def courseDesk(request, course_id):
             data.user = request.user
             data.course_id = course_id
             data.save()
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-            # return JsonResponse(
-            #     {'data': comment_data, 'count': count, 'username': request.user.profile.username,
-            #      'firstname': request.user.profile.firstname,
-            #      'lastname': request.user.profile.lastname, 'profile': str(request.user.profile.profile_pic)},
-            #     safe=False)
+            # return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            count = CourseReview.objects.filter(course_id=course_id).count()
+            comment_data = CourseReview.objects.values().get(id=data.id)
+            tagstar = ['', '', '', '', '']
+            for i in range(0, comment_data['rate']):
+                tagstar[i] = '<li><i style="font-size:12px;" class="fa fa-star"></i></li>'
+
+            return JsonResponse(
+                {'data': comment_data, 'count': count, 'username': request.user.profile.username, 'tagstar': tagstar,
+                 'firstname': request.user.profile.firstname,
+                 'lastname': request.user.profile.lastname, 'profile': str(request.user.profile.profile_pic)},
+                safe=False)
 
     enrollment = CourseEnrollement.objects.filter(course_id=course_id, user=request.user).exists()
     enrollcount = CourseEnrollement.objects.filter(course_id=course_id).count()

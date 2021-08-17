@@ -16,7 +16,7 @@ urlpatterns = [
     path('courses/', views.courses),
     path('likedCourses/', views.Likedcourses),
     path('courseEnrolled/', views.enrolledCourse),
-    path('courses/courseDesk/<int:course_id>/', views.courseDesk),
+    path('courses/courseDesk/<int:course_id>/', views.courseDesk, name='courseDesk'),
     path('courseEnroll/<int:course_id>/', views.courseEnrollment),
     path('courseLike/', views.courseLike, name='courseLike'),
     path('newsPortal/', views.newsPortal, name='news-portal'),
