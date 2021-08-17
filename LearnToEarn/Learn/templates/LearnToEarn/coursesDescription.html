@@ -66,7 +66,7 @@
                                 <li>
                                     <div class="review">
                                         <span>Review</span>
-                                        <ul>
+                                        <ul id= "rated">
                                             {% if course.id|getStars %}
                                             {% for i in course.id|getStars %}
                                                 <li><a href="#"><i class="fa fa-star"></i></a></li>
@@ -78,7 +78,7 @@
                                                 <li><a href="#"><i class="fa fa-star"></i></a></li>
                                                 <li><a href="#"><i class="fa fa-star"></i></a></li>
                                             {% endif %}
-                                                <li id= "rated" class="rating">({{course.id|getReview}} Reviews)</li>
+                                                <li  class="rating">({{course.id|getReview}} Reviews)</li>
                                         </ul>
                                     </div>
                                 </li>
@@ -579,7 +579,16 @@
 				    $('#reviewForm').append(`<h6 class="font-weight-bold mt-3">You have just left your rating for this course</h6>`)
 					$("body").css("cursor", "default");
 					$('#rated').empty();
-					$('#rated').append(`(${response.count}) Reviews`);
+					$('#rated').append(
+                        `
+                        ${response.total_star[0]}
+                        ${response.total_star[1]}
+                        ${response.total_star[2]}
+                        ${response.total_star[3]}
+                        ${response.total_star[4]}
+                        <li  class="rating">(${response.count} Reviews)</li>
+                        `
+                    );
 					$('#reviewSec').append(
 						`
 						<li>

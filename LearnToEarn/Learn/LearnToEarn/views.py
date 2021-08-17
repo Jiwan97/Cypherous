@@ -8,7 +8,7 @@ from admins.filters import *
 from .forms import RateForm
 from taggit.models import Tag
 from django.contrib.auth.decorators import login_required
-
+from django.db.models import Avg
 
 def home(request):
     context = {
@@ -122,13 +122,18 @@ def courseDesk(request, course_id):
             # return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
             count = CourseReview.objects.filter(course_id=course_id).count()
             comment_data = CourseReview.objects.values().get(id=data.id)
+            Avg_data= CourseReview.objects.filter(course_id=course_id).aggregate(Avg('rate'))
+            print(Avg_data)
+            total_star = ['', '', '', '', '']
+            for i in range(0, int(Avg_data['rate__avg'])):
+                total_star[i] = '<li><a href="#"><i class="fa fa-star"></i></a></li>'
             tagstar = ['', '', '', '', '']
             for i in range(0, comment_data['rate']):
                 tagstar[i] = '<li><i style="font-size:12px;" class="fa fa-star"></i></li>'
 
             return JsonResponse(
                 {'data': comment_data, 'count': count, 'username': request.user.profile.username, 'tagstar': tagstar,
-                 'firstname': request.user.profile.firstname,
+                 'firstname': request.user.profile.firstname, 'total_star':total_star,
                  'lastname': request.user.profile.lastname, 'profile': str(request.user.profile.profile_pic)},
                 safe=False)
 
