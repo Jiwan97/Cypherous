@@ -1,6 +1,8 @@
 {% extends 'layout.html' %}
 {% load static %}
 {% load getEnroll %}
+{% load hasLiked %}
+{% load getLikes %}
 {% block title %}
     <title>Learn To Earn</title>
 {% endblock%}
@@ -309,7 +311,11 @@
                                             <div class="admin">
                                                 <ul>
                                                     <li><a href="#"><i class="fa fa-user"></i><span>{{course.id|getEnroll}}</span></a></li>
-                                                    <li><a href="#"><i class="fa fa-heart"></i><span>10</span></a></li>
+                                                    {% if request.user|hasLiked:course.id %}
+                                                    <li><a><i id="like-{{course.id}}" onclick="like({{course.id}})" class="fa fa-heart" style="cursor:pointer; color:#ffc600"></i><span id="count-{{course.id}}" >{{course.id|getLikes}}</span></a></li>
+                                                    {% else %}
+                                                    <li><a><i id="like-{{course.id}}" onclick="like({{course.id}})" class="fa fa-heart" style="cursor:pointer;"></i><span id="count-{{course.id}}" >{{course.id|getLikes}}</span></a></li>
+                                                    {% endif %}
                                                 </ul>
                                             </div>
                                         </div>
@@ -677,7 +683,11 @@
                                             <div class="admin">
                                                 <ul>
                                                     <li><a href="#"><i class="fa fa-user"></i><span>{{course.id|getEnroll}}</span></a></li>
-                                                    <li><a href="#"><i class="fa fa-heart"></i><span>10</span></a></li>
+                                                    {% if request.user|hasLiked:course.id %}
+                                                    <li><a><i id="like-{{course.id}}" onclick="like({{course.id}})" class="fa fa-heart" style="cursor:pointer; color:#ffc600"></i><span id="count-{{course.id}}" >{{course.id|getLikes}}</span></a></li>
+                                                    {% else %}
+                                                    <li><a><i id="like-{{course.id}}" onclick="like({{course.id}})" class="fa fa-heart" style="cursor:pointer;"></i><span id="count-{{course.id}}" >{{course.id|getLikes}}</span></a></li>
+                                                    {% endif %}
                                                 </ul>
                                             </div>
                                         </div>
@@ -692,5 +702,44 @@
         </div>
         {% endif %}
     </section>
-
+<script>
+    function like(id) {
+        $.ajax({
+            url: '{% url 'courseLike' %}',
+            data: {
+                'id': id,
+            },
+            success:function(response){
+                var messages = $(response).find('#mesg')
+                var messages_c = $(messages).attr('class')
+                var text = $('#count-'+id).text();
+                $('#mesgg').removeAttr("class");
+                $('#mesgg').addClass(messages_c);
+                $('#mesgg').text(messages.text());
+                $('#mesgg').animate({left:'0px'},600);
+                if(messages.text()=="You have saved this course for later"){
+                    $('.fa-heart').css('pointer-events', 'none');
+                    value =parseInt(text) + 1;
+                    $('#count-'+id).empty()
+                    $('#count-'+id).append(`${value}`)
+                    $('#like-'+id).css("color","#ffc600");
+                    window.setTimeout(function() {
+                        $('.fa-heart').css('pointer-events', '');
+                        $('#mesgg').animate({left:'600px'});
+                    }, 3000);
+                }else if (messages.text()=="This course has been removed from your wishlist"){
+                    $('.fa-heart').css('pointer-events', 'none');
+                    value =parseInt(text) - 1;
+                    $('#count-'+id).empty()
+                    $('#count-'+id).append(`${value}`)
+                    $('#like-'+id).css('color', '');
+                    window.setTimeout(function() {
+                        $('.fa-heart').css('pointer-events', '');
+                        $('#mesgg').animate({left:'600px'});
+                    }, 3000);
+                }
+            }
+        });
+	}
+</script>
 {% endblock %}

@@ -37,6 +37,7 @@ def courses(request):
     }
     return render(request, 'LearnToEarn/courses.html', context)
 
+
 @login_required()
 def Likedcourses(request):
     likedcourse = Course.objects.filter(courselike__user=request.user).order_by('-date')
@@ -52,6 +53,7 @@ def Likedcourses(request):
     }
     return render(request, 'LearnToEarn/courseLike.html', context)
 
+
 @login_required()
 def enrolledCourse(request):
     likedcourse = Course.objects.filter(courseenrollement__user=request.user).order_by('-date')
@@ -66,6 +68,7 @@ def enrolledCourse(request):
         'url_next': '?next=/newsPortal',
     }
     return render(request, 'LearnToEarn/courses.html', context)
+
 
 @login_required()
 def courseEnrollment(request, course_id):
@@ -92,7 +95,7 @@ def courseLike(request):
         liked.delete()
         messages.add_message(request, messages.SUCCESS,
                              'This course has been removed from your wishlist')
-
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     else:
         liked = CourseLike()
         liked.user = request.user
@@ -101,6 +104,7 @@ def courseLike(request):
         liked.save()
         messages.add_message(request, messages.SUCCESS,
                              'You have saved this course for later')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 @login_required()
