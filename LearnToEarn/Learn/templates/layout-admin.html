@@ -18,12 +18,11 @@
 </head>
 
 <body class="sb-nav-fixed">
+    {% include 'messages.html' %}
+    {% include 'messages_render.html' %}
     <div id="layoutSidenav">
         {% include 'navbar-admin.html' %}
-
         <div id="layoutSidenav_content">
-            {% include 'messages.html' %}
-            {% include 'messages_render.html' %}
         <main>
             {% block content %}
             {% endblock %}

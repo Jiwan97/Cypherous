@@ -206,7 +206,6 @@ SOCIALACCOUNT_PROVIDERS = {
 CKEDITOR_CONFIGS = {
     'default': {
         'width': 'auto',
-
     },
 }
 

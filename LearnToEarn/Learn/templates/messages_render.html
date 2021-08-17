@@ -8,9 +8,7 @@
     $( document ).ready(function() {
         var data = localStorage.getItem('myData');
         localStorage.clear();
-        console.log(data)
         var messages = $(data).find('#mesg')
-        console.log(messages)
         var messages_c = $(messages).attr('class')
         $('#mesgg').removeAttr("class");
         $('#mesgg').addClass(messages_c);

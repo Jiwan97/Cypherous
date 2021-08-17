@@ -142,16 +142,25 @@ def CourseCreate(request):
             form.save_m2m()
             messages.success(request, 'Course added successfully.')
             return redirect('/admins-dashboard/allCourses')
-
+        else:
+            err = None
+            for i in form:
+                r = i.label
+                for error in i.errors:
+                    err = error
+                    messages.add_message(request, messages.ERROR,
+                                         err.lower().replace("this", r).capitalize())
+                    if err:
+                        break
+                if err:
+                    break
     context = {'form': form}
     return render(request, 'admins/CreateAdd.html', context)
 
 
 def editCourse(request, course_id):
     course = Course.objects.get(id=course_id)
-    context = {
-        'form': CourseForm(instance=course),
-    }
+    form = CourseForm(instance=course)
     if course.user_id == request.user.id:
         if request.method == 'POST':
             form = CourseForm(request.POST, request.FILES, instance=course)
@@ -159,9 +168,25 @@ def editCourse(request, course_id):
                 form.save()
                 messages.success(request, 'Course updated successfully.')
                 return redirect('/admins-dashboard/allCourses')
+            else:
+                err = None
+                for i in form:
+                    r = i.label
+                    for error in i.errors:
+                        err = error
+                        messages.add_message(request, messages.ERROR,
+                                             err.lower().replace("this", r).capitalize())
+                        if err:
+                            break
+                    if err:
+                        break
     else:
         messages.warning(request, 'You do not have permission to edit this course.')
         return redirect('/admins-dashboard/allCourses')
+
+    context = {
+        'form': form,
+    }
     return render(request, 'admins/updateEdit.html', context)
 
 
@@ -182,7 +207,6 @@ def DeleteCourse(request, course_id):
         return redirect('/admins-dashboard/allCourses')
 
 
-
 @login_required()
 @admin_only
 def allModules(request, course_id):
@@ -196,14 +220,13 @@ def allModules(request, course_id):
 @admin_only
 def ModuleCreate(request, course_id):
     form = ModuleForm()
-    context = {'form': form}
     course = Course.objects.get(id=course_id)
     if course.user_id == request.user.id:
         if request.method == "POST":
             form = ModuleForm(request.POST)
+            context = {'form': form}
             if form.is_valid():
                 number = form.cleaned_data['modulenumber']
-
                 if CourseModule.objects.filter(course_id=course_id, modulenumber=number).exists():
                     messages.add_message(request, messages.ERROR,
                                          'Lecture no. already exits')
@@ -214,12 +237,25 @@ def ModuleCreate(request, course_id):
                 messages.success(request, 'Module added successfully.')
                 return redirect(f'/admins-dashboard/allModules/{course_id}')
             else:
-                messages.add_message(request, messages.ERROR,
-                                     "Please don't leave anything blank")
-                # return render(request, 'admins/CreateAdd.html', context)
+                err = None
+                for i in form:
+                    r = i.label
+                    for error in i.errors:
+                        err = error
+                        messages.add_message(request, messages.ERROR,
+                                             err.lower().replace("this", r).capitalize())
+                        if err:
+                            break
+                    if err:
+                        break
+            # else:
+            #     messages.add_message(request, messages.ERROR,
+            #                          "Please don't leave anything blank")
+            # return render(request, 'admins/CreateAdd.html', context)
     else:
         messages.warning(request, 'You do not have permission to add module to this course.')
         return redirect('/admins-dashboard/allCourses')
+    context = {'form': form}
     return render(request, 'admins/CreateAdd.html', context)
 
 
@@ -227,27 +263,40 @@ def ModuleCreate(request, course_id):
 @admin_only
 def editModule(request, course_id, module_id):
     Module = CourseModule.objects.get(id=module_id)
-    context = {
-        'form': ModuleForm(instance=Module),
-    }
+    form = ModuleForm(instance=Module)
     if request.method == 'POST':
         form = ModuleForm(request.POST, instance=Module)
+        context = {'form': form}
         if form.is_valid():
             number = form.cleaned_data['modulenumber']
-            try:
-                delete = CourseModule.objects.get(course_id=course_id, id=module_id)
-                delete.modulenumber = 0
-                delete.save()
-            except Exception:
-                pass
-            if CourseModule.objects.filter(course_id=course_id, modulenumber=number).exists():
+            # try:
+            #     delete = CourseModule.objects.get(course_id=course_id, id=module_id)
+            #     delete.modulenumber = 0
+            #     delete.save()
+            # except Exception:
+            #     pass
+            if CourseModule.objects.filter(course_id=course_id, modulenumber=number).exclude(id=module_id).exists():
                 messages.add_message(request, messages.ERROR,
                                      'Lecture no. already exits')
                 return render(request, 'admins/updateEdit.html', context)
             form.save()
             messages.success(request, 'Module updated successfully.')
             return redirect(f'/admins-dashboard/allModules/{course_id}')
-
+        else:
+            err = None
+            for i in form:
+                r = i.label
+                for error in i.errors:
+                    err = error
+                    messages.add_message(request, messages.ERROR,
+                                         err.lower().replace("this", r).capitalize())
+                    if err:
+                        break
+                if err:
+                    break
+    context = {
+        'form': form,
+    }
     return render(request, 'admins/updateEdit.html', context)
 
 
