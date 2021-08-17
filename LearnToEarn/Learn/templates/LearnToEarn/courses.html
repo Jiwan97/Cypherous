@@ -3,6 +3,8 @@
 {% load getEnroll %}
 {% load getLikes %}
 {% load hasLiked %}
+{% load getStars %}
+{% load getReview %}
 {% block title %}
     <title>Learn To Earn</title>
 {% endblock%}
@@ -55,13 +57,19 @@
                                 </div>
                                 <div class="cont">
                                     <ul>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
+                                        {% if course.id|getStars %}
+                                        {% for i in course.id|getStars %}
+                                            <li><i class="fa fa-star"></i></li>
+                                        {% endfor %}
+                                        {% else %}
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                        {% endif %}
                                     </ul>
-                                    <span>(20 Reviws)</span>
+                                    <span>({{course.id|getReview}} Reviws)</span>
                                     <a href="/courses/courseDesk/{{course.id}}"><h4>{{course.course_name}}</h4></a>
                                     <div class="course-teacher">
                                         <div class="thum">
@@ -106,11 +114,9 @@
                                     <div class="col-md-6">
                                         <div class="cont">
                                             <ul>
+                                                {% for i in course.id|getStars %}
                                                 <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
+                                                {% endfor %}
                                             </ul>
                                             <span>(20 Reviws)</span>
                                             <a href="/courses/courseDesk/{{course.id}}"><h4>{{course.course_name}}</h4></a>

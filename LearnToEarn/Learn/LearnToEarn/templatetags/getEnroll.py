@@ -6,6 +6,5 @@ register = template.Library()
 
 @register.filter(name='getEnroll')
 def getEnroll(id):
-    course = Course.objects.get(id=id)
-    enrollcount = CourseEnrollement.objects.filter(course=course).count()
+    enrollcount = CourseEnrollement.objects.filter(course_id=id).count()
     return enrollcount

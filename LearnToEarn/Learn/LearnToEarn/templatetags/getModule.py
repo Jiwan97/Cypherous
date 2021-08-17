@@ -6,6 +6,5 @@ register = template.Library()
 
 @register.filter(name='getModule')
 def getModule(id):
-    course = Course.objects.get(id=id)
-    statement = CourseModule.objects.filter(course=course).exists()
+    statement = CourseModule.objects.filter(course_id=id).exists()
     return statement

@@ -101,8 +101,19 @@ class CourseModule(models.Model):
         return result.text
 
 
+Rate_Choice = [
+    (1, '1-Star'),
+    (2, '2-Star'),
+    (3, '3-Star'),
+    (4, '4-Star'),
+    (5, '5-Star'),
+]
+
+
 class CourseReview(models.Model):
     user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, null=True, on_delete=models.CASCADE)
-    comment = models.CharField(max_length=200, null=True, default="Not Updated",
+    comment = models.CharField(max_length=50000, null=True, default="Not Updated",
                                )
+    rate = models.PositiveSmallIntegerField("Choose Your Rating", choices=Rate_Choice)
+    date_commented = models.DateTimeField(auto_now_add=True)

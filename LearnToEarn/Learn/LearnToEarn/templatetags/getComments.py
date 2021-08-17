@@ -6,6 +6,5 @@ register = template.Library()
 
 @register.filter(name='getComments')
 def getComments(id):
-    news = News.objects.get(id=id)
-    comment = Comment.objects.filter(news=news).count()
+    comment = Comment.objects.filter(news_id=id).count()
     return comment

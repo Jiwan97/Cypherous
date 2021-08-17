@@ -6418,7 +6418,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#391800', end
 
 .reviews-cont ul li .singel-reviews {
     padding-top: 30px;
-    padding-bottom: 25px;
     border-bottom: 1px solid #d2d2d2;
 }
 .reviews-cont ul li:last-child .singel-reviews {
@@ -6459,7 +6458,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#391800', end
 
 .reviews-cont ul li .singel-reviews .reviews-description{}
 .reviews-cont ul li .singel-reviews .reviews-description p{
-    padding-bottom: 17px;
 }
 .reviews-cont ul li .singel-reviews .reviews-description .rating{
     display: -moz-flex;

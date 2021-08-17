@@ -67,6 +67,7 @@ html {
 							<h2 class="comments-title">{{comments.count}} Comments</h2>
 							<div class="clearfix m-b20">
 								<ol id="comment-all" class="comment-list">
+									{% if comments %}
 									{% for comment in comments %}
 									<li id="comment-{{comment.id}}" class="comment">
 										<div class="comment-body">
@@ -79,6 +80,9 @@ html {
 										</div>
 									</li>
 									{% endfor %}
+									{% else %}
+									<h6 class="font-weight-bold mt-3">Be the First One to Comment</h6>
+									{% endif %}
 								</ol>
 <!--								<b class="read-m">Load More Comments</b>-->
 								<div class="comment-respond" id="respond">

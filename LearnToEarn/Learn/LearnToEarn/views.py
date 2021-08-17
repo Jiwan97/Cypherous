@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib import messages
 from django.core.paginator import Paginator
 from admins.filters import *
+from .forms import RateForm
 from taggit.models import Tag
 from django.contrib.auth.decorators import login_required
 
@@ -109,6 +110,22 @@ def courseLike(request):
 
 @login_required()
 def courseDesk(request, course_id):
+    review = RateForm()
+    if request.method == 'POST':
+        review = RateForm(request.POST)
+        if review.is_valid():
+            data = review.save(commit=False)
+            data.comment = request.POST.get('comment-message')
+            data.user = request.user
+            data.course_id = course_id
+            data.save()
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            # return JsonResponse(
+            #     {'data': comment_data, 'count': count, 'username': request.user.profile.username,
+            #      'firstname': request.user.profile.firstname,
+            #      'lastname': request.user.profile.lastname, 'profile': str(request.user.profile.profile_pic)},
+            #     safe=False)
+
     enrollment = CourseEnrollement.objects.filter(course_id=course_id, user=request.user).exists()
     enrollcount = CourseEnrollement.objects.filter(course_id=course_id).count()
     modulecount = CourseModule.objects.filter(course_id=course_id).count()
@@ -117,6 +134,9 @@ def courseDesk(request, course_id):
     tags = form.category.last()
     related = Course.objects.filter(category=tags).exclude(id=course_id).order_by('-date')[:2]
     lesson = CourseModule.objects.filter(course_id=course_id)
+    review_comment = CourseReview.objects.filter(course_id=course_id).order_by('-date_commented')
+    can_review = CourseReview.objects.filter(user=request.user, course_id=course_id).exists()
+
     context = {
         'course': form,
         'lesson': lesson,
@@ -128,7 +148,10 @@ def courseDesk(request, course_id):
         'modulecount': modulecount,
         'activate_cou': 'active',
         'url_next': f'?next=/courses/courseDesk/{course_id}',
-        'activate_couD': 'active'
+        'activate_couD': 'active',
+        'review': review,
+        'comments': review_comment,
+        'can_review': can_review,
     }
 
     return render(request, 'LearnToEarn/coursesDescription.html', context)
