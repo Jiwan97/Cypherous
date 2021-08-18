@@ -46,12 +46,12 @@ max-width:400% !important;
                     <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{request.user.profile.firstname}} {{request.user.profile.lastname}}</h4>
                     <p class="mb-0">@{{request.user.profile.username}}</p>
                     <div class="text-muted"><small>Last login: {{request.user.last_login}}</small></div>
-<!--                    <div class="mt-2">-->
-<!--                      <button class="btn btn-primary" type="button">-->
-<!--                        <i class="fa fa-fw fa-camera"></i>-->
-<!--                        <span>Change Photo</span>-->
-<!--                      </button>-->
-<!--                    </div>-->
+                    <div class="mt-2">
+                      <button class="btn btn-primary" type="button">
+                        <i class="fa fa-fw fa-camera"></i>
+                        <span>Change Photo</span>
+                      </button>
+                    </div>
                   </div>
                   <div class="text-center text-sm-right">
                     {% if user.is_staff %}
