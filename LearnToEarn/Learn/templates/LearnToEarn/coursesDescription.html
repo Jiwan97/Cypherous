@@ -156,7 +156,7 @@
                                         <div class="title">
                                             <h6>Student Reviews</h6>
                                         </div>
-                                        <ul id="reviewSec">
+                                        <ul style="list-style:none" id="reviewSec">
                                         {% if comments %}
                                            {% for comment in comments %}
                                            <li>
@@ -188,7 +188,7 @@
                                            </li>
                                            {% endfor %}
                                         {% else %}
-                                        <h6 class="mt-3">Be the first one to give a review to this course</h6>
+                                        <h6 id="first_one" class="mt-3">Be the first one to give a review to this course</h6>
                                         {% endif %}
                                         </ul>
                                         <div class="title pt-15">
@@ -568,13 +568,14 @@
 			success:function(response){
 				data= response.data
 				$("body").css("cursor", "wait");
-				var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "August", "Sep", "Oct", "Nov", "Dec"];
+				var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 				var today = new Date();
 				var date = months[today.getMonth()]+' '+today.getDate()+','+' '+today.getFullYear();
 				var dateTime = date
 				var d = 'list'
 				console.log(dateTime)
 				$('#reviewForm').empty();
+				$('#first_one').remove();
 				window.setTimeout(function() {
 				    $('#reviewForm').append(`<h6 class="font-weight-bold mt-3">You have just left your rating for this course</h6>`)
 					$("body").css("cursor", "default");

@@ -10,6 +10,7 @@ from taggit.models import Tag
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
 
+
 def home(request):
     context = {
         'activate_h': 'active'}
@@ -122,8 +123,7 @@ def courseDesk(request, course_id):
             # return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
             count = CourseReview.objects.filter(course_id=course_id).count()
             comment_data = CourseReview.objects.values().get(id=data.id)
-            Avg_data= CourseReview.objects.filter(course_id=course_id).aggregate(Avg('rate'))
-            print(Avg_data)
+            Avg_data = CourseReview.objects.filter(course_id=course_id).aggregate(Avg('rate'))
             total_star = ['', '', '', '', '']
             for i in range(0, int(Avg_data['rate__avg'])):
                 total_star[i] = '<li><a href="#"><i class="fa fa-star"></i></a></li>'
@@ -133,7 +133,7 @@ def courseDesk(request, course_id):
 
             return JsonResponse(
                 {'data': comment_data, 'count': count, 'username': request.user.profile.username, 'tagstar': tagstar,
-                 'firstname': request.user.profile.firstname, 'total_star':total_star,
+                 'firstname': request.user.profile.firstname, 'total_star': total_star,
                  'lastname': request.user.profile.lastname, 'profile': str(request.user.profile.profile_pic)},
                 safe=False)
 

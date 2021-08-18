@@ -98,6 +98,12 @@ TEMPLATES = [
     },
 ]
 
+INTERNAL_IPS = [
+    # ...
+    '127.0.0.1',
+    # ...
+]
+
 AUTHENTICATION_BACKENDS = [
 
     # Needed to login by username in Django admins, regardless of `allauth`
@@ -208,9 +214,3 @@ CKEDITOR_CONFIGS = {
         'width': 'auto',
     },
 }
-
-# INTERNAL_IPS = [
-#     # ...
-#     '127.0.0.1',
-#     # ...
-# ]

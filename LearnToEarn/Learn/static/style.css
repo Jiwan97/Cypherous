@@ -5881,7 +5881,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#391800', end
     padding-bottom: 40px;
     -webkit-transition: all 0.4s linear;
     transition: all 0.4s linear;
-    height:100px;
+    height:70px;
+    overflow:hidden;
 }
 .singel-course .cont h4:hover{
     color: #ffc600;
