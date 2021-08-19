@@ -6210,10 +6210,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#391800', end
 .corses-singel-left .course-terms ul li .review ul li {
     display: inline-block;
 }
-.corses-singel-left .course-terms ul li .review ul li a {
-    font-size: 14px;
-    color: #ffc600;
-}
 .corses-singel-left .course-terms ul li .review ul li.rating{
     font-size: 14px;
     color: #000;

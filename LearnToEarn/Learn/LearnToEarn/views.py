@@ -124,10 +124,12 @@ def courseDesk(request, course_id):
             count = CourseReview.objects.filter(course_id=course_id).count()
             comment_data = CourseReview.objects.values().get(id=data.id)
             Avg_data = CourseReview.objects.filter(course_id=course_id).aggregate(Avg('rate'))
-            total_star = ['', '', '', '', '']
+            star = '<li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>'
+            total_star = ['', star, star, star, star]
             for i in range(0, int(Avg_data['rate__avg'])):
-                total_star[i] = '<li><a href="#"><i class="fa fa-star"></i></a></li>'
-            tagstar = ['', '', '', '', '']
+                total_star[i] = '<li><i style="color: #ffc600;" class="fa fa-star"></i></li>'
+            star1 = '<li><i style="font-size:12px; color:#d1d1d1;" class="fa fa-star"></i></li>'
+            tagstar = ['', star1, star1, star1, star1]
             for i in range(0, comment_data['rate']):
                 tagstar[i] = '<li><i style="font-size:12px;" class="fa fa-star"></i></li>'
 

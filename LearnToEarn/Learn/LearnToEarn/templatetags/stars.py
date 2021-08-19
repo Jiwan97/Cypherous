@@ -7,7 +7,7 @@ register = template.Library()
 @register.filter(name='stars')
 def stars(id):
     review_comment = CourseReview.objects.get(id=id)
-    list = []
+    list = ['', '', '', '', '']
     for i in range(0, review_comment.rate):
-        list.append(i)
+        list[i] = i
     return list

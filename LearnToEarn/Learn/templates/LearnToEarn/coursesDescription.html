@@ -69,14 +69,18 @@
                                         <ul id= "rated">
                                             {% if course.id|getStars %}
                                             {% for i in course.id|getStars %}
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                                {% if '' in i %}
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                                {% else %}
+                                                <li><i style="color: #ffc600;" class="fa fa-star"></i></li>
+                                                {% endif %}
                                             {% endfor %}
                                             {% else %}
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
                                             {% endif %}
                                                 <li  class="rating">({{course.id|getReview}} Reviews)</li>
                                         </ul>
@@ -178,7 +182,11 @@
                                                         <div class="rating">
                                                             <ul>
                                                                 {% for i in comment.id|stars %}
+                                                                {% if '' in i %}
+                                                                <li><i style="font-size:12px; color:#d1d1d1;" class="fa fa-star"></i></li>
+                                                                {% else %}
                                                                 <li><i style="font-size:12px;" class="fa fa-star"></i></li>
+                                                                {% endif %}
                                                                 {% endfor %}
                                                             </ul>
                                                         </div>
@@ -239,7 +247,7 @@
                                 <div class="singel-course mt-20">
                                     <div class="thum">
                                         <div class="image">
-                                            <img src="/{{course.course_pic}}" alt="Course">
+                                            <img  src="/{{course.course_pic}}" alt="Course" height="190px">
                                         </div>
                                         <div class="price">
                                             <span>Free</span>
@@ -249,14 +257,18 @@
                                         <ul>
                                             {% if course.id|getStars %}
                                             {% for i in course.id|getStars %}
+                                                {% if '' in i %}
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                                {% else %}
                                                 <li><i class="fa fa-star"></i></li>
+                                                {% endif %}
                                             {% endfor %}
                                             {% else %}
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
                                             {% endif %}
                                         </ul>
                                         <span>({{course.id|getReview}} Reviws)</span>
@@ -346,14 +358,18 @@
                                         <ul>
                                             {% if course.id|getStars %}
                                             {% for i in course.id|getStars %}
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                                {% if '' in i %}
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                                {% else %}
+                                                <li><i style="color: #ffc600;" class="fa fa-star"></i></li>
+                                                {% endif %}
                                             {% endfor %}
                                             {% else %}
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
                                             {% endif %}
                                                 <li class="rating">({{course.id|getReview}} Reviews)</li>
                                         </ul>
@@ -463,7 +479,7 @@
                                 <div class="singel-course mt-30">
                                     <div class="thum">
                                         <div class="image">
-                                            <img src="/{{course.course_pic}}" alt="Course">
+                                            <img  src="/{{course.course_pic}}" alt="Course" height="190px">
                                         </div>
                                         <div class="price">
                                             <span>Free</span>
@@ -473,14 +489,18 @@
                                         <ul>
                                             {% if course.id|getStars %}
                                             {% for i in course.id|getStars %}
+                                                {% if '' in i %}
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                                {% else %}
                                                 <li><i class="fa fa-star"></i></li>
+                                                {% endif %}
                                             {% endfor %}
                                             {% else %}
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
                                             {% endif %}
                                         </ul>
                                         <span>({{course.id|getReview}} Reviws)</span>

@@ -11,9 +11,9 @@ def getStars(id):
     loop = total['rate__avg']
     if loop is not None:
         loop = int(loop)
-        list = []
+        list = ['', '', '', '', '']
         for i in range(0, loop):
-            list.append(i)
+            list[i] = i
         return list
     else:
         return loop
