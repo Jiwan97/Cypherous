@@ -58,14 +58,18 @@
                                     <ul>
                                         {% if course.id|getStars %}
                                         {% for i in course.id|getStars %}
+                                            {% if '' in i %}
+                                            <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                            {% else %}
                                             <li><i class="fa fa-star"></i></li>
+                                            {% endif %}
                                         {% endfor %}
                                         {% else %}
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                            <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                            <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                            <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                            <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
                                         {% endif %}
                                     </ul>
                                     <span>({{course.id|getReview}} Reviews)</span>
@@ -115,14 +119,18 @@
                                             <ul>
                                             {% if course.id|getStars %}
                                             {% for i in course.id|getStars %}
+                                                {% if '' in i %}
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                                {% else %}
                                                 <li><i class="fa fa-star"></i></li>
+                                                {% endif %}
                                             {% endfor %}
                                             {% else %}
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                                <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
                                             {% endif %}
                                         </ul>
                                         <span>({{course.id|getReview}} Reviews)</span>
