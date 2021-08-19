@@ -111,33 +111,33 @@ def courseLike(request):
 
 @login_required()
 def courseDesk(request, course_id):
-    review = RateForm()
     if request.method == 'POST':
-        review = RateForm(request.POST)
-        if review.is_valid():
-            data = review.save(commit=False)
-            data.comment = request.POST.get('comment-message')
-            data.user = request.user
-            data.course_id = course_id
-            data.save()
-            # return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-            count = CourseReview.objects.filter(course_id=course_id).count()
-            comment_data = CourseReview.objects.values().get(id=data.id)
-            Avg_data = CourseReview.objects.filter(course_id=course_id).aggregate(Avg('rate'))
-            star = '<li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>'
-            total_star = ['', star, star, star, star]
-            for i in range(0, int(Avg_data['rate__avg'])):
-                total_star[i] = '<li><i style="color: #ffc600;" class="fa fa-star"></i></li>'
-            star1 = '<li><i style="font-size:12px; color:#d1d1d1;" class="fa fa-star"></i></li>'
-            tagstar = ['', star1, star1, star1, star1]
-            for i in range(0, comment_data['rate']):
-                tagstar[i] = '<li><i style="font-size:12px;" class="fa fa-star"></i></li>'
+        data = CourseReview()
+        data.rate = int(request.POST.get('rate'))
+        data.comment = request.POST.get('comment-message')
+        data.user = request.user
+        data.course_id = course_id
+        data.save()
+        # return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        count = CourseReview.objects.filter(course_id=course_id).count()
+        comment_data = CourseReview.objects.values().get(id=data.pk)
+        Avg_data = CourseReview.objects.filter(course_id=course_id).aggregate(Avg('rate'))
 
-            return JsonResponse(
-                {'data': comment_data, 'count': count, 'username': request.user.profile.username, 'tagstar': tagstar,
-                 'firstname': request.user.profile.firstname, 'total_star': total_star,
-                 'lastname': request.user.profile.lastname, 'profile': str(request.user.profile.profile_pic)},
-                safe=False)
+        star = '<li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>'
+        total_star = ['', star, star, star, star]
+        for i in range(0, int(Avg_data['rate__avg'])):
+            total_star[i] = '<li><i style="color: #ffc600;" class="fa fa-star"></i></li>'
+
+        star1 = '<li><i style="font-size:12px; color:#d1d1d1;" class="fa fa-star"></i></li>'
+        tagstar = ['', star1, star1, star1, star1]
+        for i in range(0, comment_data['rate']):
+            tagstar[i] = '<li><i style="font-size:12px;" class="fa fa-star"></i></li>'
+
+        return JsonResponse(
+            {'data': comment_data, 'count': count, 'username': request.user.profile.username, 'tagstar': tagstar,
+             'firstname': request.user.profile.firstname, 'total_star': total_star,
+             'lastname': request.user.profile.lastname, 'profile': str(request.user.profile.profile_pic)},
+            safe=False)
 
     enrollment = CourseEnrollement.objects.filter(course_id=course_id, user=request.user).exists()
     enrollcount = CourseEnrollement.objects.filter(course_id=course_id).count()
@@ -162,7 +162,6 @@ def courseDesk(request, course_id):
         'activate_cou': 'active',
         'url_next': f'?next=/courses/courseDesk/{course_id}',
         'activate_couD': 'active',
-        'review': review,
         'comments': review_comment,
         'can_review': can_review,
     }
