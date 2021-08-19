@@ -7,7 +7,7 @@ from accounts.models import User
 from .forms import NewsForm, ResponseForm, CourseForm, ModuleForm
 from LearnToEarn.models import News, ContactMessage, Course, CourseModule
 import os
-
+from accounts.error_render import errors
 
 @login_required()
 @admin_only
@@ -143,17 +143,7 @@ def CourseCreate(request):
             messages.success(request, 'Course added successfully.')
             return redirect('/admins-dashboard/allCourses')
         else:
-            err = None
-            for i in form:
-                r = i.label
-                for error in i.errors:
-                    err = error
-                    messages.add_message(request, messages.ERROR,
-                                         err.lower().replace("this", r).capitalize())
-                    if err:
-                        break
-                if err:
-                    break
+            errors(request, form)
     context = {'form': form}
     return render(request, 'admins/CreateAdd.html', context)
 
@@ -169,17 +159,7 @@ def editCourse(request, course_id):
                 messages.success(request, 'Course updated successfully.')
                 return redirect('/admins-dashboard/allCourses')
             else:
-                err = None
-                for i in form:
-                    r = i.label
-                    for error in i.errors:
-                        err = error
-                        messages.add_message(request, messages.ERROR,
-                                             err.lower().replace("this", r).capitalize())
-                        if err:
-                            break
-                    if err:
-                        break
+                errors(request, form)
     else:
         messages.warning(request, 'You do not have permission to edit this course.')
         return redirect('/admins-dashboard/allCourses')
@@ -237,17 +217,7 @@ def ModuleCreate(request, course_id):
                 messages.success(request, 'Module added successfully.')
                 return redirect(f'/admins-dashboard/allModules/{course_id}')
             else:
-                err = None
-                for i in form:
-                    r = i.label
-                    for error in i.errors:
-                        err = error
-                        messages.add_message(request, messages.ERROR,
-                                             err.lower().replace("this", r).capitalize())
-                        if err:
-                            break
-                    if err:
-                        break
+                errors(request, form)
             # else:
             #     messages.add_message(request, messages.ERROR,
             #                          "Please don't leave anything blank")
@@ -283,17 +253,7 @@ def editModule(request, course_id, module_id):
             messages.success(request, 'Module updated successfully.')
             return redirect(f'/admins-dashboard/allModules/{course_id}')
         else:
-            err = None
-            for i in form:
-                r = i.label
-                for error in i.errors:
-                    err = error
-                    messages.add_message(request, messages.ERROR,
-                                         err.lower().replace("this", r).capitalize())
-                    if err:
-                        break
-                if err:
-                    break
+            errors(request, form)
     context = {
         'form': form,
     }

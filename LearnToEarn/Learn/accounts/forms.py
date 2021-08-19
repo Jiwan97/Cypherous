@@ -16,7 +16,7 @@ class ProfileForm(ModelForm):
 class ProfileForm2(ModelForm):
     class Meta:
         model = Profile
-        fields = ['skills', 'highschool', 'university', 'profile_pic']
+        fields = ['skills', 'highschool', 'university']
         widgets = {
             'skills': Textarea(attrs={'cols': 2, 'rows': 2}),
             'profile_pic': forms.FileInput()

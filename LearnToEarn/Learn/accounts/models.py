@@ -13,18 +13,18 @@ class User(AbstractUser):
 class Profile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     username = models.CharField(max_length=200, null=True)
-    firstname = models.CharField("FirstName", default="Name not Updated", max_length=200, null=True,
+    firstname = models.CharField("First Name", default="Name not Updated", max_length=200, null=True,
                                  validators=[validators.MinLengthValidator(4)])
-    lastname = models.CharField("LastName", default="", max_length=200, null=True,
+    lastname = models.CharField("Last Name", default="", max_length=200, null=True,
                                 validators=[validators.MinLengthValidator(4)])
-    birthdate = models.DateField("BirthDate(mm/dd/year)", null=True, blank=True, default=None)
+    birthdate = models.DateField("Birth Date", null=True, blank=True, default=None)
     country = models.CharField(max_length=200, null=True, default="Not Updated",
                                validators=[validators.MinLengthValidator(4)])
     address = models.CharField(max_length=200, null=True, default="Not Updated",
                                validators=[validators.MinLengthValidator(4)])
-    phonenumber = models.CharField("PhoneNumber", max_length=200, null=True, default="Not Updated",
+    phonenumber = models.CharField("Phone Number", max_length=200, null=True, default="Not Updated",
                                    validators=[validators.MaxLengthValidator(10)])
-    facebooklink = models.CharField("FacebookLink", max_length=200, null=True, default="Not Updated",
+    facebooklink = models.CharField("Facebook Link", max_length=200, null=True, default="Not Updated",
                                     validators=[validators.MinLengthValidator(4)])
     skills = models.CharField(max_length=200, null=True, default="Not Updated",
                               validators=[validators.MinLengthValidator(4)])

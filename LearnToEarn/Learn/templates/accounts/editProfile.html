@@ -12,7 +12,9 @@ margin-top:80px;
 .col-lg-2 {
 max-width:400% !important;
 }
-
+.help-block {
+display:none
+}
 </style>
 <div class=" st container">
 <div class="row flex-lg-nowrap">
@@ -47,10 +49,16 @@ max-width:400% !important;
                     <p class="mb-0">@{{request.user.profile.username}}</p>
                     <div class="text-muted"><small>Last login: {{request.user.last_login}}</small></div>
                     <div class="mt-2">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fa fa-fw fa-camera"></i>
-                        <span>Change Photo</span>
-                      </button>
+                      <form class="form" action="" method="POST" enctype="multipart/form-data" >
+                        {% csrf_token %}
+                        <input id="real-profile" name="profile_pic" accept="image/*" hidden="hidden" type="file">
+                        <button id="imgBtn" class="btn btn-primary" type="button">
+                          <i class="fa fa-fw fa-camera"></i>
+                          <span>Change Photo</span>
+                        </button>
+                        <label id="hidden-text"></label>
+                        <button id="invisibleSubmit" hidden="hidden" type="submit"></button>
+                      </form>
                     </div>
                   </div>
                   <div class="text-center text-sm-right">
@@ -137,7 +145,7 @@ max-width:400% !important;
                         </div>
                     <div class="row">
                       <div class="col d-flex justify-content-end">
-                        <button class="btn btn-primary" type="submit">Save Changes</button>
+                        <button class="btn btn-primary" name="main_data" type="submit">Save Changes</button>
                       </div>
                     </div>
                   </form>
@@ -147,11 +155,6 @@ max-width:400% !important;
                     {% csrf_token %}
                     <div class="row">
                       <div class="col">
-                        <div class="row">
-                          <div class="col mb-3">
-                              {{form1.profile_pic | bootstrap_horizontal}}
-                          </div>
-                        </div>
                         <div class="row">
                           <div class="col">
                               {{form1.highschool | bootstrap_horizontal}}
@@ -171,7 +174,7 @@ max-width:400% !important;
                     </div>
                     <div class="row">
                       <div class="col d-flex justify-content-end">
-                        <button class="btn btn-primary" type="submit">Save Changes</button>
+                        <button class="btn btn-primary" name="other_data" type="submit">Save Changes</button>
                       </div>
                     </div>
                   </form>
@@ -206,7 +209,20 @@ max-width:400% !important;
   </div>
 </div>
 </div>
-
+<script type="text/javascript">
+  const realFileBtn = document.getElementById("real-profile");
+  const hiddenSubmit = document.getElementById("invisibleSubmit");
+  const customBtn = document.getElementById("imgBtn");
+  const customTxt = document.getElementById("hidden-text");
+  customBtn.addEventListener("click", function() {
+  realFileBtn.click();
+  });
+  realFileBtn.addEventListener("change", function() {
+  if (realFileBtn.value) {
+    hiddenSubmit.click();
+  }
+  });
+</script>
 
 
 {% endblock %}

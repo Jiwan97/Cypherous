@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from .error_render import errors
 from .auth import *
 from django.contrib.auth import update_session_auth_hash
 from validate_email import validate_email  # pip install validate email
@@ -264,14 +265,26 @@ def edit_profile(request):
     form = ProfileForm(instance=profile)
     form1 = ProfileForm2(instance=profile)
     if request.method == "POST":
-        form = ProfileForm(request.POST, request.FILES, instance=profile)
-        form1 = ProfileForm2(request.POST, request.FILES, instance=profile)
-        if form.is_valid():
-            form.save()
-            return redirect('/showprofile')
-        elif form1.is_valid():
-            form1.save()
-            return redirect('/showprofile')
+        img = request.FILES.get('profile_pic', None)
+        if img:
+            profile = request.user.profile
+            profile.profile_pic = img
+            profile.save()
+            return redirect('/editprofile')
+        elif 'main_data' in request.POST:
+            form = ProfileForm(request.POST, request.FILES, instance=profile)
+            if form.is_valid():
+                form.save()
+                return redirect('/editprofile')
+            else:
+                errors(request, form)
+        elif 'other_data' in request.POST:
+            form1 = ProfileForm2(request.POST, request.FILES, instance=profile)
+            if form1.is_valid():
+                form1.save()
+                return redirect('/editprofile')
+            else:
+                errors(request, form1)
 
     context = {'form': form,
                'form1': form1}
