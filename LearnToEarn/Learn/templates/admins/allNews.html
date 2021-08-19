@@ -33,8 +33,8 @@
                             <td><a href="/newsPortal/{{i.id}}">{{i.heading}}</a></td>
                             <td>{{i.date_posted| date:"F d, Y"}}</td>
                             <td>
-                              <a href="/admins-dashboard/editNewsPost/{{i.id}}" class="btn btn-outline-primary btn-sm">Edit</a>
-                              <a href="/admins-dashboard/delNewsPost/{{i.id}}" class="btn btn-danger btn-sm" onclick="return confirm('Want to delete?')">Delete</a>
+                              <a href="/admins-dashboard/editNewsPost/{{i.id}}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> Edit</a>
+                              <a href="/admins-dashboard/delNewsPost/{{i.id}}" class="btn btn-danger btn-sm" onclick="return confirm('Want to delete?')"><i class="fa fa-trash"></i> Delete</a>
                             </td>
                         </tr>
                         {% endfor %}

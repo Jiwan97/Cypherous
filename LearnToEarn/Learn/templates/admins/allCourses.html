@@ -41,8 +41,8 @@
                             <td>{{i.date| date:"F d, Y"}}</td>
                             {% if user.id == i.user_id %}
                             <td>
-                              <a href="/admins-dashboard/editCourse/{{i.id}}" class="btn btn-warning btn-sm">Edit</a>
-                              <a href="/admins-dashboard/delCourse/{{i.id}}" class="btn btn-danger btn-sm" onclick="return confirm('Want to delete?')">Delete</a>
+                              <a href="/admins-dashboard/editCourse/{{i.id}}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> Edit</a>
+                              <a href="/admins-dashboard/delCourse/{{i.id}}"  class="btn btn-danger btn-sm" onclick="return confirm('Want to delete?')"><i class="fa fa-trash"></i> Delete</a>
                                 {% if i.id|getModule %}
                                     <a href="/admins-dashboard/allModules/{{i.id}}" class="btn btn-v btn-primary btn-sm">View Module</a>
                                 {% else %}
@@ -52,8 +52,8 @@
                             </td>
                             {% else %}
                             <td>
-                              <a href="/admins-dashboard/editCourse/{{i.id}}" class="disabled btn btn-warning btn-sm">Edit</a>
-                              <a href="/admins-dashboard/delCourse/{{i.id}}" class="disabled btn btn-danger btn-sm" onclick="return confirm('Want to delete?')">Delete</a>
+                              <a href="/admins-dashboard/editCourse/{{i.id}}" class="disabled btn btn-success btn-sm"><i class="fa fa-edit"></i> Edit</a>
+                              <a href="/admins-dashboard/delCourse/{{i.id}}" class="disabled btn btn-danger btn-sm" onclick="return confirm('Want to delete?')"><i class="fa fa-trash"></i> Delete</a>
                                 <span>You don't have permission</span>
                             </td>
                             {% endif %}

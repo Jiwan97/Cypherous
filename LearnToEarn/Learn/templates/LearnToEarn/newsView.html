@@ -75,7 +75,7 @@ html {
 											<div class="comment-meta"> <a href="#">{{comment.date_commented}}</a> </div>
 											<p style="white-space: pre-line;">{{comment.comment}}</p>
 											{% if user.id == comment.user_id %}
-												<div class="delete"><b class="small-btn" onclick="deleteCom({{comment.id}})">Delete</b></div>
+												<div class="delete"><b class="small-btn" onclick="deleteCom({{comment.id}})"><i class="fa fa-trash"></i> Delete</b></div>
 											{% endif %}
 										</div>
 									</li>

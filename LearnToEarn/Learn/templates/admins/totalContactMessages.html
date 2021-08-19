@@ -41,9 +41,9 @@
                             <td>{{i.date| date:"F d, Y"}}</td>
                             <td>
                                 {% if i.responded %}
-                              <a href="/admins-dashboard/messageView/{{i.id}}"  class="btn btn-primary btn-sm">Responded</a>
+                              <a href="/admins-dashboard/messageView/{{i.id}}"  class="btn btn-success btn-sm"><i class="fas fa-reply"></i>Responded</a>
                                 {% else %}
-                              <a href="/admins-dashboard/messageView/{{i.id}}" class="btn btn-outline-primary btn-sm">View</a>
+                              <a href="/admins-dashboard/messageView/{{i.id}}" class="btn btn-warning btn-sm"><i class="fa fa-eye" aria-hidden="true"></i>View</a>
                                 {% endif %}
                             </td>
                         </tr>

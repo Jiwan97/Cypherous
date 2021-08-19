@@ -6454,14 +6454,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#391800', end
 .reviews-cont ul li .singel-reviews .reviews-description{}
 .reviews-cont ul li .singel-reviews .reviews-description p{
 }
-.reviews-cont ul li .singel-reviews .reviews-description .rating{
-    display: -moz-flex;
-    display: -ms-flex;
-    display: -o-flex;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-}
+
 .reviews-cont ul li .singel-reviews .reviews-description .rating ul li{
     display: inline-block;
     font-size: 15px;

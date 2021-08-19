@@ -34,8 +34,8 @@
                             <td>{{i.module}}</td>
                             <td>{{i.date| date:"F d, Y"}}</td>
                             <td>
-                              <a href="/admins-dashboard/editModule/{{course_id}}/{{i.id}}" class="btn btn-outline-primary btn-sm">Edit</a>
-                              <a href="/admins-dashboard/delModule/{{course_id}}/{{i.id}}" class="btn btn-danger btn-sm" onclick="return confirm('Want to delete?')">Delete</a>
+                              <a href="/admins-dashboard/editModule/{{course_id}}/{{i.id}}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> Edit</a>
+                              <a href="/admins-dashboard/delModule/{{course_id}}/{{i.id}}" class="btn btn-danger btn-sm" onclick="return confirm('Want to delete?')"><i class="fa fa-trash"></i> Delete</a>
                             </td>
                         </tr>
                         {% endfor %}

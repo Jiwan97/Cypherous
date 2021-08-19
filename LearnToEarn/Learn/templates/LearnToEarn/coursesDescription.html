@@ -173,7 +173,7 @@ p a{
                                         <ul style="list-style:none" id="reviewSec">
                                         {% if comments %}
                                            {% for comment in comments %}
-                                           <li>
+                                           <li id="comment-{{comment.id}}">
                                                <div class="singel-reviews">
                                                    {% if comment.user_id == request.user.id %}
                                                    <div class="reviews-author" style="background-color:#f9f8f8" >
@@ -186,9 +186,11 @@ p a{
                                                         <div class="author-name">
                                                             <h6>{{comment.user.profile.firstname}} {{comment.user.profile.lastname}}</h6>
                                                             <span>{{comment.date_commented| date:"F d, Y"}}</span>
+
                                                         </div>
                                                     </div>
                                                     <div class="reviews-description pt-20">
+
                                                         <div class="rating">
                                                             <ul>
                                                                 {% for i in comment.id|stars %}
@@ -199,8 +201,14 @@ p a{
                                                                 {% endif %}
                                                                 {% endfor %}
                                                             </ul>
+                                                            {% if user.id == comment.user_id %}
+
+                                                            <b style="float: right;  margin-top: -20px;" class="small-btn" onclick="deleteRev({{comment.id}})"><i class="fa fa-trash"></i> Delete</b>
+                                                            <b style="float: right; margin-right: 50px; margin-top: -20px" class="small-btn" onclick="deleteRev({{comment.id}})"><i class="fa fa-edit"></i> Edit</b>
+                                                            {% endif %}
                                                         </div>
                                                         <p style="white-space: pre-line;">{{comment.comment}}</p>
+
                                                     </div>
                                                 </div>
                                            </li>
@@ -214,7 +222,7 @@ p a{
                                         </div>
                                         <div class="reviews-form">
                                             {% if can_review %}
-                                            <h6 class="font-weight-bold mt-3">You have already rated this course</h6>
+                                            <form class="rate-form" id="reviewForm" method="POST" action="#"><h6 class="font-weight-bold mt-3">You have already rated this course</h6></form>
                                             {% else %}
                                             <form class="rate-form" id="reviewForm" method="POST" action="#">
                                                 {% csrf_token %}
@@ -549,6 +557,8 @@ p a{
         </div>
         {% endif %}
     </section>
+
+<script src="/static/js/star.js"></script>
 <script type="text/javascript">
     function like(id) {
         $.ajax({
@@ -590,112 +600,7 @@ p a{
 	}
 
 
-    const one = document.getElementById('first')
-    const two = document.getElementById('second')
-    const three = document.getElementById('third')
-    const four = document.getElementById('fourth')
-    const five = document.getElementById('fifth')
 
-
-    const form = document.querySelector('.rate-form')
-    const rateValue = document.getElementById('rate_value')
-
-    const handleStarSelect = (size) => {
-        const children = form.children
-        console.log(children[0])
-        for (let i=0; i < children.length; i++) {
-            if(i <= size) {
-                children[i].classList.add('checked')
-            } else {
-                children[i].classList.remove('checked')
-            }
-        }
-    }
-
-    const handleSelect = (selection) => {
-        switch(selection){
-            case 'first': {
-                one.classList.add('checked')
-                two.classList.remove('checked')
-                three.classList.remove('checked')
-                four.classList.remove('checked')
-                five.classList.remove('checked')
-
-                return
-            }
-            case 'second': {
-                one.classList.add('checked')
-                two.classList.add('checked')
-                three.classList.remove('checked')
-                four.classList.remove('checked')
-                five.classList.remove('checked')
-                return
-            }
-            case 'third': {
-                one.classList.add('checked')
-                two.classList.add('checked')
-                three.classList.add('checked')
-                four.classList.remove('checked')
-                five.classList.remove('checked')
-                return
-            }
-            case 'fourth': {
-                one.classList.add('checked')
-                two.classList.add('checked')
-                three.classList.add('checked')
-                four.classList.add('checked')
-                five.classList.remove('checked')
-                return
-            }
-            case 'fifth': {
-                one.classList.add('checked')
-                two.classList.add('checked')
-                three.classList.add('checked')
-                four.classList.add('checked')
-                five.classList.add('checked')
-                return
-            }
-            default: {
-                handleStarSelect(0)
-            }
-        }
-
-    }
-
-    const getNumericValue = (stringValue) =>{
-        let numericValue;
-        if (stringValue === 'first') {
-            numericValue = 1
-        }
-        else if (stringValue === 'second') {
-            numericValue = 2
-        }
-        else if (stringValue === 'third') {
-            numericValue = 3
-        }
-        else if (stringValue === 'fourth') {
-            numericValue = 4
-        }
-        else if (stringValue === 'fifth') {
-            numericValue = 5
-        }
-        else {
-            numericValue = 0
-        }
-        return numericValue
-    }
-
-    if (one) {
-        const arr = [one, two, three, four, five]
-
-        arr.forEach(item=> item.addEventListener('mouseover', (event)=>{
-            handleSelect(event.target.id)
-            const val = event.target.id
-            const val_num = getNumericValue(val)
-            rateValue.innerHTML= val_num
-        }))
-
-    }
 
     $(document).on('submit','#reviewForm',function(e){
         e.preventDefault();
@@ -730,12 +635,12 @@ p a{
                         ${response.total_star[2]}
                         ${response.total_star[3]}
                         ${response.total_star[4]}
-                        <li  class="rating">(${response.count} Reviews)</li>
+                        <li  class="rating"><i class="fa fa-comments-o"></i> ${response.count} ${response.review}</li>
                         `
                     );
 					$('#reviewSec').append(
 						`
-						<li>
+						<li id="comment-${data.id}">
                            <div class="singel-reviews">
                                 <div class="reviews-author" style="background-color:#f9f8f8" >
                                     <div class="author-thum">
@@ -755,6 +660,8 @@ p a{
                                             ${response.tagstar[3]}
                                             ${response.tagstar[4]}
                                         </ul>
+                                        <b style="float: right;  margin-top: -20px;" class="small-btn" onclick="deleteRev(${data.id})"><i class="fa fa-trash"></i> Delete</b>
+                                        <b style="float: right; margin-right: 50px; margin-top: -20px" class="small-btn" onclick="deleteRev(${data.id})"><i class="fa fa-edit"></i> Edit</b>
                                     </div>
                                     <p style="white-space: pre-line;">${data.comment}</p>
                                 </div>
@@ -771,5 +678,62 @@ p a{
 		});
 
     });
+
+    function deleteRev(id) {
+	  var action = confirm("You are going to delete this comment?");
+	  if (action != false) {
+		$.ajax({
+			url: '{% url 'del-rev' course.id %}',
+			data: {
+				'id': id,
+			},
+			success:function(response){
+				window.setTimeout(function() {
+					$('#rated').empty();
+					$('#rated').append(
+                        `
+                        ${response.total_star[0]}
+                        ${response.total_star[1]}
+                        ${response.total_star[2]}
+                        ${response.total_star[3]}
+                        ${response.total_star[4]}
+                        <li  class="rating"><i class="fa fa-comments-o"></i> ${response.count} ${response.review}</li>
+                        `
+                    );
+					$('#comment-'+id).remove()
+					$('#reviewForm').empty();
+					$('#reviewForm').append(
+					    `
+                        {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-singel">
+                                        <i style="padding-right:5px;" class="fa fa-star  my-btn" id="first"></i>
+                                        <i style="padding-right:5px;" class="fa fa-star  my-btn" id="second"></i>
+                                        <i style="padding-right:5px;" class="fa fa-star  my-btn" id="third"></i>
+                                        <i style="padding-right:5px;" class="fa fa-star  my-btn" id="fourth"></i>
+                                        <i style="padding-right:5px;" class="fa fa-star  my-btn" id="fifth"></i>
+                                    </div>
+                                </div>
+                                <div hidden="hidden" id="rate_value"></div>
+                                <div class="col-lg-12">
+                                    <div class="form-singel">
+                                        <textarea required name="comment-message" id="comment" placeholder="Comment"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-singel">
+                                        <button type="submit"  class="btn main-btn">Post Review</button>
+                                    </div>
+                                </div>
+                            </div>
+					    `
+	                );
+	                $.getScript( "/static/js/star.js");
+				}, 1000);
+			}
+		});
+	  }
+	}
 </script>
 {% endblock %}
