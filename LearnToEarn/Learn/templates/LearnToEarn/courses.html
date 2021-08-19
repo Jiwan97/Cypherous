@@ -72,7 +72,7 @@
                                             <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
                                         {% endif %}
                                     </ul>
-                                    <span>({{course.id|getReview}} Reviews)</span>
+                                    <span style="float:right;"> <i class="fa fa-comments-o"></i> {{course.id|getReview}} {% if 1 == course.id|getReview or 0 == course.id|getReview %} Review {% else %} Reviews {% endif %}</span>
                                     <a href="/courses/courseDesk/{{course.id}}"><h4>{{course.course_name}}</h4></a>
                                     <div class="course-teacher">
                                         <div class="thum">
@@ -133,7 +133,7 @@
                                                     <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
                                                 {% endif %}
                                             </ul>
-                                            <span>({{course.id|getReview}} Reviews)</span>
+                                            <span style="float:right;"> <i class="fa fa-comments-o"></i> {{course.id|getReview}} {% if 1 == course.id|getReview or 0 == course.id|getReview %} Review {% else %} Reviews {% endif %}</span>
                                             <a href="/courses/courseDesk/{{course.id}}"><h4>{{course.course_name}}</h4></a>
                                             <div class="course-teacher">
                                                 <div class="thum">
