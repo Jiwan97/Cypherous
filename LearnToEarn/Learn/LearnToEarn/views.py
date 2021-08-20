@@ -112,41 +112,44 @@ def courseLike(request):
 @login_required()
 def courseDesk(request, course_id):
     if request.method == 'POST':
-        data = CourseReview()
-        try:
-            rate = int(request.POST.get('rate'))
-        except:
-            rate = 1
-        data.rate = rate
-        data.comment = request.POST.get('comment-message')
-        data.user = request.user
-        data.course_id = course_id
-        data.save()
-        # return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-        count = CourseReview.objects.filter(course_id=course_id).count()
-        if count == 0 or count == 1:
-            review = "Review"
+        if CourseReview.objects.filter(course_id=course_id, user=request.user).exists():
+            pass
         else:
-            review = "Reviews"
-        comment_data = CourseReview.objects.values().get(id=data.pk)
-        Avg_data = CourseReview.objects.filter(course_id=course_id).aggregate(Avg('rate'))
+            data = CourseReview()
+            try:
+                rate = int(request.POST.get('rate'))
+            except:
+                rate = 1
+            data.rate = rate
+            data.comment = request.POST.get('comment-message')
+            data.user = request.user
+            data.course_id = course_id
+            data.save()
+            # return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            count = CourseReview.objects.filter(course_id=course_id).count()
+            if count == 0 or count == 1:
+                review = "Review"
+            else:
+                review = "Reviews"
+            comment_data = CourseReview.objects.values().get(id=data.pk)
+            Avg_data = CourseReview.objects.filter(course_id=course_id).aggregate(Avg('rate'))
 
-        star = '<li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>'
-        total_star = ['', star, star, star, star]
-        for i in range(0, int(Avg_data['rate__avg'])):
-            total_star[i] = '<li><i style="color: #ffc600;" class="fa fa-star"></i></li>'
+            star = '<li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>'
+            total_star = ['', star, star, star, star]
+            for i in range(0, int(Avg_data['rate__avg'])):
+                total_star[i] = '<li><i style="color: #ffc600;" class="fa fa-star"></i></li>'
 
-        star1 = '<li><i style="font-size:12px; color:#d1d1d1;" class="fa fa-star"></i></li>'
-        tagstar = ['', star1, star1, star1, star1]
-        for i in range(0, comment_data['rate']):
-            tagstar[i] = '<li><i style="font-size:12px;" class="fa fa-star"></i></li>'
+            star1 = '<li><i style="font-size:12px; color:#d1d1d1;" class="fa fa-star"></i></li>'
+            tagstar = ['', star1, star1, star1, star1]
+            for i in range(0, comment_data['rate']):
+                tagstar[i] = '<li><i style="font-size:12px;" class="fa fa-star"></i></li>'
 
-        return JsonResponse(
-            {'data': comment_data, 'review': review, 'count': count, 'username': request.user.profile.username,
-             'tagstar': tagstar,
-             'firstname': request.user.profile.firstname, 'total_star': total_star,
-             'lastname': request.user.profile.lastname, 'profile': str(request.user.profile.profile_pic)},
-            safe=False)
+            return JsonResponse(
+                {'data': comment_data, 'review': review, 'count': count, 'username': request.user.profile.username,
+                 'tagstar': tagstar,
+                 'firstname': request.user.profile.firstname, 'total_star': total_star,
+                 'lastname': request.user.profile.lastname, 'profile': str(request.user.profile.profile_pic)},
+                safe=False)
 
     enrollment = CourseEnrollement.objects.filter(course_id=course_id, user=request.user).exists()
     enrollcount = CourseEnrollement.objects.filter(course_id=course_id).count()
@@ -176,6 +179,34 @@ def courseDesk(request, course_id):
     }
 
     return render(request, 'LearnToEarn/coursesDescription.html', context)
+
+
+def editReview(request, course_id):
+    comment_edit_data = request.GET.get('commented_data', None)
+    try:
+        edited_rate = int(request.GET.get('edited_rate'))
+    except:
+        edited_rate = 1
+    review = CourseReview.objects.get(course_id=course_id, user=request.user)
+    review.comment = comment_edit_data
+    review.rate = edited_rate
+    review.save()
+    data = CourseReview.objects.values().get(course_id=course_id, user=request.user)
+    Avg_data = CourseReview.objects.filter(course_id=course_id).aggregate(Avg('rate'))
+    star = '<li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>'
+    total_star = ['', star, star, star, star]
+    for i in range(0, int(Avg_data['rate__avg'])):
+        total_star[i] = '<li><i style="color: #ffc600;" class="fa fa-star"></i></li>'
+
+    star1 = '<li><i style="font-size:12px; color:#d1d1d1;" class="fa fa-star"></i></li>'
+    tagstar = ['', star1, star1, star1, star1]
+    for i in range(0, data['rate']):
+        tagstar[i] = '<li><i style="font-size:12px;" class="fa fa-star"></i></li>'
+
+    return JsonResponse(
+        {'data': data, 'tagstar': tagstar, 'total_star': total_star,
+         },
+        safe=False)
 
 
 def contactmessages(request):

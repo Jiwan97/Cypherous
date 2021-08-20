@@ -25,5 +25,6 @@ urlpatterns = [
     path('newsPortal/<int:id>/', views.newsView, name='news-view'),
     path('delComments/<int:news_id>/', views.DeleteComments, name='del-com'),
     path('delReviews/<int:course_id>/', views.DeleteReview, name='del-rev'),
+    path('editReviews/<int:course_id>/', views.editReview, name='edit-rev'),
 ]
 
