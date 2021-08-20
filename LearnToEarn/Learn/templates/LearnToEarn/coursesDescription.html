@@ -38,7 +38,7 @@ p a{
 
 </style>
 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Edit Review</h5>
@@ -49,20 +49,18 @@ p a{
       <div class="modal-body">
         <form class="rate-form" id="editForm" method="POST" action="#">
             {% csrf_token %}
-          <div class="form-group">
-            <i style="padding-right:5px;" class="fa fa-star  my-btn" id="fir"></i>
-            <i style="padding-right:5px;" class="fa fa-star  my-btn" id="sec"></i>
-            <i style="padding-right:5px;" class="fa fa-star  my-btn" id="thi"></i>
-            <i style="padding-right:5px;" class="fa fa-star  my-btn" id="fou"></i>
-            <i style="padding-right:5px;" class="fa fa-star  my-btn" id="fif"></i>
+          <div id="star_group" class="form-group">
+              {% for star in tagstars %}
+                {{ star|safe}}
+              {% endfor %}
           </div>
-            <div hidden="hidden" id="rate_value1"></div>
+            <input hidden="hidden" id="rate_value1">
           <div class="form-group">
             <label for="edit-comment" class="col-form-label">Comment</label>
             <textarea class="form-control" id="edit-comment"></textarea>
           </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close and Save Changes</button>
                 <button type="submit" class="btn btn-primary">Confirm Edit</button>
             </div>
         </form>
@@ -210,7 +208,7 @@ p a{
                                            <li id="comment-{{comment.id}}">
                                                <div class="singel-reviews">
                                                    {% if comment.user_id == request.user.id %}
-                                                   <div class="reviews-author" style="background-color:#f9f8f8" >
+                                                   <div class="reviews-author" style="background-color:#f9f8f8; border-radius:5px" >
                                                    {% else %}
                                                    <div class="reviews-author">
                                                    {% endif %}
@@ -222,11 +220,12 @@ p a{
                                                             <span>{{comment.date_commented| date:"F d, Y"}}</span>
 
                                                         </div>
+
                                                     </div>
                                                     <div class="reviews-description pt-20">
 
-                                                        <div class="rating">
-                                                            <ul id="rate-data-{{comment.id}}">
+                                                        <div id="rate-data-{{comment.id}}" class="rating">
+                                                            <ul>
                                                                 {% for i in comment.id|stars %}
                                                                 {% if '' in i %}
                                                                 <li><i style="font-size:12px; color:#d1d1d1;" class="fa fa-star"></i></li>
@@ -234,16 +233,20 @@ p a{
                                                                 <li><i style="font-size:12px;" class="fa fa-star"></i></li>
                                                                 {% endif %}
                                                                 {% endfor %}
+                                                                {% if comment.edited %}
+                                                                <li style="float: right; padding: 7px 7px 0 0; font-size:12px; margin-top: -94px;" class="text-muted">Edited</li>
+                                                                {% endif %}
                                                             </ul>
-                                                            {% if user.id == comment.user_id %}
 
+                                                            {% if user.id == comment.user_id %}
                                                             <b style="float: right;  margin-top: -20px;" class="small-btn" onclick="deleteRev({{comment.id}})"><i class="fa fa-trash"></i> Delete</b>
-                                                            <b style="float: right; margin-right: 50px; margin-top: -20px" data-target="#edit" data-toggle="modal" data-whatever="{{comment.comment}}" class="small-btn"><i class="fa fa-edit"></i> Edit</b>
+                                                            <b style="float: right; margin-right: 50px; margin-top: -20px" data-target="#edit" data-toggle="modal" data-whatever="{{comment.comment}}" data-rate="{{comment.rate}}" id="edit_data" class="small-btn"><i class="fa fa-edit"></i> Edit</b>
                                                             {% endif %}
                                                         </div>
-                                                        <p id="comment-data-{{comment.id}}" style="white-space: pre-line;">{{comment.comment}}</p>
+                                                        <p id="comment-data-{{comment.id}}" style="word-wrap:break-word; line-height:28px; white-space: pre-line;">{{comment.comment}}</p>
 
                                                     </div>
+
                                                 </div>
                                            </li>
                                            {% endfor %}
@@ -252,7 +255,7 @@ p a{
                                         {% endif %}
                                         </ul>
                                         <div class="title pt-15">
-                                            <h6>Leave A Comment</h6>
+                                            <h6>Leave A Review</h6>
                                         </div>
                                         <div class="reviews-form">
                                             {% if can_review %}
@@ -594,14 +597,17 @@ p a{
 
 <script src="/static/js/star.js"></script>
 <script type="text/javascript">
-    $(document).ready(function(){
+
+
+    $( document ).ready(function() {
         $('#edit').on('show.bs.modal', function (event) {
           var button = $(event.relatedTarget)
           var recipient = button.data('whatever')
-
+          var rate = button.data('rate')
           var modal = $(this)
 
           modal.find('.modal-body textarea').val(recipient)
+          modal.find('.modal-body #rate_value1').val(rate)
           $.getScript( "/static/js/starformodal.js");
         });
     });
@@ -688,7 +694,7 @@ p a{
 						`
 						<li id="comment-${data.id}">
                            <div class="singel-reviews">
-                                <div class="reviews-author" style="background-color:#f9f8f8" >
+                                <div class="reviews-author" style="background-color:#f9f8f8; border-radius:5px;" >
                                     <div class="author-thum">
                                         <img src="/${response.profile}" alt="Reviews">
                                     </div>
@@ -698,8 +704,8 @@ p a{
                                     </div>
                                 </div>
                                 <div class="reviews-description pt-20">
-                                    <div class="rating">
-                                        <ul id="rate-data-${data.id}">
+                                    <div id="rate-data-${data.id}" class="rating">
+                                        <ul>
                                             ${response.tagstar[0]}
                                             ${response.tagstar[1]}
                                             ${response.tagstar[2]}
@@ -707,7 +713,7 @@ p a{
                                             ${response.tagstar[4]}
                                         </ul>
                                         <b style="float: right;  margin-top: -20px;" class="small-btn" onclick="deleteRev(${data.id})"><i class="fa fa-trash"></i> Delete</b>
-                                        <b style="float: right; margin-right: 50px; margin-top: -20px" data-target="#edit" data-toggle="modal" data-whatever="${data.comment}" class="small-btn"><i class="fa fa-edit"></i> Edit</b>
+                                        <b style="float: right; margin-right: 50px; margin-top: -20px" data-target="#edit" data-toggle="modal" data-whatever="${data.comment}" data-rate="${data.rate}" id="edit_data" class="small-btn"><i class="fa fa-edit"></i> Edit</b>
                                     </div>
                                     <p id="comment-data-${data.id}" style="white-space: pre-line;">${data.comment}</p>
                                 </div>
@@ -715,6 +721,13 @@ p a{
                        </li>
 						`
 					)
+					$('#star_group').append(`
+					    ${response.poststar_rate[0]}
+                        ${response.poststar_rate[1]}
+                        ${response.poststar_rate[2]}
+                        ${response.poststar_rate[3]}
+                        ${response.poststar_rate[4]}
+					`)
 				}, 200);
 			},
 			error:function(response){
@@ -775,6 +788,7 @@ p a{
                             </div>
 					    `
 	                );
+	                $('#star_group').empty()
 	                $.getScript( "/static/js/star.js");
 				}, 1000);
 			}
@@ -784,13 +798,13 @@ p a{
 
     $(document).on('submit','#editForm',function(e){
         e.preventDefault();
-        var data= $('#rate_value1').text()
+        var data= $('#rate_value1').val()
         console.log(data)
-        $('#edit').modal('hide');
+
 		$.ajax({
 			url:"{% url 'edit-rev' course.id %}",
 			data:{
-			    'edited_rate':$('#rate_value1').text(),
+			    'edited_rate':$('#rate_value1').val(),
 				'commented_data':$('#edit-comment').val(),
 				'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
 			},
@@ -801,11 +815,16 @@ p a{
 				$('#comment-data-'+data.id).append(`${data.comment}`)
 				$('#rate-data-'+data.id).empty()
 				$('#rate-data-'+data.id).append(`
-                    ${response.tagstar[0]}
-                    ${response.tagstar[1]}
-                    ${response.tagstar[2]}
-                    ${response.tagstar[3]}
-                    ${response.tagstar[4]}
+				    <ul>
+                        ${response.tagstar[0]}
+                        ${response.tagstar[1]}
+                        ${response.tagstar[2]}
+                        ${response.tagstar[3]}
+                        ${response.tagstar[4]}
+                        <li style="float: right; padding: 7px 7px 0 0; font-size:12px; margin-top: -94px;" class="text-muted">Edited</li>
+                    </ul>
+                    <b style="float: right;  margin-top: -20px;" class="small-btn" onclick="deleteRev(${data.id})"><i class="fa fa-trash"></i> Delete</b>
+                    <b style="float: right; margin-right: 50px; margin-top: -20px" data-target="#edit" data-toggle="modal" data-whatever="${data.comment}" data-rate="${data.rate}" id="edit_data" class="small-btn"><i class="fa fa-edit"></i> Edit</b>
 				`)
 				window.setTimeout(function() {
 					$("body").css("cursor", "default");

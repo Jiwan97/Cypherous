@@ -144,9 +144,16 @@ def courseDesk(request, course_id):
             for i in range(0, comment_data['rate']):
                 tagstar[i] = '<li><i style="font-size:12px;" class="fa fa-star"></i></li>'
 
+            poststar_rate = []
+            for i in range(0, 5):
+                stars = f'<i style="padding-right:5px;" class="fa fa-star  my-btn" id="{i}"></i>'
+                poststar_rate.append(stars)
+            for i in range(0, comment_data['rate']):
+                poststar_rate[i] = f'<i style="padding-right:5px;" class="fa fa-star checked my-btn" id="{i}"></i>'
+
             return JsonResponse(
                 {'data': comment_data, 'review': review, 'count': count, 'username': request.user.profile.username,
-                 'tagstar': tagstar,
+                 'tagstar': tagstar, 'poststar_rate': poststar_rate,
                  'firstname': request.user.profile.firstname, 'total_star': total_star,
                  'lastname': request.user.profile.lastname, 'profile': str(request.user.profile.profile_pic)},
                 safe=False)
@@ -161,6 +168,16 @@ def courseDesk(request, course_id):
     lesson = CourseModule.objects.filter(course_id=course_id)
     review_comment = CourseReview.objects.filter(course_id=course_id).order_by('-date_commented')
     can_review = CourseReview.objects.filter(user=request.user, course_id=course_id).exists()
+    tagstars = []
+    if can_review:
+        data = CourseReview.objects.get(user=request.user, course_id=course_id)
+        for i in range(0, 5):
+            stars = f'<i style="padding-right:5px;" class="fa fa-star  my-btn" id="{i}"></i>'
+            tagstars.append(stars)
+        print(tagstars)
+        for i in range(0, data.rate):
+            tagstars[i] = f'<i style="padding-right:5px;" class="fa fa-star checked my-btn" id="{i}"></i>'
+        print(tagstars)
 
     context = {
         'course': form,
@@ -176,6 +193,7 @@ def courseDesk(request, course_id):
         'activate_couD': 'active',
         'comments': review_comment,
         'can_review': can_review,
+        'tagstars': tagstars
     }
 
     return render(request, 'LearnToEarn/coursesDescription.html', context)
@@ -190,6 +208,7 @@ def editReview(request, course_id):
     review = CourseReview.objects.get(course_id=course_id, user=request.user)
     review.comment = comment_edit_data
     review.rate = edited_rate
+    review.edited = True
     review.save()
     data = CourseReview.objects.values().get(course_id=course_id, user=request.user)
     Avg_data = CourseReview.objects.filter(course_id=course_id).aggregate(Avg('rate'))

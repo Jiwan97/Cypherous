@@ -1,11 +1,11 @@
 
 $( document ).ready(function() {
 
-    const one = document.getElementById('fir')
-    const two = document.getElementById('sec')
-    const three = document.getElementById('thi')
-    const four = document.getElementById('fou')
-    const five = document.getElementById('fif')
+    const one = document.getElementById('0')
+    const two = document.getElementById('1')
+    const three = document.getElementById('2')
+    const four = document.getElementById('3')
+    const five = document.getElementById('4')
 
 
     const form = document.querySelector('.rate-form')
@@ -25,7 +25,7 @@ $( document ).ready(function() {
 
     const handleSelect = (selection) => {
         switch(selection){
-            case 'fir': {
+            case '0': {
                 one.classList.add('checked')
                 two.classList.remove('checked')
                 three.classList.remove('checked')
@@ -34,7 +34,7 @@ $( document ).ready(function() {
 
                 return
             }
-            case 'sec': {
+            case '1': {
                 one.classList.add('checked')
                 two.classList.add('checked')
                 three.classList.remove('checked')
@@ -42,7 +42,7 @@ $( document ).ready(function() {
                 five.classList.remove('checked')
                 return
             }
-            case 'thi': {
+            case '2': {
                 one.classList.add('checked')
                 two.classList.add('checked')
                 three.classList.add('checked')
@@ -50,7 +50,7 @@ $( document ).ready(function() {
                 five.classList.remove('checked')
                 return
             }
-            case 'fou': {
+            case '3': {
                 one.classList.add('checked')
                 two.classList.add('checked')
                 three.classList.add('checked')
@@ -58,7 +58,7 @@ $( document ).ready(function() {
                 five.classList.remove('checked')
                 return
             }
-            case 'fif': {
+            case '4': {
                 one.classList.add('checked')
                 two.classList.add('checked')
                 three.classList.add('checked')
@@ -75,19 +75,19 @@ $( document ).ready(function() {
 
     const getNumericValue = (stringValue) =>{
         let numericValue;
-        if (stringValue === 'fir') {
+        if (stringValue === '0') {
             numericValue = 1
         }
-        else if (stringValue === 'sec') {
+        else if (stringValue === '1') {
             numericValue = 2
         }
-        else if (stringValue === 'thi') {
+        else if (stringValue === '2') {
             numericValue = 3
         }
-        else if (stringValue === 'fou') {
+        else if (stringValue === '3') {
             numericValue = 4
         }
-        else if (stringValue === 'fif') {
+        else if (stringValue === '4') {
             numericValue = 5
         }
         else {
@@ -105,7 +105,7 @@ $( document ).ready(function() {
             const val_num = getNumericValue(val)
             console.log(val)
             console.log(val_num)
-            rateValue.innerHTML= val_num
+            rateValue.value= val_num
         }))
 
     }

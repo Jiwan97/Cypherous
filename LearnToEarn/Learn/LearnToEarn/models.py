@@ -116,4 +116,5 @@ class CourseReview(models.Model):
     comment = models.CharField(max_length=50000, null=True, default="Not Updated",
                                )
     rate = models.PositiveSmallIntegerField("Choose Your Rating", choices=Rate_Choice)
+    edited = models.BooleanField(default=False)
     date_commented = models.DateTimeField(auto_now_add=True)
