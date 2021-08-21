@@ -12,6 +12,8 @@ const option_list = document.querySelector(".option_list");
 const time_line = document.querySelector("header .time_line");
 const timeText = document.querySelector(".timer .time_left_txt");
 const timeCount = document.querySelector(".timer .timer_sec");
+const titleValue = document.querySelector(".title");
+titleValue.innerHTML= title
 
 // if startQuiz button clicked
 start_btn.onclick = ()=>{
@@ -82,7 +84,7 @@ function showQuetions(index){
     + '<div class="option"><span>'+ questions[index].option4 +'</span></div>';
     que_text.innerHTML = que_tag; //adding new span tag inside que_tag
     option_list.innerHTML = option_tag; //adding new div tag inside option_tag
-    
+
     const option = option_list.querySelectorAll(".option");
 
     // set onclick attribute to all available options

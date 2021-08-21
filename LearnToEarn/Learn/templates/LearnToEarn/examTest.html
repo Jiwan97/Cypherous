@@ -31,7 +31,7 @@
     </div>
         <div class="quiz_box">
             <header>
-                <div class="title">MCQ has started</div>
+                <div class="title"></div>
                 <div class="timer">
                     <div class="time_left_txt">Time Left</div>
                     <div class="timer_sec">15</div>
@@ -65,6 +65,8 @@
         </div>
         <script>
             const questions = {% autoescape off %}{{ questions }}{% endautoescape %};
+            const title = '{{ title }}'
+            console.log(title)
         </script>
         <script src="{% static 'js/Quiz/script.js'%}"></script>
 </div>

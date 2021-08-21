@@ -416,5 +416,8 @@ def DeleteComments(request, news_id):
 
 def Exam(request):
     datas = ExamQNA.objects.values().filter(exammodel_id=1)
+    examModel = ExamModel.objects.get(id=1)
+    print(examModel.ExamTitle)
+    title = examModel.ExamTitle
     data = dumps(list(datas))
-    return render(request, 'LearnToEarn/examTest.html', {'questions': data})
+    return render(request, 'LearnToEarn/examTest.html', {'questions': data, 'title': title})
