@@ -1,0 +1,47 @@
+{% extends 'layout-admin.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load bootstrap %}
+{% block title %}
+    <title>Learn To Earn</title>
+{% endblock%}
+{% block content %}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Dashboard</h1>
+    <div style="margin-top:3rem; margin-bottom:3rem">
+      <a href="/admins-dashboard/qnaCreate/{{exam_id}}" class="btn btn-primary">Add MCQ</a>
+         <div class="card mb-4" style="margin-top:3rem; margin-right:3rem;">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Total News : {{total.count}}
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>Question No.</th>
+                            <th>Question</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for i in total  %}
+                        <tr>
+                            <td>{{i.numb}}</td>
+                            <td>{{i.question}}</td>
+                            <td>
+                              <a href="/admins-dashboard/editQNA/{{exam_id}}/{{i.id}}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> Edit</a>
+                              <a href="/admins-dashboard/delQNA/{{exam_id}}/{{i.id}}" class="btn btn-danger btn-sm" onclick="return confirm('Want to delete?')"><i class="fa fa-trash"></i> Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+         </div>
+    </div>
+</div>
+
+{%endblock%}

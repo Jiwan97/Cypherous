@@ -9,6 +9,7 @@ from .forms import RateForm
 from taggit.models import Tag
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
+from json import dumps
 
 
 def home(request):
@@ -228,6 +229,27 @@ def editReview(request, course_id):
         safe=False)
 
 
+def DeleteReview(request, course_id):
+    id = request.GET.get('id', None)
+    delete = CourseReview.objects.get(id=id)
+    delete.delete()
+    star = '<li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>'
+    loop = 'loop'
+    try:
+        Avg_data = CourseReview.objects.filter(course_id=course_id).aggregate(Avg('rate'))
+        total_star = ['', star, star, star, star]
+        for i in range(0, int(Avg_data['rate__avg'])):
+            total_star[i] = '<li><i style="color: #ffc600;" class="fa fa-star"></i></li>'
+    except Exception:
+        total_star = [star, star, star, star, star]
+    count = CourseReview.objects.filter(course_id=course_id).count()
+    if count == 0 or count == 1:
+        review = "Review"
+    else:
+        review = "Reviews"
+    return JsonResponse({'count': count, 'review': review, 'total_star': total_star}, safe=False)
+
+
 def contactmessages(request):
     if request.method == "POST":
         if request.user.is_authenticated:
@@ -392,22 +414,7 @@ def DeleteComments(request, news_id):
     return JsonResponse({'count': count}, safe=False)
 
 
-def DeleteReview(request, course_id):
-    id = request.GET.get('id', None)
-    delete = CourseReview.objects.get(id=id)
-    delete.delete()
-    star = '<li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>'
-    loop = 'loop'
-    try:
-        Avg_data = CourseReview.objects.filter(course_id=course_id).aggregate(Avg('rate'))
-        total_star = ['', star, star, star, star]
-        for i in range(0, int(Avg_data['rate__avg'])):
-            total_star[i] = '<li><i style="color: #ffc600;" class="fa fa-star"></i></li>'
-    except Exception:
-        total_star = [star, star, star, star, star]
-    count = CourseReview.objects.filter(course_id=course_id).count()
-    if count == 0 or count == 1:
-        review = "Review"
-    else:
-        review = "Reviews"
-    return JsonResponse({'count': count, 'review': review, 'total_star': total_star}, safe=False)
+def Exam(request):
+    datas = ExamQNA.objects.values().filter(exammodel_id=1)
+    data = dumps(list(datas))
+    return render(request, 'LearnToEarn/examTest.html', {'questions': data})

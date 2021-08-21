@@ -1,6 +1,6 @@
 from django.forms import ModelForm, Textarea
 from django import forms
-from LearnToEarn.models import News, Course, CourseModule
+from LearnToEarn.models import *
 from .models import Response
 from taggit.forms import TagWidget
 
@@ -37,3 +37,17 @@ class ModuleForm(ModelForm):
         model = CourseModule
         fields = "__all__"
         exclude = ['course']
+
+
+class ExamForm(ModelForm):
+    class Meta:
+        model = ExamModel
+        fields = "__all__"
+        exclude = ['course', 'user']
+
+
+class QnA(ModelForm):
+    class Meta:
+        model = ExamQNA
+        fields = "__all__"
+        exclude = ['exammodel']

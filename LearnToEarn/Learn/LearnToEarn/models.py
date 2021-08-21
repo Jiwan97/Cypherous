@@ -118,3 +118,32 @@ class CourseReview(models.Model):
     rate = models.PositiveSmallIntegerField("Choose Your Rating", choices=Rate_Choice)
     edited = models.BooleanField(default=False)
     date_commented = models.DateTimeField(auto_now_add=True)
+
+
+class ExamModel(models.Model):
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, null=True, on_delete=models.CASCADE)
+    ExamNumber = models.PositiveSmallIntegerField('Exam Number', null=True
+                                                  )
+    ExamTitle = models.CharField('Title', max_length=500, null=True, default="Not Updated",
+                                 )
+    date = models.DateTimeField(auto_now_add=True)
+
+
+class Attempted(models.Model):
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    exammodel = models.ForeignKey(ExamModel, null=True, on_delete=models.CASCADE)
+    date_attempted = models.DateTimeField(auto_now_add=True)
+    attempted = models.BooleanField(default=False)
+    user_score = models.PositiveSmallIntegerField("Score", default=0)
+
+
+class ExamQNA(models.Model):
+    exammodel = models.ForeignKey(ExamModel, null=True, on_delete=models.CASCADE)
+    numb = models.PositiveSmallIntegerField("Number", default=0)
+    question = models.CharField(max_length=5000, null=True)
+    option1 = models.CharField("Option 1", max_length=5000, null=True)
+    option2 = models.CharField("Option 2", max_length=5000, null=True)
+    option3 = models.CharField("Option 3", max_length=5000, null=True)
+    option4 = models.CharField("Option 4", max_length=5000, null=True)
+    answer = models.CharField("Answer", max_length=5000, null=True)

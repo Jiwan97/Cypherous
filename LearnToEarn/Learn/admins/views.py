@@ -4,10 +4,11 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from accounts.views import send_response_email
 from accounts.models import User
-from .forms import NewsForm, ResponseForm, CourseForm, ModuleForm
-from LearnToEarn.models import News, ContactMessage, Course, CourseModule
+from .forms import *
+from LearnToEarn.models import *
 import os
 from accounts.error_render import errors
+
 
 @login_required()
 @admin_only
@@ -218,10 +219,6 @@ def ModuleCreate(request, course_id):
                 return redirect(f'/admins-dashboard/allModules/{course_id}')
             else:
                 errors(request, form)
-            # else:
-            #     messages.add_message(request, messages.ERROR,
-            #                          "Please don't leave anything blank")
-            # return render(request, 'admins/CreateAdd.html', context)
     else:
         messages.warning(request, 'You do not have permission to add module to this course.')
         return redirect('/admins-dashboard/allCourses')
@@ -266,3 +263,180 @@ def DeleteModule(request, course_id, module_id):
     delete = CourseModule.objects.get(id=module_id)
     delete.delete()
     return redirect(f'/admins-dashboard/allModules/{course_id}')
+
+
+@login_required()
+@admin_only
+def allExams(request, course_id):
+    total_Exams = ExamModel.objects.filter(course_id=course_id)
+    context = {'exams': total_Exams,
+               'course_id': course_id}
+    return render(request, 'admins/allExams.html', context)
+
+
+@login_required()
+@admin_only
+def ExamCreate(request, course_id):
+    form = ExamForm()
+    course = Course.objects.get(id=course_id)
+    if course.user_id == request.user.id:
+        if request.method == "POST":
+            form = ExamForm(request.POST)
+            context = {'form': form}
+            if form.is_valid():
+                number = form.cleaned_data['ExamNumber']
+                if ExamModel.objects.filter(course_id=course_id, ExamNumber=number).exists():
+                    messages.add_message(request, messages.ERROR,
+                                         'Exam no. already exits')
+                    return render(request, 'admins/CreateAdd.html', context)
+                instance = form.save(commit=False)
+                instance.course = course
+                instance.user = request.user
+                instance.save()
+                messages.success(request, 'Exam Details added successfully.')
+                return redirect(f'/admins-dashboard/allExams/{course_id}')
+            else:
+                errors(request, form)
+            # else:
+            #     messages.add_message(request, messages.ERROR,
+            #                          "Please don't leave anything blank")
+            # return render(request, 'admins/CreateAdd.html', context)
+    else:
+        messages.warning(request, 'You do not have permission to add module to this course.')
+        return redirect('/admins-dashboard/allCourses')
+    context = {'form': form}
+    return render(request, 'admins/CreateAdd.html', context)
+
+
+@login_required
+@admin_only
+def editExam(request, course_id, exam_id):
+    Exam = ExamModel.objects.get(id=exam_id)
+    form = ExamForm(instance=Exam)
+    if request.method == 'POST':
+        form = ExamForm(request.POST, instance=Exam)
+        context = {'form': form}
+        if form.is_valid():
+            number = form.cleaned_data['ExamNumber']
+            if ExamModel.objects.filter(course_id=course_id, ExamNumber=number).exclude(id=exam_id).exists():
+                messages.add_message(request, messages.ERROR,
+                                     'Exam no. already exits')
+                return render(request, 'admins/updateEdit.html', context)
+            form.save()
+            messages.success(request, 'Exam Details updated successfully.')
+            return redirect(f'/admins-dashboard/allExams/{course_id}')
+        else:
+            errors(request, form)
+    context = {
+        'form': form,
+    }
+    return render(request, 'admins/updateEdit.html', context)
+
+
+@login_required
+@admin_only
+def DeleteExam(request, course_id, exam_id):
+    delete = ExamModel.objects.get(id=exam_id)
+    delete.delete()
+    return redirect(f'/admins-dashboard/allExams/{course_id}')
+
+
+@login_required()
+@admin_only
+def allQNA(request, exam_id):
+    total_QNA = ExamQNA.objects.filter(exammodel=exam_id)
+    context = {'total': total_QNA,
+               'exam_id': exam_id}
+    return render(request, 'admins/allQNA.html', context)
+
+
+@login_required()
+@admin_only
+def QNA(request, exam_id):
+    form = QnA()
+    Exam = ExamModel.objects.get(id=exam_id)
+    if Exam.user_id == request.user.id:
+        if request.method == "POST":
+            form = QnA(request.POST)
+            context = {'form': form}
+            if form.is_valid():
+                number = form.cleaned_data['numb']
+                option1 = form.cleaned_data['option1']
+                option2 = form.cleaned_data['option2']
+                option3 = form.cleaned_data['option3']
+                option4 = form.cleaned_data['option4']
+                answer = form.cleaned_data['answer']
+
+                if ExamQNA.objects.filter(exammodel=exam_id, numb=number).exists():
+                    messages.add_message(request, messages.ERROR,
+                                         'Question no. already exits')
+                    return render(request, 'admins/CreateAdd.html', context)
+                elif option1 in (option2, option3, option4) or option2 in (option1, option3, option4) or option3 in (
+                        option1, option2, option4) or option4 in (option1, option3, option2):
+                    messages.add_message(request, messages.ERROR,
+                                         'Options must be different')
+                    return render(request, 'admins/CreateAdd.html', context)
+                elif all(x != answer for x in (option1, option2, option3, option4)):
+                    messages.add_message(request, messages.ERROR,
+                                         'Answer must be from one of the options')
+                    return render(request, 'admins/CreateAdd.html', context)
+
+                instance = form.save(commit=False)
+                instance.exammodel = Exam
+                instance.save()
+                messages.success(request, 'Exam Details added successfully.')
+                return redirect(f'/admins-dashboard/allQNA/{exam_id}')
+            else:
+                errors(request, form)
+    else:
+        messages.warning(request, 'You do not have permission.')
+        return redirect('/admins-dashboard/allCourses')
+    context = {'form': form}
+    return render(request, 'admins/CreateAdd.html', context)
+
+
+@login_required
+@admin_only
+def editQNA(request, exam_id, qna_id):
+    Qna = ExamQNA.objects.get(id=qna_id)
+    form = QnA(instance=Qna)
+    if request.method == 'POST':
+        form = QnA(request.POST, instance=Qna)
+        context = {'form': form}
+        if form.is_valid():
+            number = form.cleaned_data['numb']
+            option1 = form.cleaned_data['option1']
+            option2 = form.cleaned_data['option2']
+            option3 = form.cleaned_data['option3']
+            option4 = form.cleaned_data['option4']
+            answer = form.cleaned_data['answer']
+            if ExamQNA.objects.filter(exammodel=exam_id, numb=number).exclude(id=qna_id).exists():
+                messages.add_message(request, messages.ERROR,
+                                     'Question no. already exits')
+                return render(request, 'admins/updateEdit.html', context)
+            elif option1 in (option2, option3, option4) or option2 in (option1, option3, option4) or option3 in (
+                    option1, option2, option4) or option4 in (option1, option3, option2):
+                messages.add_message(request, messages.ERROR,
+                                     'Options must be different')
+                return render(request, 'admins/CreateAdd.html', context)
+            elif all(x != answer for x in (option1, option2, option3, option4)):
+                messages.add_message(request, messages.ERROR,
+                                     'Answer must be from one of the options')
+                return render(request, 'admins/CreateAdd.html', context)
+            form.save()
+            messages.success(request, 'Exam Details updated successfully.')
+            return redirect(f'/admins-dashboard/allQNA/{exam_id}')
+        else:
+            errors(request, form)
+    context = {
+        'form': form,
+    }
+    return render(request, 'admins/updateEdit.html', context)
+
+
+@login_required
+@admin_only
+def DeleteQNA(request, exam_id, qna_id):
+    delete = ExamQNA.objects.get(id=qna_id)
+    delete.delete()
+    return redirect(f'/admins-dashboard/allQNA/{exam_id}')
