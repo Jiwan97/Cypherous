@@ -1,11 +1,6 @@
 {% extends 'layout.html' %}
 {% load static %}
-{% load getEnroll %}
 {% load hasLiked %}
-{% load getLikes %}
-{% load stars %}
-{% load getStars %}
-{% load getReview %}
 {% load bootstrap %}
 {% block title %}
     <title>Learn To Earn</title>
@@ -109,8 +104,8 @@ p a{
                                     <div class="review">
                                         <span>Review</span>
                                         <ul id= "rated">
-                                            {% if course.id|getStars %}
-                                            {% for i in course.id|getStars %}
+                                            {% if course.getStars %}
+                                            {% for i in course.getStars %}
                                                 {% if '' in i %}
                                                 <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
                                                 {% else %}
@@ -124,7 +119,7 @@ p a{
                                                 <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
                                                 <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
                                             {% endif %}
-                                                <li  class="rating"><i class="fa fa-comments-o"></i> {{course.id|getReview}} {% if 1 == course.id|getReview or 0 == course.id|getReview %} Review {% else %} Reviews {% endif %}</li>
+                                                <li  class="rating"><i class="fa fa-comments-o"></i> {{course.getReview}} {% if 1 == course.getReview or 0 == course.getReview %} Review {% else %} Reviews {% endif %}</li>
                                         </ul>
                                     </div>
                                 </li>
@@ -226,7 +221,7 @@ p a{
 
                                                         <div id="rate-data-{{comment.id}}" class="rating">
                                                             <ul>
-                                                                {% for i in comment.id|stars %}
+                                                                {% for i in comment.stars %}
                                                                 {% if '' in i %}
                                                                 <li><i style="font-size:12px; color:#d1d1d1;" class="fa fa-star"></i></li>
                                                                 {% else %}
@@ -315,8 +310,8 @@ p a{
                                     </div>
                                     <div class="cont">
                                         <ul>
-                                            {% if course.id|getStars %}
-                                            {% for i in course.id|getStars %}
+                                            {% if course.getStars %}
+                                            {% for i in course.getStars %}
                                                 {% if '' in i %}
                                                 <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
                                                 {% else %}
@@ -331,7 +326,7 @@ p a{
                                                 <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
                                             {% endif %}
                                         </ul>
-                                        <span style="float:right;"> <i class="fa fa-comments-o"></i> {{course.id|getReview}} {% if 1 == course.id|getReview or 0 == course.id|getReview %} Review {% else %} Reviews {% endif %}</span>
+                                        <span style="float:right;"> <i class="fa fa-comments-o"></i> {{course.getReview}} {% if 1 == course.getReview or 0 == course.getReview %} Review {% else %} Reviews {% endif %}</span>
                                         <a href="/courses/courseDesk/{{course.id}}"><h4>{{course.course_name}}</h4></a>
                                         <div class="course-teacher">
                                             <div class="thum">
@@ -342,11 +337,11 @@ p a{
                                             </div>
                                             <div class="admin">
                                                 <ul>
-                                                    <li><a href="#"><i class="fa fa-user"></i><span>{{course.id|getEnroll}}</span></a></li>
+                                                    <li><a href="#"><i class="fa fa-user"></i><span>{{course.getEnroll}}</span></a></li>
                                                     {% if request.user|hasLiked:course.id %}
-                                                    <li><a><i id="like-{{course.id}}" onclick="like({{course.id}})" class="fa fa-heart" style="cursor:pointer; color:#ffc600"></i><span id="count-{{course.id}}" >{{course.id|getLikes}}</span></a></li>
+                                                    <li><a><i id="like-{{course.id}}" onclick="like({{course.id}})" class="fa fa-heart" style="cursor:pointer; color:#ffc600"></i><span id="count-{{course.id}}" >{{course.getLikes}}</span></a></li>
                                                     {% else %}
-                                                    <li><a><i id="like-{{course.id}}" onclick="like({{course.id}})" class="fa fa-heart" style="cursor:pointer;"></i><span id="count-{{course.id}}" >{{course.id|getLikes}}</span></a></li>
+                                                    <li><a><i id="like-{{course.id}}" onclick="like({{course.id}})" class="fa fa-heart" style="cursor:pointer;"></i><span id="count-{{course.id}}" >{{course.getLikes}}</span></a></li>
                                                     {% endif %}
                                                 </ul>
                                             </div>
@@ -371,7 +366,7 @@ p a{
                                     <div class="cont">
                                         <a href="/courses/courseDesk/{{course.id}}"><h4>{{course.course_name}}</h4></a>
                                         <ul>
-                                            <li><a href="#"><i class="fa fa-user"></i>{{course.id|getEnroll}}</a></li>
+                                            <li><a href="#"><i class="fa fa-user"></i>{{course.getEnroll}}</a></li>
                                             <li>Free</li>
                                         </ul>
                                     </div>
@@ -416,8 +411,8 @@ p a{
                                     <div class="review">
                                         <span>Review</span>
                                         <ul>
-                                            {% if course.id|getStars %}
-                                            {% for i in course.id|getStars %}
+                                            {% if course.getStars %}
+                                            {% for i in course.getStars %}
                                                 {% if '' in i %}
                                                 <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
                                                 {% else %}
@@ -431,7 +426,7 @@ p a{
                                                 <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
                                                 <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
                                             {% endif %}
-                                                <li  class="rating"><i class="fa fa-comments-o"></i> {{course.id|getReview}} {% if 1 == course.id|getReview or 0 == course.id|getReview %} Review {% else %} Reviews {% endif %}</li>
+                                                <li  class="rating"><i class="fa fa-comments-o"></i> {{course.getReview}} {% if 1 == course.getReview or 0 == course.getReview %} Review {% else %} Reviews {% endif %}</li>
                                         </ul>
                                     </div>
                                 </li>
@@ -516,7 +511,7 @@ p a{
                                     <div class="cont">
                                         <a href="/courses/courseDesk/{{course.id}}"><h4>{{course.course_name}}</h4></a>
                                         <ul>
-                                            <li><a href="#"><i class="fa fa-user"></i>{{course.id|getEnroll}}</a></li>
+                                            <li><a href="#"><i class="fa fa-user"></i>{{course.getEnroll}}</a></li>
                                             <li>Free</li>
                                         </ul>
                                     </div>
@@ -547,8 +542,8 @@ p a{
                                     </div>
                                     <div class="cont">
                                         <ul>
-                                            {% if course.id|getStars %}
-                                            {% for i in course.id|getStars %}
+                                            {% if course.getStars %}
+                                            {% for i in course.getStars %}
                                                 {% if '' in i %}
                                                 <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
                                                 {% else %}
@@ -563,7 +558,7 @@ p a{
                                                 <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
                                             {% endif %}
                                         </ul>
-                                        <span style="float:right;"> <i class="fa fa-comments-o"></i> {{course.id|getReview}} {% if 1 == course.id|getReview or 0 == course.id|getReview %} Review {% else %} Reviews {% endif %}</span>
+                                        <span style="float:right;"> <i class="fa fa-comments-o"></i> {{course.getReview}} {% if 1 == course.getReview or 0 == course.getReview %} Review {% else %} Reviews {% endif %}</span>
                                         <a href="/courses/courseDesk/{{course.id}}"><h4>{{course.course_name}}</h4></a>
                                         <div class="course-teacher">
                                             <div class="thum">
@@ -574,11 +569,11 @@ p a{
                                             </div>
                                             <div class="admin">
                                                 <ul>
-                                                    <li><a href="#"><i class="fa fa-user"></i><span>{{course.id|getEnroll}}</span></a></li>
+                                                    <li><a href="#"><i class="fa fa-user"></i><span>{{course.getEnroll}}</span></a></li>
                                                     {% if request.user|hasLiked:course.id %}
-                                                    <li><a><i id="like-{{course.id}}" onclick="like({{course.id}})" class="fa fa-heart" style="cursor:pointer; color:#ffc600"></i><span id="count-{{course.id}}" >{{course.id|getLikes}}</span></a></li>
+                                                    <li><a><i id="like-{{course.id}}" onclick="like({{course.id}})" class="fa fa-heart" style="cursor:pointer; color:#ffc600"></i><span id="count-{{course.id}}" >{{course.getLikes}}</span></a></li>
                                                     {% else %}
-                                                    <li><a><i id="like-{{course.id}}" onclick="like({{course.id}})" class="fa fa-heart" style="cursor:pointer;"></i><span id="count-{{course.id}}" >{{course.id|getLikes}}</span></a></li>
+                                                    <li><a><i id="like-{{course.id}}" onclick="like({{course.id}})" class="fa fa-heart" style="cursor:pointer;"></i><span id="count-{{course.id}}" >{{course.getLikes}}</span></a></li>
                                                     {% endif %}
                                                 </ul>
                                             </div>
@@ -836,7 +831,7 @@ p a{
                         ${response.total_star[2]}
                         ${response.total_star[3]}
                         ${response.total_star[4]}
-                        <li  class="rating"><i class="fa fa-comments-o"></i> {{course.id|getReview}} {% if 1 == course.id|getReview or 0 == course.id|getReview %} Review {% else %} Reviews {% endif %}</li>
+                        <li  class="rating"><i class="fa fa-comments-o"></i> {{course.getReview}} {% if 1 == course.getReview or 0 == course.getReview %} Review {% else %} Reviews {% endif %}</li>
                         `
                     );
 				}, 200);

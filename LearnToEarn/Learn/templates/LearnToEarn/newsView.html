@@ -29,7 +29,7 @@ html {
 							</div>
 							<ul class="media-post">
 								<li><a href="#"><i class="fa fa-calendar"></i>{{news.date_posted| date:"F d, Y"}}</a></li>
-								<li><a href="#comment-list"><i class="fa fa-comments-o"></i>{{comments.count}} Comment</a></li>
+								<li><a href="#comment-list"><i class="fa fa-comments-o"></i>{{news.getComments}} Comment</a></li>
 								<li><a href="#"><i class="fa fa-user"></i>by {{news.user.profile.firstname}} {{news.user.profile.lastname}}</a></li>
 							</ul>
 							<h5 class="post-title"><a href="#">{{news.heading}}</a></h5>
@@ -135,7 +135,7 @@ html {
 										</div>
 										<ul class="media-post">
 											<li><a href="#"><i class="fa fa-calendar"></i>{{news.date_posted| date:"F d, Y"}}</a></li>
-											<li><a href="#"><i class="fa fa-comments-o"></i>{{news.id|getComments}} Comment</a></li>
+											<li><a href="#"><i class="fa fa-comments-o"></i>{{news.getComments}} Comment</a></li>
 										</ul>
 									</div>
 								</div>

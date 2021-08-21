@@ -175,10 +175,10 @@ def courseDesk(request, course_id):
         for i in range(0, 5):
             stars = f'<i style="padding-right:5px;" class="fa fa-star  my-btn" id="{i}"></i>'
             tagstars.append(stars)
-        print(tagstars)
+
         for i in range(0, data.rate):
             tagstars[i] = f'<i style="padding-right:5px;" class="fa fa-star checked my-btn" id="{i}"></i>'
-        print(tagstars)
+
 
     context = {
         'course': form,

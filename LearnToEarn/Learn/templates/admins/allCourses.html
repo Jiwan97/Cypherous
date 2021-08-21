@@ -1,6 +1,5 @@
 {% extends 'layout-admin.html' %}
 {% load static %}
-{% load getModule %}
 {% load crispy_forms_tags %}
 {% load bootstrap %}
 {% block title %}
@@ -43,7 +42,7 @@
                             <td>
                               <a href="/admins-dashboard/editCourse/{{i.id}}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> Edit</a>
                               <a href="/admins-dashboard/delCourse/{{i.id}}"  class="btn btn-danger btn-sm" onclick="return confirm('Want to delete?')"><i class="fa fa-trash"></i> Delete</a>
-                                {% if i.id|getModule %}
+                                {% if i.getModule %}
                                     <a href="/admins-dashboard/allModules/{{i.id}}" class="btn btn-v btn-primary btn-sm">View Module</a>
                                 {% else %}
                                     <a href="/admins-dashboard/addModule/{{i.id}}" class="btn btn-v btn-primary btn-sm">Create Module</a>

@@ -1,6 +1,5 @@
 {% extends 'layout.html' %}
 {% load static %}
-{% load getComments %}
 {% block title %}
     <title>Learn To Earn</title>
 {% endblock%}
@@ -38,7 +37,7 @@
 							<p>{{news.content|truncatechars_html:90|safe|striptags|cut:"&nbsp;"}}</p>
 							<div class="post-extra">
 								<a href="/newsPortal/{{news.id}}/" class="btn-link">READ MORE</a>
-								<a href="#" class="comments-bx"><i class="fa fa-comments-o"></i>{{news.id|getComments}} Comment</a>
+								<a href="#" class="comments-bx"><i class="fa fa-comments-o"></i>{{news.getComments}} Comment</a>
 							</div>
 						</div>
 					</div>
@@ -91,7 +90,7 @@
 										</div>
 										<ul class="media-post">
 											<li><a href="#"><i class="fa fa-calendar"></i>{{news.date_posted| date:"F d, Y"}}</a></li>
-											<li><a href="#"><i class="fa fa-comments-o"></i>{{news.id|getComments}} Comment</a></li>
+											<li><a href="#"><i class="fa fa-comments-o"></i>{{news.getComments}} Comment</a></li>
 										</ul>
 									</div>
 								</div>

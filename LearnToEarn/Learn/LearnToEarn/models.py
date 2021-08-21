@@ -5,6 +5,7 @@ from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 from taggit.managers import TaggableManager
 import readtime
+from django.db.models import Avg
 
 
 class News(models.Model):
@@ -22,6 +23,10 @@ class News(models.Model):
 
     def __str__(self):
         return self.heading
+
+    def getComments(self):
+        comment = Comment.objects.filter(news_id=self.pk).count()
+        return comment
 
 
 class Comment(models.Model):
@@ -63,6 +68,38 @@ class Course(models.Model):
 
     def __str__(self):
         return self.course_name
+
+    def getStars(self):
+        total = CourseReview.objects.filter(course_id=self.pk).aggregate(Avg('rate'))
+        loop = total['rate__avg']
+        if loop is not None:
+            loop = int(loop)
+            list = ['', '', '', '', '']
+            for i in range(0, loop):
+                list[i] = i
+            return list
+        else:
+            return loop
+
+    def getEnroll(self):
+        enrollcount = CourseEnrollement.objects.filter(course_id=self.pk).count()
+        return enrollcount
+
+    def getLikes(self):
+        likes = CourseLike.objects.filter(course_id=self.pk).count()
+        return likes
+
+    def getReview(self):
+        count = CourseReview.objects.filter(course_id=self.pk).count()
+        return count
+
+    def getModule(self):
+        statement = CourseModule.objects.filter(course_id=self.pk).exists()
+        return statement
+
+    def hasLiked(self, user):
+        liked = CourseLike.objects.filter(course_id=self.pk, user=user).exists()
+        return liked
 
 
 class CourseEnrollement(models.Model):
@@ -118,6 +155,12 @@ class CourseReview(models.Model):
     rate = models.PositiveSmallIntegerField("Choose Your Rating", choices=Rate_Choice)
     edited = models.BooleanField(default=False)
     date_commented = models.DateTimeField(auto_now_add=True)
+
+    def stars(self):
+        list = ['', '', '', '', '']
+        for i in range(0, self.rate):
+            list[i] = i
+        return list
 
 
 class ExamModel(models.Model):
