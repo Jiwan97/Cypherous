@@ -73,11 +73,21 @@ class Course(models.Model):
         total = CourseReview.objects.filter(course_id=self.pk).aggregate(Avg('rate'))
         loop = total['rate__avg']
         if loop is not None:
-            loop = int(loop)
-            list = ['', '', '', '', '']
-            for i in range(0, loop):
-                list[i] = i
-            return list
+            dec = str(loop - int(loop))[2:]
+            if '0' == dec:
+                loop = int(loop)
+                list = ['', '', '', '', '']
+                for i in range(0, loop):
+                    list[i] = i
+                return list
+            else:
+                loop = int(loop)
+                list = ['', '', '', '', '']
+                for i in range(0, loop):
+                    list[i] = i
+                list[loop] = 'half'
+                return list
+
         else:
             return loop
 

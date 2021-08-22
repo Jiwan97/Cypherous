@@ -54,18 +54,20 @@
                                     <ul>
                                         {% if course.getStars %}
                                         {% for i in course.getStars %}
-                                            {% if '' in i %}
-                                            <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                            {% if 'half' in i %}
+                                            <li><i class="fa fa-star-half-o"></i></li>
+                                            {% elif '' in i %}
+                                            <li><i class="fa fa-star-o"></i></li>
                                             {% else %}
                                             <li><i class="fa fa-star"></i></li>
                                             {% endif %}
                                         {% endfor %}
                                         {% else %}
-                                            <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
-                                            <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
-                                            <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
-                                            <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
-                                            <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
                                         {% endif %}
                                     </ul>
                                     <span style="float:right;"> <i class="fa fa-comments-o"></i> {{course.getReview}} {% if 1 == course.getReview or 0 == course.getReview %} Review {% else %} Reviews {% endif %}</span>
@@ -115,18 +117,20 @@
                                             <ul>
                                                 {% if course.getStars %}
                                                 {% for i in course.getStars %}
-                                                    {% if '' in i %}
-                                                    <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                                    {% if 'half' in i %}
+                                                    <li><i class="fa fa-star-half-o"></i></li>
+                                                    {% elif '' in i %}
+                                                    <li><i class="fa fa-star-o"></i></li>
                                                     {% else %}
                                                     <li><i class="fa fa-star"></i></li>
                                                     {% endif %}
                                                 {% endfor %}
                                                 {% else %}
-                                                    <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
-                                                    <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
-                                                    <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
-                                                    <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
-                                                    <li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star-o"></i></li>
+                                                    <li><i class="fa fa-star-o"></i></li>
+                                                    <li><i class="fa fa-star-o"></i></li>
+                                                    <li><i class="fa fa-star-o"></i></li>
+                                                    <li><i class="fa fa-star-o"></i></li>
                                                 {% endif %}
                                             </ul>
                                             <span style="float:right;"> <i class="fa fa-comments-o"></i> {{course.getReview}} {% if 1 == course.getReview or 0 == course.getReview %} Review {% else %} Reviews {% endif %}</span>

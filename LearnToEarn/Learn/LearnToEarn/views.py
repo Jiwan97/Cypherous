@@ -134,11 +134,18 @@ def courseDesk(request, course_id):
                 review = "Reviews"
             comment_data = CourseReview.objects.values().get(id=data.pk)
             Avg_data = CourseReview.objects.filter(course_id=course_id).aggregate(Avg('rate'))
-
-            star = '<li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>'
-            total_star = ['', star, star, star, star]
-            for i in range(0, int(Avg_data['rate__avg'])):
-                total_star[i] = '<li><i style="color: #ffc600;" class="fa fa-star"></i></li>'
+            loop = Avg_data['rate__avg']
+            dec = str(loop - int(loop))[2:]
+            star = '<li><i style="color: #ffc600;" class="fa fa-star-o"></i></li>'
+            if '0' == dec:
+                total_star = ['', star, star, star, star]
+                for i in range(0, int(loop)):
+                    total_star[i] = '<li><i style="color: #ffc600;" class="fa fa-star"></i></li>'
+            else:
+                total_star = ['', star, star, star, star]
+                for i in range(0, int(loop)):
+                    total_star[i] = '<li><i style="color: #ffc600;" class="fa fa-star"></i></li>'
+                total_star[int(loop)] = '<li><i style="color: #ffc600;" class="fa fa-star-half-o"></i></li>'
 
             star1 = '<li><i style="font-size:12px; color:#d1d1d1;" class="fa fa-star"></i></li>'
             tagstar = ['', star1, star1, star1, star1]
@@ -179,7 +186,6 @@ def courseDesk(request, course_id):
         for i in range(0, data.rate):
             tagstars[i] = f'<i style="padding-right:5px;" class="fa fa-star checked my-btn" id="{i}"></i>'
 
-
     context = {
         'course': form,
         'lesson': lesson,
@@ -213,10 +219,18 @@ def editReview(request, course_id):
     review.save()
     data = CourseReview.objects.values().get(course_id=course_id, user=request.user)
     Avg_data = CourseReview.objects.filter(course_id=course_id).aggregate(Avg('rate'))
-    star = '<li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>'
-    total_star = ['', star, star, star, star]
-    for i in range(0, int(Avg_data['rate__avg'])):
-        total_star[i] = '<li><i style="color: #ffc600;" class="fa fa-star"></i></li>'
+    loop = Avg_data['rate__avg']
+    dec = str(loop - int(loop))[2:]
+    star = '<li><i style="color: #ffc600;" class="fa fa-star-o"></i></li>'
+    if '0' == dec:
+        total_star = ['', star, star, star, star]
+        for i in range(0, int(loop)):
+            total_star[i] = '<li><i style="color: #ffc600;" class="fa fa-star"></i></li>'
+    else:
+        total_star = ['', star, star, star, star]
+        for i in range(0, int(loop)):
+            total_star[i] = '<li><i style="color: #ffc600;" class="fa fa-star"></i></li>'
+        total_star[int(loop)] = '<li><i style="color: #ffc600;" class="fa fa-star-half-o"></i></li>'
 
     star1 = '<li><i style="font-size:12px; color:#d1d1d1;" class="fa fa-star"></i></li>'
     tagstar = ['', star1, star1, star1, star1]
@@ -233,13 +247,21 @@ def DeleteReview(request, course_id):
     id = request.GET.get('id', None)
     delete = CourseReview.objects.get(id=id)
     delete.delete()
-    star = '<li><i style="color:#d1d1d1;" class="fa fa-star"></i></li>'
-    loop = 'loop'
+    star = '<li><i style="color: #ffc600;" class="fa fa-star-o"></i></li>'
     try:
         Avg_data = CourseReview.objects.filter(course_id=course_id).aggregate(Avg('rate'))
-        total_star = ['', star, star, star, star]
-        for i in range(0, int(Avg_data['rate__avg'])):
-            total_star[i] = '<li><i style="color: #ffc600;" class="fa fa-star"></i></li>'
+        loop = Avg_data['rate__avg']
+        dec = str(loop - int(loop))[2:]
+        if '0' == dec:
+            total_star = ['', star, star, star, star]
+            for i in range(0, int(loop)):
+                total_star[i] = '<li><i style="color: #ffc600;" class="fa fa-star"></i></li>'
+        else:
+            total_star = ['', star, star, star, star]
+            for i in range(0, int(loop)):
+                total_star[i] = '<li><i style="color: #ffc600;" class="fa fa-star"></i></li>'
+            total_star[int(loop)] = '<li><i style="color: #ffc600;" class="fa fa-star-half-o"></i></li>'
+
     except Exception:
         total_star = [star, star, star, star, star]
     count = CourseReview.objects.filter(course_id=course_id).count()
