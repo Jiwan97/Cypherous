@@ -166,7 +166,7 @@ p a{
                                             {% for lesson in lesson %}
                                             <div class="card">
                                                 <div class="card-header" id="heading{{lesson.modulenumber}}">
-                                                    <a href="#" data-toggle="collapse" class="collapsed" data-target="#{{lesson.modulenumber}}" aria-expanded="false" aria-controls="{{lesson.modulenumber}}">
+                                                    <a href="#" data-toggle="collapse" class="collapsed" data-target="#head{{lesson.modulenumber}}" aria-expanded="false" aria-controls="head{{lesson.modulenumber}}">
                                                         <ul>
                                                             <li><i class="fa fa-file-o"></i></li>
                                                             <li><span class="lecture">Lecture {{lesson.modulenumber}}</span></li>
@@ -175,7 +175,7 @@ p a{
                                                         </ul>
                                                     </a>
                                                 </div>
-                                                <div id="{{lesson.modulenumber}}" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
+                                                <div id="head{{lesson.modulenumber}}" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
                                                     <div class="card-body">
                                                         {{lesson.ModuleLecture|safe}}
                                                     </div>
