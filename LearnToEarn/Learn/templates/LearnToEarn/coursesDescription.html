@@ -25,7 +25,9 @@ p a{
 .checked {
     color: #ffc600;
 }
-
+.bigStar {
+    font-size:17px;
+}
 .my-btn {
     background-color: inherit !important;
     border: 0 !important;
@@ -590,7 +592,7 @@ p a{
         {% endif %}
     </section>
 
-<script src="/static/js/star.js"></script>
+<script src="/static/js/StarRating/star.js"></script>
 <script type="text/javascript">
 
 
@@ -603,7 +605,7 @@ p a{
 
           modal.find('.modal-body textarea').val(recipient)
           modal.find('.modal-body #rate_value1').val(rate)
-          $.getScript( "/static/js/starformodal.js");
+          $.getScript( "/static/js/StarRating/starformodal.js");
         });
     });
 
@@ -784,7 +786,7 @@ p a{
 					    `
 	                );
 	                $('#star_group').empty()
-	                $.getScript( "/static/js/star.js");
+	                $.getScript( "/static/js/StarRating/star.js");
 				}, 1000);
 			}
 		});

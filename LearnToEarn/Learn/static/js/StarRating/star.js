@@ -26,7 +26,7 @@ $( document ).ready(function() {
     const handleSelect = (selection) => {
         switch(selection){
             case 'first': {
-                one.classList.add('checked')
+                one.classList.add('checked','bigStar')
                 two.classList.remove('checked')
                 three.classList.remove('checked')
                 four.classList.remove('checked')
@@ -36,7 +36,7 @@ $( document ).ready(function() {
             }
             case 'second': {
                 one.classList.add('checked')
-                two.classList.add('checked')
+                two.classList.add('checked','bigStar')
                 three.classList.remove('checked')
                 four.classList.remove('checked')
                 five.classList.remove('checked')
@@ -45,7 +45,7 @@ $( document ).ready(function() {
             case 'third': {
                 one.classList.add('checked')
                 two.classList.add('checked')
-                three.classList.add('checked')
+                three.classList.add('checked','bigStar')
                 four.classList.remove('checked')
                 five.classList.remove('checked')
                 return
@@ -54,7 +54,7 @@ $( document ).ready(function() {
                 one.classList.add('checked')
                 two.classList.add('checked')
                 three.classList.add('checked')
-                four.classList.add('checked')
+                four.classList.add('checked','bigStar')
                 five.classList.remove('checked')
                 return
             }
@@ -63,7 +63,7 @@ $( document ).ready(function() {
                 two.classList.add('checked')
                 three.classList.add('checked')
                 four.classList.add('checked')
-                five.classList.add('checked')
+                five.classList.add('checked','bigStar')
                 return
             }
             default: {
@@ -101,12 +101,46 @@ $( document ).ready(function() {
 
         arr.forEach(item=> item.addEventListener('mouseover', (event)=>{
             handleSelect(event.target.id)
+
+        }));
+        arr.forEach(item=> item.addEventListener('click', (event)=>{
             const val = event.target.id
             const val_num = getNumericValue(val)
             console.log(val)
             console.log(val_num)
             rateValue.innerHTML= val_num
-        }))
-
-    }
+        }));
+        arr.forEach(item=> item.addEventListener('mouseout', (event)=>{
+            one.classList.remove('bigStar','checked')
+            two.classList.remove('bigStar','checked')
+            three.classList.remove('bigStar','checked')
+            four.classList.remove('bigStar','checked')
+            five.classList.remove('bigStar','checked')
+            if (rateValue.innerHTML === '1') {
+                one.classList.add('checked')
+            }
+            else if (rateValue.innerHTML === '2') {
+                one.classList.add('checked')
+                two.classList.add('checked')
+            }
+            else if (rateValue.innerHTML === '3') {
+                one.classList.add('checked')
+                two.classList.add('checked')
+                three.classList.add('checked')
+            }
+            else if (rateValue.innerHTML === '4') {
+                one.classList.add('checked')
+                two.classList.add('checked')
+                three.classList.add('checked')
+                four.classList.add('checked')
+            }
+            else if (rateValue.innerHTML === '5') {
+                one.classList.add('checked')
+                two.classList.add('checked')
+                three.classList.add('checked')
+                four.classList.add('checked')
+                five.classList.add('checked')
+            }
+        }));
+    };
 });
