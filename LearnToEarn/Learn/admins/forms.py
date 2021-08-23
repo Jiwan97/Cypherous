@@ -50,4 +50,4 @@ class QnA(ModelForm):
     class Meta:
         model = ExamQNA
         fields = "__all__"
-        exclude = ['exammodel']
+        exclude = ['exammodel', 'answer']

@@ -36,7 +36,11 @@
                             <td>
                               <a href="/admins-dashboard/editExam/{{course_id}}/{{i.id}}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> Edit</a>
                               <a href="/admins-dashboard/delExam/{{course_id}}/{{i.id}}" class="btn btn-danger btn-sm" onclick="return confirm('Want to delete?')"><i class="fa fa-trash"></i> Delete</a>
-                              <a href="/admins-dashboard/allQNA/{{i.id}}" class="btn btn-primary btn-sm">View all MCQs</a>
+                                {% if i.MCQ %}
+                                  <a href="/admins-dashboard/allQNA/{{i.id}}" class="btn btn-primary btn-sm">View MCQs</a>
+                                {% else %}
+                                  <a href="/admins-dashboard/qnaCreate/{{i.id}}" class="btn btn-primary btn-sm">Add MCQ</a>
+                                {% endif %}
                             </td>
                         </tr>
                         {% endfor %}

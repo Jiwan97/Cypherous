@@ -47,7 +47,11 @@
                                 {% else %}
                                     <a href="/admins-dashboard/addModule/{{i.id}}" class="btn btn-v btn-primary btn-sm">Create Module</a>
                                 {% endif %}
-                              <a href="/admins-dashboard/allExams/{{i.id}}" class="btn btn-primary btn-sm">View Exam</a>
+                                {% if i.Exam %}
+                                  <a href="/admins-dashboard/allExams/{{i.id}}" class="btn btn-primary btn-sm">View Exam</a>
+                                {% else %}
+                                  <a href="/admins-dashboard/examCreate/{{i.id}}" class="btn btn-primary btn-sm">Create Exam</a>
+                                {% endif %}
                             </td>
                             {% else %}
                             <td>

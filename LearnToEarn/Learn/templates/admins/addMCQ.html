@@ -1,0 +1,94 @@
+{% extends 'layout-admin.html' %}
+{% load bootstrap %}
+{% block title %}
+    <title>Learn To Earn</title>
+{% endblock%}
+{% block content %}
+<style>
+.col-sm-2 {
+max-width:400% !important;
+}
+.help-block {
+    display:none;
+}
+</style>
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Dashboard</h1>
+    <div class="card py-2 px-2">
+    <form class="form" action="" enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col">
+            <div class="row">
+              <div class="col-sm-2">
+                  {{form.numb | bootstrap_horizontal}}
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-8">
+                  {{form.question | bootstrap_horizontal}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col mb-3">
+                  {{form.option1 | bootstrap_horizontal}}
+              </div>
+              <div class="col mb-3">
+                  {{form.option2 | bootstrap_horizontal}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col mb-3">
+                  {{form.option3 | bootstrap_horizontal}}
+              </div>
+              <div class="col mb-3">
+                  {{form.option4 | bootstrap_horizontal}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-8">
+                  <div class="form-group">
+                    <label class="control-label col-sm-2 col-lg-2 " for="id_answer">Answer</label>
+                    <div class=" col-sm-10 col-lg-10 ">
+                        <select name="answer" class=" form-control" required id="id_answer">
+                            <option value selected>----</option>
+                            <option id="option1" value="1"></option>
+                            <option id="option2" value="2"></option>
+                            <option id="option3" value="3"></option>
+                            <option id="option4" value="4"></option>
+                        </select>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    </div>
+</div>
+
+<script>
+$( document ).ready(function() {
+    $('#option1').val($("#id_option1").val()).text($("#id_option1").val());
+    $('#option2').val($("#id_option2").val()).text($("#id_option2").val());
+    $('#option3').val($("#id_option3").val()).text($("#id_option3").val());
+    $('#option4').val($("#id_option4").val()).text($("#id_option4").val());
+
+    $("#id_option1").keyup(function() {
+        $('#option1').val($(this).val()).text($(this).val());
+    });
+    $("#id_option2").keyup(function() {
+        $('#option2').val($(this).val()).text($(this).val());
+    });
+    $("#id_option3").keyup(function() {
+        $('#option3').val($(this).val()).text($(this).val());
+    });
+    $("#id_option4").keyup(function() {
+        $('#option4').val($(this).val()).text($(this).val());
+    });
+});
+</script>
+{% endblock %}

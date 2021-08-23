@@ -107,9 +107,9 @@ class Course(models.Model):
         statement = CourseModule.objects.filter(course_id=self.pk).exists()
         return statement
 
-    def hasLiked(self, user):
-        liked = CourseLike.objects.filter(course_id=self.pk, user=user).exists()
-        return liked
+    def Exam(self):
+        statement = ExamModel.objects.filter(course_id=self.pk).exists()
+        return statement
 
 
 class CourseEnrollement(models.Model):
@@ -181,6 +181,10 @@ class ExamModel(models.Model):
     ExamTitle = models.CharField('Title', max_length=500, null=True, default="Not Updated",
                                  )
     date = models.DateTimeField(auto_now_add=True)
+
+    def MCQ(self):
+        liked = ExamQNA.objects.filter(exammodel_id=self.pk).exists()
+        return liked
 
 
 class Attempted(models.Model):

@@ -213,7 +213,9 @@ p a{
                                             <h6>{{course.course_name}}</h6>
                                         </div>
                                         <div class="accordion">
+
                                             {% for exam in exam %}
+                                            {% if exam.MCQ %}
                                             <div class="card">
                                                 <div class="card-header" style="padding: 10px 20px 0px;" id="heading1{{exam.ExamNumber}}">
                                                     <a href="#" data-toggle="collapse" class="a-button collapsed" data-target="#head1{{exam.ExamNumber}}" aria-expanded="false" aria-controls="head1{{exam.ExamNumber}}">
@@ -242,6 +244,7 @@ p a{
                                                     </div>
                                                 </div>
                                             </div>
+                                            {% endif %}
                                             {% endfor %}
                                         </div>
                                     </div>
@@ -263,11 +266,8 @@ p a{
                                            {% for comment in comments %}
                                            <li id="comment-{{comment.id}}">
                                                <div class="singel-reviews">
-                                                   {% if comment.user_id == request.user.id %}
-                                                   <div class="reviews-author" style="background-color:#f9f8f8; border-radius:5px" >
-                                                   {% else %}
-                                                   <div class="reviews-author">
-                                                   {% endif %}
+
+                                                   <div class="reviews-author" {% if comment.user_id == request.user.id %} style="background-color:#f9f8f8; border-radius:5px" {% endif %} >
                                                         <div class="author-thum">
                                                             <img src="/{{comment.user.profile.profile_pic}}" alt="Reviews">
                                                         </div>
@@ -300,9 +300,7 @@ p a{
                                                             {% endif %}
                                                         </div>
                                                         <p id="comment-data-{{comment.id}}" style="word-wrap:break-word; line-height:28px; white-space: pre-line;">{{comment.comment}}</p>
-
                                                     </div>
-
                                                 </div>
                                            </li>
                                            {% endfor %}

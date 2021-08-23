@@ -358,6 +358,7 @@ def QNA(request, exam_id):
     if Exam.user_id == request.user.id:
         if request.method == "POST":
             form = QnA(request.POST)
+            answer = request.POST.get('answer')
             context = {'form': form}
             if form.is_valid():
                 number = form.cleaned_data['numb']
@@ -365,24 +366,20 @@ def QNA(request, exam_id):
                 option2 = form.cleaned_data['option2']
                 option3 = form.cleaned_data['option3']
                 option4 = form.cleaned_data['option4']
-                answer = form.cleaned_data['answer']
 
                 if ExamQNA.objects.filter(exammodel=exam_id, numb=number).exists():
                     messages.add_message(request, messages.ERROR,
                                          'Question no. already exits')
-                    return render(request, 'admins/CreateAdd.html', context)
+                    return render(request, 'admins/addMCQ.html', context)
                 elif option1 in (option2, option3, option4) or option2 in (option1, option3, option4) or option3 in (
                         option1, option2, option4) or option4 in (option1, option3, option2):
                     messages.add_message(request, messages.ERROR,
                                          'Options must be different')
-                    return render(request, 'admins/CreateAdd.html', context)
-                elif all(x != answer for x in (option1, option2, option3, option4)):
-                    messages.add_message(request, messages.ERROR,
-                                         'Answer must be from one of the options')
-                    return render(request, 'admins/CreateAdd.html', context)
+                    return render(request, 'admins/addMCQ.html', context)
 
                 instance = form.save(commit=False)
                 instance.exammodel = Exam
+                instance.answer = answer
                 instance.save()
                 messages.success(request, 'MCQ added successfully.')
                 return redirect(f'/admins-dashboard/allQNA/{exam_id}')
@@ -392,7 +389,7 @@ def QNA(request, exam_id):
         messages.warning(request, 'You do not have permission.')
         return redirect('/admins-dashboard/allCourses')
     context = {'form': form}
-    return render(request, 'admins/CreateAdd.html', context)
+    return render(request, 'admins/addMCQ.html', context)
 
 
 @login_required
@@ -402,6 +399,7 @@ def editQNA(request, exam_id, qna_id):
     form = QnA(instance=Qna)
     if request.method == 'POST':
         form = QnA(request.POST, instance=Qna)
+        answer = request.POST.get('answer')
         context = {'form': form}
         if form.is_valid():
             number = form.cleaned_data['numb']
@@ -409,21 +407,18 @@ def editQNA(request, exam_id, qna_id):
             option2 = form.cleaned_data['option2']
             option3 = form.cleaned_data['option3']
             option4 = form.cleaned_data['option4']
-            answer = form.cleaned_data['answer']
             if ExamQNA.objects.filter(exammodel=exam_id, numb=number).exclude(id=qna_id).exists():
                 messages.add_message(request, messages.ERROR,
                                      'Question no. already exits')
-                return render(request, 'admins/updateEdit.html', context)
+                return render(request, 'admins/UpdateMCQ.html', context)
             elif option1 in (option2, option3, option4) or option2 in (option1, option3, option4) or option3 in (
                     option1, option2, option4) or option4 in (option1, option3, option2):
                 messages.add_message(request, messages.ERROR,
                                      'Options must be different')
-                return render(request, 'admins/CreateAdd.html', context)
-            elif all(x != answer for x in (option1, option2, option3, option4)):
-                messages.add_message(request, messages.ERROR,
-                                     'Answer must be from one of the options')
-                return render(request, 'admins/CreateAdd.html', context)
-            form.save()
+                return render(request, 'admins/UpdateMCQ.html', context)
+            instance = form.save(commit=False)
+            instance.answer = answer
+            instance.save()
             messages.success(request, 'Exam Details updated successfully.')
             return redirect(f'/admins-dashboard/allQNA/{exam_id}')
         else:
@@ -431,7 +426,7 @@ def editQNA(request, exam_id, qna_id):
     context = {
         'form': form,
     }
-    return render(request, 'admins/updateEdit.html', context)
+    return render(request, 'admins/UpdateMCQ.html', context)
 
 
 @login_required
