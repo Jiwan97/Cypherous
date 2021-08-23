@@ -384,7 +384,7 @@ def QNA(request, exam_id):
                 instance = form.save(commit=False)
                 instance.exammodel = Exam
                 instance.save()
-                messages.success(request, 'Exam Details added successfully.')
+                messages.success(request, 'MCQ added successfully.')
                 return redirect(f'/admins-dashboard/allQNA/{exam_id}')
             else:
                 errors(request, form)

@@ -158,9 +158,16 @@ blockquote {
     margin: 20px 0 20px;
     padding: 30px;
 }
-
-
-
+.wordwrap {
+    white-space: -moz-pre-wrap!important;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    white-space: -webkit-pre-wrap;
+    word-break: break-word;
+    white-space: normal;
+}
 
 .first {
     clear: both
@@ -6267,25 +6274,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#391800', end
 .curriculam-cont .accordion{
     border: 0;
 }
-.curriculam-cont .accordion .card{
-    border: 0;
-    border-radius: 0;
-    border-bottom: 1px solid #cecece !important;
-}
-.curriculam-cont .accordion .card:last-child{
-    border-bottom: 0 !important;
-}
 
-.curriculam-cont .accordion .card .card-header {
-    padding: 0;
-    border-bottom: 0;
-}
+
 
 .curriculam-cont .accordion .card .card-header a {
 	overflow: hidden;
-	display: block;
-    padding: 15px 15px;
-    background-color: #edf0f2;
 }
 .curriculam-cont .accordion .card .card-header a.collapsed{
     background-color: #fff;
@@ -6305,10 +6298,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#391800', end
 	transform: rotate(180deg);
 	-webkit-transition: all 0.2s linear;
 	transition: all 0.2s linear;
+	margin-top:-6px;
 }
 .curriculam-cont .accordion .card .card-header a.collapsed:before{
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
+    margin-top:-6px;
 }
 .curriculam-cont .accordion .card .card-header a ul li{
     display: inline-block;
@@ -6317,8 +6312,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#391800', end
     float: right;
 }
 
+
 .curriculam-cont .accordion .card .card-header a ul li > i{
-    color: #ffc600;
+    color: #7966dd;
     font-size: 15px;
     margin-right: 5px;
 }
@@ -6345,10 +6341,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#391800', end
 .curriculam-cont .accordion .card .card-header a ul li > .time span{}
 
 .curriculam-cont .accordion .card .card-body {
-	background-color: #edf0f2;
-	padding: 0 25px 20px;
+	padding: 20px 25px 0px;
+	border-bottom: 1px solid #cecece;
 }
 
+.curriculam-cont .accordion .card:last-child{
+    border-bottom: 0 !important;
+}
 
 .instructor-cont{
     padding: 30px 30px 25px;

@@ -283,7 +283,7 @@ div footer button{
     opacity: 0;
     pointer-events: none;
     transform: scale(0.95);
-    transition: all 0.3s ease;
+
 }
 
 div footer button:hover{

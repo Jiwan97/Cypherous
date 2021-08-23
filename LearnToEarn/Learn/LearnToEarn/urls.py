@@ -26,7 +26,8 @@ urlpatterns = [
     path('delComments/<int:news_id>/', views.DeleteComments, name='del-com'),
     path('delReviews/<int:course_id>/', views.DeleteReview, name='del-rev'),
     path('editReviews/<int:course_id>/', views.editReview, name='edit-rev'),
-    path('exam/', views.Exam, name='edit-rev'),
+    path('courses/courseDesk/exam/<int:course_id>/<int:exam_id>/', views.Exam, name='exam-rev'),
+    path('examResult', views.ExamScore, name='exam-result'),
 
 ]
 

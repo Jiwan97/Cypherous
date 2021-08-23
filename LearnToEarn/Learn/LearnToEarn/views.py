@@ -177,6 +177,7 @@ def courseDesk(request, course_id):
     tags = form.category.last()
     related = Course.objects.filter(category=tags).exclude(id=course_id).order_by('-date')[:2]
     lesson = CourseModule.objects.filter(course_id=course_id)
+    exam = ExamModel.objects.filter(course_id=course_id)
     review_comment = CourseReview.objects.filter(course_id=course_id).order_by('-date_commented')
     can_review = CourseReview.objects.filter(user=request.user, course_id=course_id).exists()
     tagstars = []
@@ -203,7 +204,8 @@ def courseDesk(request, course_id):
         'activate_couD': 'active',
         'comments': review_comment,
         'can_review': can_review,
-        'tagstars': tagstars
+        'tagstars': tagstars,
+        'exam': exam
     }
 
     return render(request, 'LearnToEarn/coursesDescription.html', context)
@@ -439,10 +441,28 @@ def DeleteComments(request, news_id):
     return JsonResponse({'count': count}, safe=False)
 
 
-def Exam(request):
-    datas = ExamQNA.objects.values().filter(exammodel_id=1)
-    examModel = ExamModel.objects.get(id=1)
-    print(examModel.ExamTitle)
+def Exam(request, course_id, exam_id):
+    attempt = Attempted.objects.filter(exammodel_id=exam_id, user=request.user)
+    examModel = ExamModel.objects.get(id=exam_id)
     title = examModel.ExamTitle
-    data = dumps(list(datas))
-    return render(request, 'LearnToEarn/examTest.html', {'questions': data, 'title': title})
+    if attempt.exists():
+        values_of_attempt = list(attempt.values())
+        user_score = values_of_attempt[0]['user_score']
+        print(user_score)
+        return render(request, 'LearnToEarn/examScore.html',
+                      {'score': user_score, 'test_name': title, 'course_id': course_id})
+    else:
+        datas = ExamQNA.objects.values().filter(exammodel_id=exam_id)
+        data = dumps(list(datas))
+        return render(request, 'LearnToEarn/examTest.html',
+                      {'questions': data, 'title': title, 'course_id': course_id, 'exam_id': exam_id})
+
+
+def ExamScore(request):
+    attempt = Attempted()
+    attempt.user = request.user
+    attempt.exammodel_id = request.GET.get('exam_id', None)
+    attempt.user_score = request.GET.get('userScore', None)
+    attempt.attempted = True
+    attempt.save()
+    return redirect('/courses')

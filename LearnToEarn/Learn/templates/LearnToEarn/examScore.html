@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+    <title>Learn To Earn</title>
+{% endblock%}
+
+{% block content %}
+<link rel="stylesheet" href="{% static '/shortcodes/exam.css'%}">
+<div class="container">
+    <div class="row" >
+        <div class="col-lg-12" style="padding:370px; margin-bottom:-60px;">
+                <div class="result_box activeResult">
+                    <div class="icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <div class="complete_text">You've already attempted the Test!</div>
+                    <div class="score_text">
+                        <span>You scored {{score}} on {{test_name}}</span>
+                    </div>
+                    <div class="buttons">
+                        <div class="restart"></div>
+                        <a href="/courses/courseDesk/{{course_id}}/"><button class="quit">Back to Course</button></a>
+                    </div>
+                </div>
+        </div>
+</div>
+</div>
+{% endblock %}

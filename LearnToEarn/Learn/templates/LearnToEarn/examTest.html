@@ -8,18 +8,18 @@
 <link rel="stylesheet" href="{% static '/shortcodes/exam.css'%}">
 <div class="container">
     <div class="row" >
-        <div class="col-lg-12" style="padding:370px">
+        <div class="col-lg-12" style="padding:370px; margin-bottom:-60px;">
                 <div class="info_box activeInfo">
                     <div class="info-title"><span>Some Rules of this Test</span></div>
                     <div class="info-list">
                         <div class="info">1. You will have only <span>15 seconds</span> per each question.</div>
                         <div class="info">2. Once you select your answer, it can't be undone.</div>
                         <div class="info">3. You can't select any option once time goes off.</div>
-                        <div class="info">4. You can't exit from the Quiz however u can't Reattempt Same Quiz</div>
+                        <div class="info">4. You can't exit from the Quiz you click on Continue.</div>
                         <div class="info">5. You'll get your score on the basis of your correct answers.</div>
                     </div>
                     <div class="buttons">
-                        <button class="quit">Exit Test</button>
+                        <a href="/courses/courseDesk/{{course_id}}/"><button class="quit">Exit Test</button></a>
                         <button class="continue">Continue</button>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
                         <div class="title"></div>
                         <div class="timer">
                             <div class="time_left_txt">Time Left</div>
-                            <div class="timer_sec">15</div>
+                            <div class="timer_sec">10</div>
                         </div>
                         <div class="time_line"></div>
                     </header>
@@ -41,7 +41,7 @@
                     <footer>
                         <div class="total_que">
                         </div>
-                        <button class="next_btn">Next Que</button>
+                        <button class="next_btn">Next Question</button>
                     </footer>
                 </div>
 
@@ -49,18 +49,19 @@
                     <div class="icon">
                         <i class="fas fa-crown"></i>
                     </div>
-                    <div class="complete_text">You've completed the Quiz!</div>
+                    <div class="complete_text">You've completed the Test!</div>
                     <div class="score_text">
                     </div>
                     <div class="buttons">
                         <div class="restart"></div>
-                        <button class="quit">Quit Quiz</button>
+                        <a href="/courses/courseDesk/{{course_id}}/"><button class="quit">Back to Course</button></a>
                     </div>
                 </div>
                 <script>
                     const questions = {% autoescape off %}{{ questions }}{% endautoescape %};
                     const title = '{{ title }}'
                     console.log(title)
+                    let exam_id = {{exam_id}}
                 </script>
                 <script src="{% static 'js/Quiz/script.js'%}"></script>
         </div>
