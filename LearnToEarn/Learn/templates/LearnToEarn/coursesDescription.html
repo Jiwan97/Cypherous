@@ -217,9 +217,9 @@ p a{
                                                             <img src="/{{comment.user.profile.profile_pic}}" alt="Reviews">
                                                         </div>
                                                         <div class="author-name">
-                                                            <h6>{{comment.user.profile.firstname}} {{comment.user.profile.lastname}}</h6>
-                                                            <span>{{comment.date_commented| date:"F d, Y"}}</span>
 
+                                                            <h6>{{comment.user.profile.firstname}} {{comment.user.profile.lastname}}  {% if comment.user.is_staff %} <b style="background-color:#da0b4e;" class="badge badge-info ml-2">Admin</b> {% endif %}</h6>
+                                                            <span>{{comment.date_commented| date:"F d, Y"}}</span>
                                                         </div>
 
                                                     </div>
@@ -706,7 +706,7 @@ p a{
                                         <img src="/${response.profile}" alt="Reviews">
                                     </div>
                                     <div class="author-name">
-                                        <h6>${response.firstname} ${response.lastname}</h6>
+                                        <h6>${response.firstname} ${response.lastname} ${response.admin[0]}</h6>
                                         <span>${dateTime}</span>
                                     </div>
                                 </div>

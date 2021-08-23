@@ -333,7 +333,7 @@ body .fc-widget-header a {
             </div>
 
             <div class="profile-header-info">
-                <h4 class="m-t-sm">{{request.user.profile.firstname}} {{request.user.profile.lastname}} {% if request.user.is_staff %}(Admin){% endif %}</h4>
+                <h4 class="m-t-sm">{{request.user.profile.firstname}} {{request.user.profile.lastname}} {% if request.user.is_staff %}<span style="background-color:#da0b4e;" class="badge badge-info">Admin</span>{% endif %}</h4>
                 <p class="m-b-sm">@{{request.user.profile.username}}</p>
 
                 <a href="/editprofile" class="btn btn-xs btn-primary mb-3">Edit Profile</a>

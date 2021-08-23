@@ -133,6 +133,9 @@ def courseDesk(request, course_id):
             else:
                 review = "Reviews"
             comment_data = CourseReview.objects.values().get(id=data.pk)
+            admin = ['']
+            if data.user.is_staff:
+                admin[0] = ['<b style="background-color:#da0b4e;" class="badge badge-info ml-2">Admin</b>']
             Avg_data = CourseReview.objects.filter(course_id=course_id).aggregate(Avg('rate'))
             loop = Avg_data['rate__avg']
             dec = str(loop - int(loop))[2:]
@@ -161,7 +164,7 @@ def courseDesk(request, course_id):
 
             return JsonResponse(
                 {'data': comment_data, 'review': review, 'count': count, 'username': request.user.profile.username,
-                 'tagstar': tagstar, 'poststar_rate': poststar_rate,
+                 'tagstar': tagstar, 'poststar_rate': poststar_rate, 'admin': admin,
                  'firstname': request.user.profile.firstname, 'total_star': total_star,
                  'lastname': request.user.profile.lastname, 'profile': str(request.user.profile.profile_pic)},
                 safe=False)
