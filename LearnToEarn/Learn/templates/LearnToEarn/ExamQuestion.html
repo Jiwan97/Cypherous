@@ -19,8 +19,19 @@
 <div class="container">
     <div class="row" >
         <div class="col-lg-12" style="padding:500px; margin-bottom:-60px;">
-
-                <div class="quiz_box activeQuiz">
+                <div style="margin-top: -100px;" class="info_box activeInfo">
+                    <div class="info-title"><span>Some Rules of this Test</span></div>
+                    <div class="info-list">
+                        <div class="info">1. You have only <span>{{time}} seconds</span></div>
+                        <div class="info">2. You must Submit Your answer in pdf Format</div>
+                        <div class="info">5. Your answer will be reviewed by Course Teacher once you submit it</div>
+                    </div>
+                    <div class="buttons">
+                        <a href="/courses/courseDesk/{{course_id}}/"><button class="quit">Exit Test</button></a>
+                        <button class="continue">Continue</button>
+                    </div>
+                </div>
+                <div class="quiz_box">
                     <header>
                         <div class="title"></div>
                         <div class="timer">
