@@ -28,6 +28,8 @@ urlpatterns = [
     path('editReviews/<int:course_id>/', views.editReview, name='edit-rev'),
     path('courses/courseDesk/exam/<int:course_id>/<int:exam_id>/', views.Exam, name='exam-rev'),
     path('examResult', views.ExamScore, name='exam-result'),
+    path('courses/courseDesk/exam2/<int:course_id>/<int:exam_id>/', views.Exam2),
+    path('timelapse', views.timeLapse, name='timeLapse')
 
 ]
 

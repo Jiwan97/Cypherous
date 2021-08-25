@@ -344,7 +344,7 @@ def DeleteExam(request, course_id, exam_id):
 @login_required()
 @admin_only
 def allQNA(request, exam_id):
-    total_QNA = ExamQNA.objects.filter(exammodel=exam_id)
+    total_QNA = ExamQNA.objects.filter(exammodel_id=exam_id)
     context = {'total': total_QNA,
                'exam_id': exam_id}
     return render(request, 'admins/allQNA.html', context)
@@ -433,5 +433,67 @@ def editQNA(request, exam_id, qna_id):
 @admin_only
 def DeleteQNA(request, exam_id, qna_id):
     delete = ExamQNA.objects.get(id=qna_id)
+    delete.delete()
+    return redirect(f'/admins-dashboard/allQNA/{exam_id}')
+
+
+@login_required()
+@admin_only
+def MainExam(request, exam_id):
+    form = MainExamForm()
+    Exam = ExamModel.objects.get(id=exam_id)
+    if Exam.user_id == request.user.id:
+        if request.method == "POST":
+            form = MainExamForm(request.POST)
+            context = {'form': form}
+            if form.is_valid():
+                instance = form.save(commit=False)
+                instance.exammodel = Exam
+                instance.user = request.user
+                instance.save()
+                messages.success(request, f'Question for {Exam.ExamTitle} added successfully.')
+                return redirect(f'/admins-dashboard/ViewQsn/{exam_id}')
+            else:
+                errors(request, form)
+    else:
+        messages.warning(request, 'You do not have permission.')
+        return redirect('/admins-dashboard/allCourses')
+    context = {'form': form}
+    return render(request, 'admins/CreateAdd.html', context)
+
+
+@login_required
+@admin_only
+def editQsn(request, exam_id, Qsn_id):
+    ExamQsn = ExamQuestion.objects.get(id=Qsn_id)
+    form = MainExamForm(instance=ExamQsn)
+    if request.method == 'POST':
+        form = MainExamForm(request.POST, instance=ExamQsn)
+        context = {'form': form}
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Question updated successfully.')
+            return redirect(f'/admins-dashboard/ViewQsn/{exam_id}')
+        else:
+            errors(request, form)
+    context = {
+        'form': form,
+    }
+    return render(request, 'admins/updateEdit.html', context)
+
+
+@login_required()
+@admin_only
+def ViewQsn(request, exam_id):
+    Exam_Qsn = ExamQuestion.objects.filter(exammodel_id=exam_id)
+    context = {'total': Exam_Qsn,
+               'exam_id': exam_id}
+    return render(request, 'admins/viewQsn.html', context)
+
+
+@login_required
+@admin_only
+def DeleteQsn(request, exam_id, Qsn_id):
+    delete = ExamQuestion.objects.get(id=Qsn_id)
     delete.delete()
     return redirect(f'/admins-dashboard/allQNA/{exam_id}')

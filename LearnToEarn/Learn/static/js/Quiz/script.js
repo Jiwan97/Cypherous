@@ -92,7 +92,7 @@ function optionSelected(answer){
     let userAns = answer.textContent; //getting user selected option
     let correcAns = questions[que_count].answer; //getting correct answer from array
     const allOptions = option_list.children.length; //getting all option items
-    
+
     if(userAns == correcAns){ //if user selected option is equal to array's correct answer
         userScore += 1; //upgrading score value with 1
         answer.classList.add("correct"); //adding green color to correct selected option
@@ -105,7 +105,7 @@ function optionSelected(answer){
         console.log("Wrong Answer");
 
         for(i=0; i < allOptions; i++){
-            if(option_list.children[i].textContent == correcAns){ //if there is an option which is matched to an array answer 
+            if(option_list.children[i].textContent == correcAns){ //if there is an option which is matched to an array answer
                 option_list.children[i].setAttribute("class", "option correct"); //adding green color to matched option
                 option_list.children[i].insertAdjacentHTML("beforeend", tickIconTag); //adding tick icon to matched option
                 console.log("Auto selected correct answer.");

@@ -26,4 +26,8 @@ urlpatterns = [
     path('qnaCreate/<int:exam_id>/', views.QNA),
     path('editQNA/<int:exam_id>/<int:qna_id>/', views.editQNA),
     path('delQNA/<int:exam_id>/<int:qna_id>/', views.DeleteQNA),
+    path('QsnCreate/<int:exam_id>', views.MainExam),
+    path('ViewQsn/<int:exam_id>', views.ViewQsn),
+    path('editQsn/<int:exam_id>/<int:Qsn_id>/', views.editQsn),
+    path('delQsn/<int:exam_id>/<int:Qsn_id>/', views.DeleteQsn),
 ]

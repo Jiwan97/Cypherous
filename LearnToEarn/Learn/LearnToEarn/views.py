@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.views.generic import ListView, DetailView
 from .models import *
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.contrib import messages
 from django.core.paginator import Paginator
 from admins.filters import *
-from .forms import RateForm
+from .forms import *
 from taggit.models import Tag
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
@@ -466,3 +466,50 @@ def ExamScore(request):
     attempt.attempted = True
     attempt.save()
     return redirect('/courses')
+
+
+@login_required()
+def Exam2(request, course_id, exam_id):
+    form = AnswerForm()
+    examModel = ExamModel.objects.get(id=exam_id)
+    Exam = examModel.examquestion
+    Question = Exam.question
+    title = examModel.ExamTitle
+    if not ExamAnswer.objects.filter(examquestion=Exam, user=request.user).exists():
+        Answer = ExamAnswer()
+        Answer.user = request.user
+        Answer.examquestion = Exam
+        Answer.save()
+
+    modal = ExamAnswer.objects.get(examquestion=Exam, user=request.user)
+
+    if request.method == 'POST':
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            answer = form.cleaned_data['answer']
+            modal.answer = answer
+            modal.attempted = True
+            modal.save()
+            return render(request, 'LearnToEarn/alreadyAttemptedExam.html', {'just': True, 'course_id': course_id})
+
+    if modal.attempted:
+        return render(request, 'LearnToEarn/alreadyAttemptedExam.html', {'course_id': course_id})
+    else:
+        time = modal.time
+        answer_id = modal.id
+        context = {
+            'time': time,
+            'title': title,
+            'form': form,
+            'question': Question,
+            'answer_id': answer_id
+        }
+        return render(request, 'LearnToEarn/ExamQuestion.html', context)
+
+
+def timeLapse(request):
+    answer_id = request.GET.get('answer_id')
+    modal = ExamAnswer.objects.get(id=answer_id)
+    modal.time = request.GET.get('time')
+    modal.save()
+    return HttpResponse()

@@ -6,3 +6,9 @@ class RateForm(ModelForm):
     class Meta:
         model = CourseReview
         fields = ['rate']
+
+
+class AnswerForm(ModelForm):
+    class Meta:
+        model = ExamAnswer
+        fields = ['answer']

@@ -51,3 +51,9 @@ class QnA(ModelForm):
         model = ExamQNA
         fields = "__all__"
         exclude = ['exammodel', 'answer']
+
+
+class MainExamForm(ModelForm):
+    class Meta:
+        model = ExamQuestion
+        fields = ['question']

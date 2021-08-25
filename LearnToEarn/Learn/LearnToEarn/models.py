@@ -183,8 +183,12 @@ class ExamModel(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
     def MCQ(self):
-        liked = ExamQNA.objects.filter(exammodel_id=self.pk).exists()
-        return liked
+        statement = ExamQNA.objects.filter(exammodel_id=self.pk).exists()
+        return statement
+
+    def ExamQ(self):
+        statement = ExamQuestion.objects.filter(exammodel_id=self.pk).exists()
+        return statement
 
 
 class Attempted(models.Model):
@@ -204,3 +208,18 @@ class ExamQNA(models.Model):
     option3 = models.CharField("Option 3", max_length=5000, null=True)
     option4 = models.CharField("Option 4", max_length=5000, null=True)
     answer = models.CharField("Answer", max_length=5000, null=True)
+
+
+class ExamQuestion(models.Model):
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    exammodel = models.OneToOneField(ExamModel, null=True, on_delete=models.CASCADE)
+    question = RichTextUploadingField(max_length=5000, default="Paste Your Question in PDF Format HERE", null=True)
+    date = models.DateTimeField(auto_now_add=True)
+
+
+class ExamAnswer(models.Model):
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    examquestion = models.ForeignKey(ExamQuestion, null=True, on_delete=models.CASCADE)
+    time = models.PositiveIntegerField(default=600)
+    attempted = models.BooleanField(default=False)
+    answer = RichTextUploadingField(max_length=5000, default="Paste Your Answer in PDF format here", null=True)

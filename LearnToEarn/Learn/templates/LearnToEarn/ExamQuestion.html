@@ -1,0 +1,78 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% load bootstrap %}
+{% block title %}
+<title xmlns="http://www.w3.org/1999/html">Learn To Earn</title>
+{% endblock%}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static '/shortcodes/exam.css'%}">
+<style>
+.quiz_box{
+    width: 1100px;
+ }
+ .mt-30{
+    margin-top:30px;
+  }
+</style>
+<div class="container">
+    <div class="row" >
+        <div class="col-lg-12" style="padding:500px; margin-bottom:-60px;">
+
+                <div class="quiz_box activeQuiz">
+                    <header>
+                        <div class="title"></div>
+                        <div class="timer">
+                            <div class="time_left_txt">Time Left</div>
+                            <div class="timer_sec">{{time}}</div>
+                        </div>
+                        <div class="time_line"></div>
+                    </header>
+                    <form class="form" action="" enctype="multipart/form-data" method="POST">
+                        {% csrf_token %}
+                    <section>
+                        <div class="que_text">
+                            {{question|safe}}
+                        </div>
+                        <label class="control-label col-sm-2 col-lg-2 mt-30">Your answer Here:</label>
+                        <div class="row">
+                            <div  style="margin-left:30px;">
+                                {{ form.media }}
+                                {% for label in form %}
+                                {{label}}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </section>
+                    <footer>
+                        <div class="total_que">
+                        </div>
+                        <button type="submit" class="next_btn show">Submit</button>
+                    </footer>
+                    </form>
+                </div>
+
+                <div class="result_box">
+                    <div class="icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <div class="complete_text">You've completed the Test!</div>
+                    <div class="score_text">
+                    </div>
+                    <div class="buttons">
+                        <div class="restart"></div>
+                        <a href="/courses/courseDesk/{{course_id}}/"><button class="quit">Back to Course</button></a>
+                    </div>
+                </div>
+                <script>
+                    const title = '{{ title }}'
+                    const time1 = {{time}}
+                    console.log(time1)
+                    let answer_id = {{answer_id}}
+                </script>
+                <script src="{% static 'js/Quiz/exam.js'%}"></script>
+        </div>
+</div>
+</div>
+{% endblock %}

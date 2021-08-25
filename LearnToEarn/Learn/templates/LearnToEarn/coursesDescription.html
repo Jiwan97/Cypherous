@@ -1,7 +1,8 @@
 {% extends 'layout.html' %}
 {% load static %}
 {% load hasLiked %}
-{% load hasAttempted %}
+{% load hasAttemptedTest %}
+{% load hasAttemptedExam %}
 {% load bootstrap %}
 {% block title %}
     <title>Learn To Earn</title>
@@ -9,6 +10,10 @@
 
 {% block content %}
 <style>
+
+div.card-body p {
+    display:inline-grid;
+}
 .btn-darkpink {
     background-color: #cb295e;
     width: 150px;
@@ -191,7 +196,7 @@ p a{
                                                 </div>
                                                 <div id="head{{lesson.modulenumber}}" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
                                                     <div class="card-body">
-                                                        {{lesson.ModuleLecture|safe}}
+                                                       {{lesson.ModuleLecture|safe}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -215,7 +220,7 @@ p a{
                                         <div class="accordion">
 
                                             {% for exam in exam %}
-                                            {% if exam.MCQ %}
+                                            {% if exam.MCQ or exam.ExamQ %}
                                             <div class="card">
                                                 <div class="card-header" style="padding: 10px 20px 0px;" id="heading1{{exam.ExamNumber}}">
                                                     <a href="#" data-toggle="collapse" class="a-button collapsed" data-target="#head1{{exam.ExamNumber}}" aria-expanded="false" aria-controls="head1{{exam.ExamNumber}}">
@@ -233,9 +238,16 @@ p a{
                                                           <div class="row">
                                                               <div class="col-lg-12 col-md-12 col-sm-12">
                                                                 <ul>
-                                                                    <li style="display:block;">
-                                                                        <a href="/courses/courseDesk/exam/{{course.id}}/{{exam.id}}/"><button class="btn btn-primary">{{exam.ExamTitle}} Test</button>{% if request.user|hasAttempted:exam.id %} <span class="checkBtn"><i class="fa fa-check-circle"></i></span>{% endif %}</a>
+                                                                    {% if exam.MCQ %}
+                                                                    <li style="display:block; padding:5px 0px">
+                                                                        <i style="margin-right: 10px;" class="fa fa-arrow-right" aria-hidden="true"></i><span style="font-size: 15px; margin-right: 90px;">Test</span><a style="color: black;font-size: 16px;font-weight: 500;" href="/courses/courseDesk/exam/{{course.id}}/{{exam.id}}/">{{exam.ExamTitle}} Test{% if request.user|hasAttemptedTest:exam.id %} <span class="checkBtn"><i class="fa fa-check-circle"></i></span>{% endif %}</a>
                                                                     </li>
+                                                                    {% endif %}
+                                                                    {% if exam.ExamQ %}
+                                                                    <li style="display:block; padding:5px 0px">
+                                                                        <i style="margin-right: 10px;" class="fa fa-arrow-right" aria-hidden="true"></i><span style="font-size: 15px; margin-right: 80px;">Exam</span><a style="color: black;font-size: 16px;font-weight: 500;" href="/courses/courseDesk/exam2/{{course.id}}/{{exam.id}}/">{{exam.ExamTitle}} Exam {% if request.user|hasAttemptedExam:exam.id %} <span class="checkBtn"><i class="fa fa-check-circle"></i></span>{% endif %}</a>
+                                                                    </li>
+                                                                    {% endif %}
                                                                 </ul>
                                                               </div>
                                                           </div>
