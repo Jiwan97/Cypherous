@@ -10,6 +10,7 @@ from taggit.models import Tag
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
 from json import dumps
+import math
 
 
 def home(request):
@@ -504,6 +505,7 @@ def Exam2(request, course_id, exam_id):
         answer_id = modal.id
         context = {
             'time': time,
+            'timeTitle': secToHrMiSe(time),
             'title': title,
             'form': form,
             'question': Question,
@@ -519,3 +521,20 @@ def timeLapse(request):
     modal.time = request.GET.get('time')
     modal.save()
     return HttpResponse()
+
+
+def secToHrMiSe(time):
+    value = int(time)
+    hours = math.floor(value / 3600)
+    min = math.floor((value - (hours * 3600)) / 60)
+    sec = value - (hours * 3600) - (min * 60)
+    if hours < 10:
+        hours = "0" + f"{hours}"
+    if min < 10:
+        min = "0" + f"{min}"
+    if sec < 10:
+        sec = "0" + f"{sec}"
+    if hours == "00":
+        return f"{min}" + ":" + f"{sec}"
+    else:
+        return f"{hours}" + ":" f"{min}" + ":" + f"{sec}"

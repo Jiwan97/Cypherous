@@ -9,6 +9,12 @@
 
 <link rel="stylesheet" href="{% static '/shortcodes/exam.css'%}">
 <style>
+.quiz_box header .timer{
+    width:200px;
+}
+.quiz_box header .timer .timer_sec{
+    width:100px;
+}
 .quiz_box{
     width: 1100px;
  }
@@ -22,7 +28,7 @@
                 <div style="margin-top: -100px;" class="info_box activeInfo">
                     <div class="info-title"><span>Some Rules of this Test</span></div>
                     <div class="info-list">
-                        <div class="info">1. You have only <span>{{time}} seconds</span></div>
+                        <div class="info">1. You have only <span>{{timeTitle}} of time left</span></div>
                         <div class="info">2. You must Submit Your answer in pdf Format</div>
                         <div class="info">5. Your answer will be reviewed by Course Teacher once you submit it</div>
                     </div>
@@ -36,7 +42,7 @@
                         <div class="title"></div>
                         <div class="timer">
                             <div class="time_left_txt">Time Left</div>
-                            <div class="timer_sec">{{time}}</div>
+                            <div class="timer_sec">{{timeTitle}}</div>
                         </div>
                         <div class="time_line"></div>
                     </header>

@@ -47,7 +47,8 @@ next_btn.onclick = ()=>{
 function startTimer(time){
     counter = setInterval(timer, 1000);
     function timer(){
-        timeCount.textContent = time;
+
+        timeCount.textContent = convertHMS(time);
         time--;
         $.ajax({
             url: '/timelapse',
@@ -59,11 +60,7 @@ function startTimer(time){
                 console.log(response.success)
             }
         });
-        if(time < 9){
-            let addZero = timeCount.textContent;
-            timeCount.textContent = "0" + addZero;
-        }
-        if(time < 0){
+        if(time < 1){
             clearInterval(counter); //clear counter
             timeText.textContent = "Time Off";
             next_btn.click();
@@ -79,5 +76,21 @@ function startTimerLine(time){
         if(time > 1199){
             clearInterval(counterLine);
         }
+    }
+}
+
+function convertHMS(value) {
+    const sec = parseInt(value, 10);
+    let hours   = Math.floor(sec / 3600);
+    let minutes = Math.floor((sec - (hours * 3600)) / 60);
+    let seconds = sec - (hours * 3600) - (minutes * 60);
+    // add 0 if value < 10; Example: 2 => 02
+    if (hours   < 10) {hours   = "0"+hours;}
+    if (minutes < 10) {minutes = "0"+minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+    if (hours == 0) {
+      return minutes + ':' + seconds;
+    } else {
+      return hours + ':' + minutes + ':' + seconds;
     }
 }
