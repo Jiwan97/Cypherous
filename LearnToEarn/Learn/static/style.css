@@ -5881,6 +5881,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#391800', end
     color: #000;
 }
 .singel-course .cont h4{
+    margin-bottom:0;
     font-weight: 600;
     font-size: 24px;
     color: #000;
