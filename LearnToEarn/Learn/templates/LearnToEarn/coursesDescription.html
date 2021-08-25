@@ -908,7 +908,7 @@ p a{
                         ${response.total_star[2]}
                         ${response.total_star[3]}
                         ${response.total_star[4]}
-                        <li  class="rating"><i class="fa fa-comments-o"></i> {{course.getReview}} {% if 1 == course.getReview or 0 == course.getReview %} Review {% else %} Reviews {% endif %}</li>
+                        <li  class="rating"><i class="fa fa-comments-o"></i> ${response.count} ${response.review}</li>
                         `
                     );
 				}, 200);

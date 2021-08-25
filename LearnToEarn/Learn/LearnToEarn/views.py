@@ -223,6 +223,11 @@ def editReview(request, course_id):
     review.edited = True
     review.save()
     data = CourseReview.objects.values().get(course_id=course_id, user=request.user)
+    count = CourseReview.objects.filter(course_id=course_id).count()
+    if count == 0 or count == 1:
+        review = "Review"
+    else:
+        review = "Reviews"
     Avg_data = CourseReview.objects.filter(course_id=course_id).aggregate(Avg('rate'))
     loop = Avg_data['rate__avg']
     dec = str(loop - int(loop))[2:]
@@ -243,7 +248,7 @@ def editReview(request, course_id):
         tagstar[i] = '<li><i style="font-size:12px;" class="fa fa-star"></i></li>'
 
     return JsonResponse(
-        {'data': data, 'tagstar': tagstar, 'total_star': total_star,
+        {'data': data, 'tagstar': tagstar, 'total_star': total_star, 'count': count, 'review': review,
          },
         safe=False)
 
@@ -502,7 +507,8 @@ def Exam2(request, course_id, exam_id):
             'title': title,
             'form': form,
             'question': Question,
-            'answer_id': answer_id
+            'answer_id': answer_id,
+            'course_id': course_id
         }
         return render(request, 'LearnToEarn/ExamQuestion.html', context)
 

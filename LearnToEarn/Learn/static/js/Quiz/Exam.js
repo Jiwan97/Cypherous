@@ -11,8 +11,18 @@ const timeCount = document.querySelector(".timer .timer_sec");
 const titleValue = document.querySelector(".title");
 titleValue.innerHTML= title
 
+let counter;
+let counterLine;
+let widthValue = 0;
 
 
+if (time1<600) {
+    info_box.classList.remove("activeInfo");
+    quiz_box.classList.add("activeQuiz");
+    startTimer(time1);
+    startTimerLine(0);
+
+}
 // if continueQuiz button clicked
 continue_btn.onclick = ()=>{
     info_box.classList.remove("activeInfo");
@@ -20,13 +30,6 @@ continue_btn.onclick = ()=>{
     startTimer(time1);
     startTimerLine(0);
 }
-
-
-let counter;
-let counterLine;
-let widthValue = 0;
-
-
 
 
 const next_btn = document.querySelector("footer .next_btn");
