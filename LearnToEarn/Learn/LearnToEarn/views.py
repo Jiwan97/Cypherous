@@ -14,6 +14,7 @@ import math
 from background_task import background
 from background_task.models import CompletedTask
 
+
 # Create your views here.
 @background()
 def timeLapseRepeat():
@@ -32,6 +33,11 @@ def home(request):
     context = {
         'activate_h': 'active'}
     return render(request, 'LearnToEarn/home.html', context)
+
+
+def StudentQuestions(request):
+
+    return render(request, 'LearnToEarn/StudentQuestion.html')
 
 
 def about(request):

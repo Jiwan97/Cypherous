@@ -35,7 +35,8 @@ urlpatterns = [
 ]
 # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-if not Task.objects.filter(verbose_name="timeLapse").exists():
-    timeLapseRepeat(repeat=1, verbose_name="timeLapse")
+# process_tasks()
+# if not Task.objects.filter(verbose_name="timeLapse").exists():
+#     timeLapseRepeat(repeat=1, verbose_name="timeLapse")
+#
 
-process_tasks()

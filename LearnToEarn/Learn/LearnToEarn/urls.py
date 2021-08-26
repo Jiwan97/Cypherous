@@ -10,6 +10,7 @@ def index(request):
 urlpatterns = [
     path('test/', index),
     path('home/', views.home, ),
+    path('studentQuestion/', views.StudentQuestions, ),
     path('', views.home, ),
     path('about/', views.about, ),
     path('contact/', views.contactmessages, name='contact'),
