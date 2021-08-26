@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
+    'background_task',
     'debug_toolbar',
     'bootstrapform',
     'django_filters',

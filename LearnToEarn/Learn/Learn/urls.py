@@ -17,6 +17,9 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from background_task.models import Task
+from LearnToEarn.views import timeLapseRepeat
+from accounts.processTasks import process_tasks
 import debug_toolbar
 
 urlpatterns = [
@@ -32,3 +35,7 @@ urlpatterns = [
 ]
 # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+if not Task.objects.filter(verbose_name="timeLapse").exists():
+    timeLapseRepeat(repeat=1, verbose_name="timeLapse")
+
+process_tasks()

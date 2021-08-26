@@ -50,16 +50,16 @@ function startTimer(time){
 
         timeCount.textContent = convertHMS(time);
         time--;
-        $.ajax({
-            url: '/timelapse',
-            data: {
-                'time': time,
-                'answer_id':answer_id,
-            },
-            success:function(response){
-                console.log(response.success)
-            }
-        });
+//        $.ajax({
+//            url: '/timelapse',
+//            data: {
+//                'time': time,
+//                'answer_id':answer_id,
+//            },
+//            success:function(response){
+//                console.log(response.success)
+//            }
+//        });
         if(time < 1){
             clearInterval(counter); //clear counter
             timeText.textContent = "Time Off";

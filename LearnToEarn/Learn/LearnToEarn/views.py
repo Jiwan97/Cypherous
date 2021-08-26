@@ -11,6 +11,21 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
 from json import dumps
 import math
+from background_task import background
+from background_task.models import CompletedTask
+
+# Create your views here.
+@background()
+def timeLapseRepeat():
+    AnswerTime = ExamAnswer.objects.all()
+    CompletedTask.objects.all().delete()
+    for i in AnswerTime:
+        if i.time > 1:
+            i.time -= 1
+            i.save()
+        elif i.time <= 1:
+            i.attempted = True
+            i.save()
 
 
 def home(request):
@@ -515,12 +530,12 @@ def Exam2(request, course_id, exam_id):
         return render(request, 'LearnToEarn/ExamQuestion.html', context)
 
 
-def timeLapse(request):
-    answer_id = request.GET.get('answer_id')
-    modal = ExamAnswer.objects.get(id=answer_id)
-    modal.time = request.GET.get('time')
-    modal.save()
-    return HttpResponse()
+# def timeLapse(request):
+#     answer_id = request.GET.get('answer_id')
+#     modal = ExamAnswer.objects.get(id=answer_id)
+#     modal.time = request.GET.get('time')
+#     modal.save()
+#     return HttpResponse()
 
 
 def secToHrMiSe(time):
