@@ -497,3 +497,16 @@ def DeleteQsn(request, exam_id, Qsn_id):
     delete = ExamQuestion.objects.get(id=Qsn_id)
     delete.delete()
     return redirect(f'/admins-dashboard/allQNA/{exam_id}')
+
+
+@login_required()
+@admin_only
+def allSubmittedAnswers(request):
+    examquestion = ExamQuestion.objects.filter(user=request.user)
+    Answers = []
+    for i in examquestion:
+        total_Answers = ExamAnswer.objects.filter(examquestion=i)
+        for j in total_Answers:
+            Answers.append(j)
+    context = {'answers': Answers, }
+    return render(request, 'admins/allSubmittedAnswers.html', context)

@@ -223,3 +223,4 @@ class ExamAnswer(models.Model):
     time = models.PositiveIntegerField(default=600)
     attempted = models.BooleanField(default=False)
     answer = RichTextUploadingField(max_length=5000, default="Paste Your Answer in PDF format here", null=True)
+    date = models.DateTimeField(auto_now_add=True)

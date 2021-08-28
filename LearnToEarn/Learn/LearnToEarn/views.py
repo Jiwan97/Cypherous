@@ -81,8 +81,8 @@ def Likedcourses(request):
 
 @login_required()
 def enrolledCourse(request):
-    likedcourse = Course.objects.filter(courseenrollement__user=request.user).order_by('-date')
-    V_filter = VFilter1(request.GET, queryset=likedcourse)
+    enrolledcourse = Course.objects.filter(courseenrollement__user=request.user).order_by('-date')
+    V_filter = VFilter1(request.GET, queryset=enrolledcourse)
     V_final = V_filter.qs
     p = Paginator(V_final, 6)
     page_no = request.GET.get('page', 1)

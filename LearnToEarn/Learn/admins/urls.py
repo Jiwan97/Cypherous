@@ -30,4 +30,5 @@ urlpatterns = [
     path('ViewQsn/<int:exam_id>', views.ViewQsn),
     path('editQsn/<int:exam_id>/<int:Qsn_id>/', views.editQsn),
     path('delQsn/<int:exam_id>/<int:Qsn_id>/', views.DeleteQsn),
+    path('submittedAnswers/', views.allSubmittedAnswers),
 ]
