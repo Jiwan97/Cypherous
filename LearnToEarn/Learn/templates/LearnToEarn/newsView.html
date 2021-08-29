@@ -51,7 +51,13 @@ html {
 								<h4>Admin of <a href="/home">Learn To Earn</a></h4>
 							</div>
 							<div class="author-desc">
-								<img src=/{{news.user.profile.profile_pic}} alt="about author">
+								{% if news.user.profile.profile_pic %}
+      								<img src=/{{news.user.profile.profile_pic}} alt="about author">
+ 								{% else %}
+								    <div class="rounded-circle"  style="background-color: black;width: 100px;height: 100px;margin-left: 20px;margin-top: -10px;margin-bottom: 5px;">
+									   <p style="color:white;text-transform:uppercase;position: absolute;left: 55px;top: 45px;font-size: 50px;" >{{ request.user.profile.firstname.0 }}</p>
+									</div>
+							    {% endif %}
 								<ul class="author-social">
 									<li><a href="{{news.user.profile.facebooklink}}"><i class="fa fa-facebook"></i></a></li>
 									<li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -70,7 +76,16 @@ html {
 									{% for comment in comments %}
 									<li id="comment-{{comment.id}}" class="comment">
 										<div class="comment-body">
-											<div class="comment-author vcard"> <img  class="avatar photo" src="/{{comment.user.profile.profile_pic}}" alt=""><a href="/viewprofile/{{comment.user.profile.username}}"> <cite class="fn">{{comment.user.profile.firstname}} {{comment.user.profile.lastname}}</cite></a> <span class="says">says:</span> </div>
+											<div class="comment-author vcard">
+												{% if comment.user.profile.profile_pic %}
+													<img  class="avatar photo" src="/{{comment.user.profile.profile_pic}}" alt="">
+												{% else %}
+													<div class="avatar photo"  style="background-color: black;width: 60px;height: 60px;">
+													   <p style="color:white;text-transform:uppercase;position: absolute;top: 18px;left: 18px;font-size: 30px;" >{{ comment.user.profile.firstname.0 }}</p>
+													</div>
+												{% endif %}
+												<a href="/viewprofile/{{comment.user.profile.username}}"> <cite class="fn">{{comment.user.profile.firstname}} {{comment.user.profile.lastname}}</cite></a> <span class="says">says:</span>
+											</div>
 											<div class="comment-meta"> <a href="#">{{comment.date_commented}}</a> </div>
 											<p style="white-space: pre-line;">{{comment.comment}}</p>
 											{% if user.id == comment.user_id %}
@@ -217,7 +232,16 @@ html {
 						`
 						<li id="comment-${data.id}" class="comment">
 							<div class="comment-body">
-								<div class="comment-author vcard"> <img  class="avatar photo" src="/${response.profile}" alt=""><a href="/viewprofile/${response.username}"> <cite class="fn">${response.firstname} ${response.lastname}</cite></a> <span class="says">says:</span> </div>
+								<div class="comment-author vcard">
+									{% if request.user.profile.profile_pic %}
+										<img  class="avatar photo" src="/{{request.user.profile.profile_pic}}" alt="">
+									{% else %}
+										<div class="avatar photo"  style="background-color: black;width: 60px;height: 60px;">
+										   <p style="color:white;text-transform:uppercase;position: absolute;top: 18px;left: 18px;font-size: 30px;" >{{ request.user.profile.firstname.0 }}</p>
+										</div>
+									{% endif %}
+									<a href="/viewprofile/{{request.user.profile.username}}"> <cite class="fn">{{request.user.profile.firstname}} {{request.user.profile.lastname}}</cite></a> <span class="says">says:</span>
+								</div>
 								<div class="comment-meta"> <a href="#">${dateTime}</a> </div>
 								<p style="white-space: pre-line;">${data.comment}</p>
 								<div class="delete"><b class="btn-link" style="font-size:10px" onclick="deleteCom(${data.id})">Delete</b></div>

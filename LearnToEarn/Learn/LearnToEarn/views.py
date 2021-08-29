@@ -185,10 +185,8 @@ def courseDesk(request, course_id):
                 poststar_rate[i] = f'<i style="padding-right:5px;" class="fa fa-star checked my-btn" id="{i}"></i>'
 
             return JsonResponse(
-                {'data': comment_data, 'review': review, 'count': count, 'username': request.user.profile.username,
-                 'tagstar': tagstar, 'poststar_rate': poststar_rate, 'admin': admin,
-                 'firstname': request.user.profile.firstname, 'total_star': total_star,
-                 'lastname': request.user.profile.lastname, 'profile': str(request.user.profile.profile_pic)},
+                {'data': comment_data, 'review': review, 'count': count,
+                 'tagstar': tagstar, 'poststar_rate': poststar_rate, 'total_star': total_star},
                 safe=False)
 
     enrollment = CourseEnrollement.objects.filter(course_id=course_id, user=request.user).exists()
@@ -438,9 +436,7 @@ def newsView(request, id):
         # print(comment_data)
         if cmt:
             return JsonResponse(
-                {'data': comment_data, 'count': count, 'username': request.user.profile.username,
-                 'firstname': request.user.profile.firstname,
-                 'lastname': request.user.profile.lastname, 'profile': str(request.user.profile.profile_pic)},
+                {'data': comment_data, 'count': count},
                 safe=False)
     else:
         Allnews = News.objects.all().order_by('-date_posted')

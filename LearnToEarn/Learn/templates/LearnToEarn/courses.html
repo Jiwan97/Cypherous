@@ -74,7 +74,15 @@
                                     <a href="/courses/courseDesk/{{course.id}}"><h4>{{course.course_name}}</h4></a>
                                     <div class="course-teacher">
                                         <div class="thum">
-                                            <a href="#"><img src="/{{course.user.profile.profile_pic}}" alt="teacher"></a>
+                                            <a href="#">
+                                                {% if course.user.profile.profile_pic %}
+                                                    <img src="/{{course.user.profile.profile_pic}}" alt="teacher">
+                                                {% else %}
+                                                    <div class="rounded-circle"  style="background-color: black;width: 40px;height: 40px;margin-top: 5px;position: relative;top: -3px;">
+                                                       <p style="color:white;text-transform:uppercase;font-size: 20px;position: relative; top: 7px;left: 14px;" >{{ course.user.profile.firstname.0 }}</p>
+                                                    </div>
+                                                {% endif %}
+                                            </a>
                                         </div>
                                         <div class="name">
                                             <a href="#"><h6>{{course.user.profile.firstname}} {{course.user.profile.lastname}}</h6></a>

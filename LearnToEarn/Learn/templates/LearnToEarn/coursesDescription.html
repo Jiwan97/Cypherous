@@ -98,7 +98,13 @@ p a{
                                 <li>
                                     <div class="teacher-name">
                                         <div class="thum">
-                                            <img src="/{{course.user.profile.profile_pic}}" alt="Teacher">
+                                            {% if course.user.profile.profile_pic %}
+                                                <img src="/{{course.user.profile.profile_pic}}" alt="Teacher">
+                                            {% else %}
+                                                <div class="rounded-circle"  style="background-color: black;width: 45px;height: 45px;margin-top: -5px;">
+                                                   <p style="color:white;text-transform:uppercase;font-size: 20px;position: relative;top: 9px;left: 17px;" >{{ course.user.profile.firstname.0 }}</p>
+                                                </div>
+                                            {% endif %}
                                         </div>
                                         <div class="name">
                                             <span>Course Uploaded by</span>
@@ -281,7 +287,13 @@ p a{
 
                                                    <div class="reviews-author" {% if comment.user_id == request.user.id %} style="background-color:#f9f8f8; border-radius:5px" {% endif %} >
                                                         <div class="author-thum">
-                                                            <img src="/{{comment.user.profile.profile_pic}}" alt="Reviews">
+                                                            {% if comment.user.profile.profile_pic %}
+                                                                <img src="/{{comment.user.profile.profile_pic}}" alt="Reviews">
+                                                            {% else %}
+                                                                <div style="background-color: black;width: 70px;height: 70px;border-radius:5px;">
+                                                                   <p style="color:white;text-transform:uppercase;font-size: 35px;position: relative;top: 22px;left: 23px;" >{{ comment.user.profile.firstname.0 }}</p>
+                                                                </div>
+                                                            {% endif %}
                                                         </div>
                                                         <div class="author-name">
 
@@ -403,7 +415,15 @@ p a{
                                         <a href="/courses/courseDesk/{{course.id}}"><h4>{{course.course_name}}</h4></a>
                                         <div class="course-teacher">
                                             <div class="thum">
-                                                <a href="#"><img src="/{{course.user.profile.profile_pic}}" alt="teacher"></a>
+                                                <a href="#">
+                                                    {% if course.user.profile.profile_pic %}
+                                                        <img src="/{{course.user.profile.profile_pic}}" alt="teacher">
+                                                    {% else %}
+                                                        <div class="rounded-circle"  style="background-color: black;width: 40px;height: 40px;margin-top: 5px;position: relative;top: -3px;">
+                                                           <p style="color:white;text-transform:uppercase;font-size: 20px;position: relative; top: 7px;left: 14px;" >{{ course.user.profile.firstname.0 }}</p>
+                                                        </div>
+                                                    {% endif %}
+                                                </a>
                                             </div>
                                             <div class="name">
                                                 <a href="#"><h6>{{course.user.profile.firstname}} {{course.user.profile.lastname}}</h6></a>
@@ -464,7 +484,13 @@ p a{
                                 <li>
                                     <div class="teacher-name">
                                         <div class="thum">
-                                            <img src="/{{course.user.profile.profile_pic}}" alt="Teacher">
+                                            {% if course.user.profile.profile_pic %}
+                                                <img src="/{{course.user.profile.profile_pic}}" alt="Teacher">
+                                            {% else %}
+                                                <div class="rounded-circle"  style="background-color: black;width: 45px;height: 45px;margin-top: -5px;">
+                                                   <p style="color:white;text-transform:uppercase;font-size: 20px;position: relative;top: 9px;left: 17px;" >{{ course.user.profile.firstname.0 }}</p>
+                                                </div>
+                                            {% endif %}
                                         </div>
                                         <div class="name">
                                             <span>Course Uploaded by</span>
@@ -639,7 +665,15 @@ p a{
                                         <a href="/courses/courseDesk/{{course.id}}"><h4>{{course.course_name}}</h4></a>
                                         <div class="course-teacher">
                                             <div class="thum">
-                                                <a href="#"><img src="/{{course.user.profile.profile_pic}}" alt="teacher"></a>
+                                                <a href="#">
+                                                    {% if course.user.profile.profile_pic %}
+                                                        <img src="/{{course.user.profile.profile_pic}}" alt="teacher">
+                                                    {% else %}
+                                                        <div class="rounded-circle"  style="background-color: black;width: 40px;height: 40px;margin-top: 5px;position: relative;top: -3px;">
+                                                           <p style="color:white;text-transform:uppercase;font-size: 20px;position: relative; top: 7px;left: 14px;" >{{ course.user.profile.firstname.0 }}</p>
+                                                        </div>
+                                                    {% endif %}
+                                                </a>
                                             </div>
                                             <div class="name">
                                                 <a href="#"><h6>{{course.user.profile.firstname}} {{course.user.profile.lastname}}</h6></a>
@@ -768,10 +802,16 @@ p a{
                            <div class="singel-reviews">
                                 <div class="reviews-author" style="background-color:#f9f8f8; border-radius:5px;" >
                                     <div class="author-thum">
-                                        <img src="/${response.profile}" alt="Reviews">
+                                        {% if request.user.profile.profile_pic %}
+                                            <img src="/{{request.user.profile.profile_pic}}" alt="Reviews">
+                                        {% else %}
+                                            <div style="background-color: black;width: 70px;height: 70px;border-radius:5px;">
+                                               <p style="color:white;text-transform:uppercase;font-size: 35px;position: relative;top: 22px;left: 23px;" >{{ request.user.profile.firstname.0 }}</p>
+                                            </div>
+                                        {% endif %}
                                     </div>
                                     <div class="author-name">
-                                        <h6>${response.firstname} ${response.lastname} ${response.admin[0]}</h6>
+                                        <h6>{{request.user.profile.firstname}} {{request.user.profile.lastname}}  {% if request.user.is_staff %} <b style="background-color:#da0b4e;" class="badge badge-info ml-2">Admin</b> {% endif %}</h6>
                                         <span>${dateTime}</span>
                                     </div>
                                 </div>
