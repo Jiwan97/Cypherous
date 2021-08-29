@@ -328,8 +328,17 @@ body .fc-widget-header a {
         <div class="profile-header-content">
 
              <div class="profile-header-img d-flex justify-content-center align-items-center rounded" >
+                  {% if request.user.profile.profile_pic %}
                       <img height="130px"  width="260px" src="/{{request.user.profile.profile_pic}}">
-
+                  {% else %}
+                       <div class="rounded-circle"  style="background-color: #181c36 ;width: 144px;height: 130px">
+                           {% if request.user.profile.firstname == "Name not Updated" %}
+                           <p style="text-transform:uppercase; position: absolute;left: 57px;top: 20px;font-size: 50px;" >{{ request.user.profile.username.0 }}</p>
+                           {% else %}
+                           <p style="text-transform:uppercase; position: absolute;left: 57px;top: 20px;font-size: 50px;" >{{ request.user.profile.firstname.0 }}</p>
+                           {% endif %}
+                       </div>
+                  {% endif %}
             </div>
 
             <div class="profile-header-info">

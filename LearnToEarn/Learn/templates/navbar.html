@@ -31,8 +31,16 @@
 				<ul class="nav navbar-nav navbar-right ml-auto">
 					<li class="nav-item dropdown">
 
-							<a class="dropdown-toggle" href="/showprofile" id="dropdown-a" data-toggle="dropdown"><img src="/{{request.user.profile.profile_pic}}" width="55" height="40" class="img-responsive rounded-circle ml-5 "></a>
-
+							<a  class="{% if request.user.profile.profile_pic %} dropdown-toggle  {% endif %}" href="/showprofile" id="dropdown-a" data-toggle="dropdown">
+								{% if request.user.profile.profile_pic %}
+      								<img src="/{{request.user.profile.profile_pic}}" width="55" height="40" class="img-responsive rounded-circle ml-5 ">
+ 								{% else %}
+									 <div class="text-center align-center rounded-circle ml-5"  style="margin-right:10px;background-color: black;width: 40px;height: 40px">
+										 <p style="text-transform:uppercase; line-height:35px ;position:relative; top:3px; margin:0; font-size:20px" >{{ request.user.profile.firstname.0 }}</p>
+										 <i style="float:right; margin-top:-22px; margin-right:-10px" class="fa fa-caret-down" aria-hidden="true"></i>
+									 </div>
+ 								{% endif %}
+							</a>
 							<div class="dropdown-menu" aria-labelledby="dropdown-a">
 								{% if user.is_staff %}
 								<a class="dropdown-item" href="/admins-dashboard/">Admin Dashboard</a>

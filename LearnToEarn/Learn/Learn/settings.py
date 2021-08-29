@@ -172,7 +172,7 @@ USE_TZ = True
 EMAIL_FROM_USER = 'Jiwan16thapa@gmail.com'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'Jiwan16thapa@gmail.com'
-EMAIL_HOST_PASSWORD = 'djangop123@'
+EMAIL_HOST_PASSWORD = 'djangop123@1'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 

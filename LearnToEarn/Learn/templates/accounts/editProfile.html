@@ -38,8 +38,15 @@ display:none
               <div class="row">
                 <div class="col-12 col-sm-auto mb-3">
                   <div class="mx-auto" style="width: 140px;">
+
                     <div class="d-flex justify-content-center align-items-center rounded" style="background-color: rgb(255, 255, 255);">
-                      <img class="rounded-circle img-fluid" width="150px" src="/{{request.user.profile.profile_pic}}">
+                      {% if request.user.profile.profile_pic %}
+                          <img class="rounded-circle img-fluid" width="150px" src="/{{request.user.profile.profile_pic}}">
+                      {% else %}
+                           <div class="rounded-circle"  style="background-color: black;width: 100px;height: 100px">
+                               <p style="text-transform:uppercase; position: absolute;left: 70px;top: 10px;font-size: 50px;" >{{ request.user.profile.firstname.0 }}</p>
+                           </div>
+                      {% endif %}
                     </div>
                   </div>
                 </div>
